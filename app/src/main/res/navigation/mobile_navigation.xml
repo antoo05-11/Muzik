@@ -22,4 +22,8 @@
             android:name="com.example.muzik.ui.notifications.NotificationsFragment"
             android:label="@string/title_notifications"
             tools:layout="@layout/fragment_notifications" />
+    <fragment
+            android:id="@+id/navigation_fragment"
+            android:name="com.example.muzik.ui.CollectionFragment"
+            android:label="CollectionFragment" />
 </navigation>
