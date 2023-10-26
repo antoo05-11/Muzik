@@ -76,4 +76,6 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
+    //Load image
+    implementation("io.coil-kt:coil:2.3.0")
 }

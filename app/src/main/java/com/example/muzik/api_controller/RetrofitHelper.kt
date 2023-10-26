@@ -1,11 +1,10 @@
-package com.example.muzik
+package com.example.muzik.api_controller
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
-
-    val baseUrl = "https://quotable.io/"
+    private const val baseUrl = "https://muzik-server-uet.onrender.com/"
 
     fun getInstance(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)

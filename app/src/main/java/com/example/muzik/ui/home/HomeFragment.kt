@@ -8,8 +8,15 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import coil.load
+import com.example.muzik.MainActivity
+import com.example.muzik.MainActivity.Companion.flag
+import com.example.muzik.MainActivity.Companion.mp
 import com.example.muzik.R
 import com.example.muzik.databinding.FragmentHomeBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -19,6 +26,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,7 +44,20 @@ class HomeFragment : Fragment() {
             navController.navigate(R.id.navigation_fragment)
         }
 
+        binding.playButton.setOnClickListener {
+            if (flag) mp.start()
+        }
 
+        GlobalScope.launch {
+            val result = MainActivity.muzikAPI.getSong(5)
+            binding.playingSongName.text = result.body()?.name
+            binding.playingSongImage.load(result.body()?.imageURL)
+            binding.playingSongArtist.text = if (result.body()?.artistName.isNullOrBlank()) {
+                "Artist name"
+            } else {
+                result.body()?.artistName
+            }
+        }
 
         return root
     }
