@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="1"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21"
+                        android:scaleType="fitCenter" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="2"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Someone like you"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="3"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Rolling in the deep"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="4"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Skyfall"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="5"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Easy on me"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="6"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Set fire to the rain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="7"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="8"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="9"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="10"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="11"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="12"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                <TextView
+                        android:text="13"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="#000000" />
+
+                <ImageView
+                        android:layout_width="63dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/_30px_adele_21" />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="243dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp">
+
+                    <TextView
+                            android:text="Hello"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
+                            android:textColor="#000000" />
+
+                    <TextView
+                            android:text="Adele"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <ImageButton
+                        android:src="@drawable/more"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:background="#00FFFFFF"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
