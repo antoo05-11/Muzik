@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.track.TracksFragment"
+    tools:context=".ui.song.SongFragment"
     android:background="@color/bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +100,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_exo_play_btn"
+            android:background="@drawable/ic_exo_pause_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
