@@ -1,4 +1,6 @@
-package com.example.muzik.ui.Track
+package com.example.muzik.ui.track
 
-class TrackFragment {
+import androidx.fragment.app.Fragment
+
+class TracksFragment: Fragment() {
 }

@@ -1,4 +1,6 @@
-package com.example.muzik.ui.Track
+package com.example.muzik.ui.track
 
-class TrackViewModel {
+import androidx.lifecycle.ViewModel
+
+class TracksViewModel: ViewModel() {
 }
