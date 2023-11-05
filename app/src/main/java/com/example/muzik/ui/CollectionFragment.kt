@@ -22,9 +22,7 @@ class CollectionFragment : Fragment() {
     ): View {
 
         _binding = FragmentCollectionBinding.inflate(inflater, container, false)
-
-
-
+        
         return binding.root
     }
 
