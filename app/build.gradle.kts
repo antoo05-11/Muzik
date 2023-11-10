@@ -63,9 +63,6 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-mediasession:2.19.1")
     implementation("io.coil-kt:coil:1.4.0")
 
-
-
-
     // retrofit
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -83,4 +80,9 @@ dependencies {
     //Load image
     implementation("io.coil-kt:coil:2.3.0")
     implementation ("com.squareup.picasso:picasso:2.71828")
+
+     //exoplayer
+    implementation("androidx.media3:media3-exoplayer:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
+    implementation("androidx.media3:media3-ui:1.1.1")
 }

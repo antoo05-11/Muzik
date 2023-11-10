@@ -4,19 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import coil.load
-import com.example.muzik.MainActivity
-import com.example.muzik.MainActivity.Companion.flag
-import com.example.muzik.MainActivity.Companion.mp
-import com.example.muzik.R
 import com.example.muzik.databinding.FragmentHomeBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -37,27 +28,27 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val navController = findNavController()
+       // val navController = findNavController()
 
-        val button: LinearLayout = binding.button;
-        button.setOnClickListener {
-            navController.navigate(R.id.navigation_fragment)
-        }
+//        val button: LinearLayout = binding.button;
+//        button.setOnClickListener {
+//            navController.navigate(R.id.navigation_fragment)
+//        }
 
-        binding.playButton.setOnClickListener {
-            if (flag) mp.start()
-        }
+//        binding.playButton.setOnClickListener {
+//            if (flag) mp.start()
+//        }
 
-        GlobalScope.launch {
-            val result = MainActivity.muzikAPI.getSong(5)
-            binding.playingSongName.text = result.body()?.name
-            binding.playingSongImage.load(result.body()?.imageURL)
-            binding.playingSongArtist.text = if (result.body()?.artistName.isNullOrBlank()) {
-                "Artist name"
-            } else {
-                result.body()?.artistName
-            }
-        }
+//        GlobalScope.launch {
+//            val result = MainActivity.muzikAPI.getSong(5)
+//            binding.playingSongName.text = result.body()?.name
+//            binding.playingSongImage.load(result.body()?.imageURL)
+//            binding.playingSongArtist.text = if (result.body()?.artistName.isNullOrBlank()) {
+//                "Artist name"
+//            } else {
+//                result.body()?.artistName
+//            }
+//        }
 
         return root
     }

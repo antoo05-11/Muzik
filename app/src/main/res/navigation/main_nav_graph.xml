@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/libraryFragment">
+
+    <fragment
+        android:id="@+id/playerViewFragment"
+        android:name="com.example.muzik.view.PlayerViewFragment"
+        android:label="PlayerViewFragment" />
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.example.muzik.view.LibraryFragment"
+        android:label="ContentFragment" />
+
+</navigation>

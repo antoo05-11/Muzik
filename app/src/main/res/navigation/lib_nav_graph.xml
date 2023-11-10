@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lib_nav_graph"
+    app:startDestination="@id/libAlbumsFragment">
+
+    <fragment
+        android:id="@+id/libAlbumsFragment"
+        android:name="com.example.muzik.view.LibAlbumsFragment"
+        android:label="LibAlbumsFragment" />
+    <fragment
+        android:id="@+id/libArtistFragment"
+        android:name="com.example.muzik.view.LibArtistFragment"
+        android:label="LibArtistFragment" />
+    <fragment
+        android:id="@+id/libSongsFragment"
+        android:name="com.example.muzik.view.LibSongsFragment"
+        android:label="LibSongsFragment" />
+    <fragment
+        android:id="@+id/libPlaylistFragment"
+        android:name="com.example.muzik.view.LibPlaylistFragment"
+        android:label="LibPlaylistFragment" />
+</navigation>
