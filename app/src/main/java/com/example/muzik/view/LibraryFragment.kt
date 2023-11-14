@@ -1,7 +1,6 @@
 package com.example.muzik.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,19 +28,10 @@ class LibraryFragment : Fragment() {
         binding = FragmentLibraryBinding.inflate(inflater)
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
-//        binding.rv.layoutManager = LinearLayoutManager(this.context)
-//        songViewModel.songsMutableLiveData.observe(viewLifecycleOwner) {
-//            val adapter = ListSongAdapter(it, playerViewModel)
-//            binding.rv.adapter = adapter
-//        }
-        Log.d("test",
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_nav)
-                .toString()
-        )
+
         val mainNavHostFragment =
             requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
         val mainNavController = mainNavHostFragment.navController
-//        val navController = findNavController()
 
         val libNavHostFragment =
             childFragmentManager.findFragmentById(R.id.fragment_lib_nav) as NavHostFragment
@@ -73,7 +63,6 @@ class LibraryFragment : Fragment() {
             if (it) {
                 binding.clPreview.visibility = View.VISIBLE
             }
-
         }
 
         binding.clPreview.setOnClickListener {

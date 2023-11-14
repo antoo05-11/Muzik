@@ -10,7 +10,7 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.response_model.Song
 
-class PlayerViewModel: ViewModel() {
+class PlayerViewModel : ViewModel() {
 
     //live data
     var exoPlayerMutableLiveData: MutableLiveData<ExoPlayer> = MutableLiveData()
@@ -28,12 +28,13 @@ class PlayerViewModel: ViewModel() {
     var isSelectedMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
-
     init {
         updateCurrentProgress()
         isSelectedMutableLiveData.value = false
     }
-    class OnSeekBarChangeListener(private val playerViewModel: PlayerViewModel) : SeekBar.OnSeekBarChangeListener {
+
+    class OnSeekBarChangeListener(private val playerViewModel: PlayerViewModel) :
+        SeekBar.OnSeekBarChangeListener {
         var progressValue = 0
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             progressValue = seekBar!!.progress
@@ -62,7 +63,6 @@ class PlayerViewModel: ViewModel() {
         songMutableLiveData.value = song
     }
 
-    //main fun
     fun addListener() {
         player.addListener(
             object : Player.Listener {
@@ -79,22 +79,21 @@ class PlayerViewModel: ViewModel() {
     }
 
     fun skipNextSong() {
-        if(player.hasNextMediaItem()) {
+        if (player.hasNextMediaItem()) {
             player.seekToNext()
         }
     }
 
     fun skipPreSong() {
-        if(player.hasPreviousMediaItem()) {
+        if (player.hasPreviousMediaItem()) {
             player.seekToPrevious()
         }
     }
 
     fun playPause() {
-        if(player.isPlaying) {
+        if (player.isPlaying) {
             player.pause()
-        }
-        else {
+        } else {
             player.play()
         }
     }
@@ -112,9 +111,9 @@ class PlayerViewModel: ViewModel() {
 
     private fun updateCurrentProgress() {
         val handler = Handler()
-        handler.post(object: Runnable {
+        handler.post(object : Runnable {
             override fun run() {
-                if(player.isPlaying) {
+                if (player.isPlaying) {
                     currentTimeMutableLiveData.value = player.currentPosition.toInt()
                 }
                 handler.postDelayed(this, 1000)

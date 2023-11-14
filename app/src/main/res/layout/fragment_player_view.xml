@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.song.SongFragment"
+        tools:context=".ui_deprecated.song.SongFragment"
         android:background="@color/bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,17 +65,18 @@
 
         <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 tools:text="Buồn Thì Cứ Khóc Đi"
                 android:textSize="22sp"
                 android:textColor="@color/white"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:layout_marginTop="4dp" />
 
         <TextView
-                android:id="@+id/artistName"
+                android:id="@+id/tv_artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginLeft="20dp"
@@ -93,53 +94,45 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
-        <Button
-                android:id="@+id/tvPlayPause"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_exo_pause_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
-
-        <Button
-                android:id="@+id/tvNextBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_exo_next_btn"
-                android:padding="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.754"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
-
-        <Button
-                android:id="@+id/tvPrevBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_exo_prev_btn"
-                android:padding="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.245"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
-
-        <androidx.media3.ui.DefaultTimeBar
-                android:id="@+id/exo_progress"
+        <SeekBar
                 android:layout_width="0dp"
+                android:id="@+id/sb"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrent">
+
+            <ImageButton
+                    android:id="@+id/prev_song_button"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_exo_prev_btn"
+                    android:layout_marginEnd="25dp"
+                    tools:ignore="ContentDescription" />
+
+            <ImageButton
+                    android:id="@+id/play_pause_song_button"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/ic_pause_circle"
+                    tools:ignore="ContentDescription" />
+
+            <ImageButton
+                    android:id="@+id/next_song_button"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_exo_next_btn"
+                    android:layout_marginStart="25dp"
+                    tools:ignore="ContentDescription" />
+
+        </LinearLayout>
 
         <TextView
                 android:id="@+id/tvCurrent"
@@ -149,10 +142,10 @@
                 android:layout_marginEnd="8dp"
                 android:text="0:00"
                 android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toStartOf="@+id/tvPrevBtn"
+                app:layout_constraintEnd_toStartOf="@+id/prev_song_button"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
+                app:layout_constraintTop_toBottomOf="@id/sb" />
 
         <TextView
                 android:id="@+id/tvTotal"
@@ -164,20 +157,18 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvNextBtn"
-                app:layout_constraintTop_toBottomOf="@+id/exo_progress" />
+                app:layout_constraintStart_toEndOf="@+id/next_song_button"
+                app:layout_constraintTop_toBottomOf="@id/sb" />
 
         <ImageView
                 android:id="@+id/exo_repeat_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/tvTotal"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvNextBtn"
-                app:layout_constraintTop_toBottomOf="@+id/tvTotal" />
+                app:layout_constraintTop_toBottomOf="@id/tvTotal"
+                app:layout_constraintRight_toRightOf="parent"
+                app:srcCompat="@drawable/ic_exo_controls_shuffle"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="5dp" />
         <!--            app:srcCompat="@drawable/exo_controls_repeat_all" />-->
 
         <ImageView
@@ -187,7 +178,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/tvPrevBtn"
+                app:layout_constraintEnd_toStartOf="@+id/prev_song_button"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tvCurrent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCurrent"

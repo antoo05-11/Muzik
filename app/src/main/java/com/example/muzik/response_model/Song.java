@@ -18,6 +18,7 @@ public class Song {
     public Song(Long songID, Uri uri, String name, Integer duration, Integer size, String album, String artistName, Long artistID, String imageURL, Integer albumID) {
         this.songID = songID;
         this.name = name;
+        this.uri = uri;
         this.duration = duration;
         this.size = size;
         this.album = album;

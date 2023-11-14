@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.MainActivity
@@ -37,7 +38,6 @@ class SongViewModel : ViewModel() {
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         }
 
-        //projection
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.DISPLAY_NAME,
@@ -52,15 +52,11 @@ class SongViewModel : ViewModel() {
             MediaStore.Audio.Media.ARTIST
         )
 
-        //sort order
-
-        //sort order
         val sortOrder = MediaStore.Audio.Media.DATE_ADDED + " DESC"
 
         context.contentResolver.query(songLibraryUri, projection, null, null, sortOrder)
             .use { cursor ->
 
-                //cache the cursor indices
                 val songIdColumn: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
                 val displayNameColumn: Int =
                     cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME)
@@ -77,9 +73,7 @@ class SongViewModel : ViewModel() {
                     cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST_ID)
                 val artistColumn: Int = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
 
-                //getting the values
                 while (cursor.moveToNext()) {
-                    //get values of columns for a give audio file
                     val songId: Long = cursor.getLong(songIdColumn)
                     val displayName: String = cursor.getString(displayNameColumn)
                     val duration: Int = cursor.getInt(durationColumn)
@@ -112,7 +106,7 @@ class SongViewModel : ViewModel() {
                         newAlbum.songs.add(song)
                         mapAlbum[newAlbum.id] = newAlbum
                     }
-
+                    Log.d("uri", song.uri.toString());
                     if (mapArtist.containsKey(artistId)) {
                         mapArtist[artistId]!!.songs.add(song)
                     } else {
@@ -120,7 +114,6 @@ class SongViewModel : ViewModel() {
                         newArtist.songs.add(song)
                         mapArtist[artistId] = newArtist
                     }
-
                 }
             }
         GlobalScope.launch {
