@@ -3,8 +3,8 @@ package com.example.muzik.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.muzik.MainActivity;
-import com.example.muzik.model.Artist;
-import com.example.muzik.model.Song;
+import com.example.muzik.response_model.Artist;
+import com.example.muzik.response_model.Song;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
-import com.example.muzik.model.Artist;
+import com.example.muzik.response_model.Artist;
 
 import java.util.ArrayList;
 import java.util.List;

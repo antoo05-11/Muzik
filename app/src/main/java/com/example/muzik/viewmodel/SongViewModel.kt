@@ -7,9 +7,13 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.model.Album
-import com.example.muzik.model.Artist
-import com.example.muzik.model.Song
+import com.example.muzik.MainActivity
+import com.example.muzik.response_model.Album
+import com.example.muzik.response_model.Artist
+import com.example.muzik.response_model.Song
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SongViewModel : ViewModel() {
     var songsMutableLiveData: MutableLiveData<List<Song>> = MutableLiveData()
@@ -26,6 +30,7 @@ class SongViewModel : ViewModel() {
 
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun fetchSong(context: Context) {
         val songLibraryUri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
@@ -95,7 +100,19 @@ class SongViewModel : ViewModel() {
                         albumId
                     )
                     val song =
-                        Song(songId, uri, displayName, duration, size, album, artist, artistId)
+                        Song(
+                            songId,
+                            uri,
+                            displayName,
+                            duration,
+                            size,
+                            album,
+                            artist,
+                            artistId,
+                            "", "",
+                            0,
+                            ""
+                        )
                     listSong.add(song)
                     if (mapAlbum.containsKey(albumId)) {
                         mapAlbum[albumId]!!.songs.add(song)
@@ -108,12 +125,34 @@ class SongViewModel : ViewModel() {
                     if (mapArtist.containsKey(artistId)) {
                         mapArtist[artistId]!!.songs.add(song)
                     } else {
-                        val newArtist = Artist(artistId, artist, ArrayList())
+                        val newArtist = Artist(artistId, artist, ArrayList(), "")
                         newArtist.songs.add(song)
                         mapArtist[artistId] = newArtist
                     }
 
                 }
             }
+        GlobalScope.launch {
+            val result = MainActivity.muzikAPI.getSong(5)
+            val song = Song(
+                result.body()?.songID,
+                Uri.parse("https://magicpost-uet.onrender.com/api/employee/get"),
+                result.body()?.name,
+                null,
+                null,
+                null,
+                result.body()?.artistName,
+                result.body()?.artistID,
+                result.body()?.imageURL,
+                result.body()?.imageURL,
+                result.body()?.albumID,
+                result.body()?.songURL
+            )
+            listSong.add(song)
+            val newArtist =
+                Artist(result.body()?.artistID!!, result.body()?.artistName, ArrayList(), "")
+            newArtist.songs.add(song)
+            mapArtist[newArtist.artistID] = newArtist
+        }
     }
 }

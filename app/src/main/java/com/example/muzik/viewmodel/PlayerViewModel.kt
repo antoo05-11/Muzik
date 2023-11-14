@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.muzik.model.Song
+import com.example.muzik.response_model.Song
 
 class PlayerViewModel: ViewModel() {
 
@@ -46,12 +46,11 @@ class PlayerViewModel: ViewModel() {
         override fun onStopTrackingTouch(seekBar: SeekBar?) {
             seekBar!!.progress = progressValue
             playerViewModel.currentTimeMutableLiveData.value = progressValue
-            playerViewModel.player.seekTo(seekBar!!.progress.toLong())
+            playerViewModel.player.seekTo(seekBar.progress.toLong())
         }
 
     }
 
-    //quick setter getter
     val player get() = exoPlayerMutableLiveData.value!!
 
     fun setPlaying(isPlaying: Boolean) {

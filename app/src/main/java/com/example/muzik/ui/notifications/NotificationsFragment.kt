@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.muzik.databinding.FragmentNotificationsBinding
 
+@Deprecated("")
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null

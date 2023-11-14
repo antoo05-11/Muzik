@@ -85,6 +85,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.muzik.api_controller.MuzikAPI
+import com.example.muzik.api_controller.RetrofitHelper
 import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.viewmodel.ArtistViewModel
 import com.example.muzik.viewmodel.MainActivityViewModel
@@ -103,6 +105,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var artistViewModel: ArtistViewModel
 
+    companion object {
+        val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -116,9 +122,6 @@ class MainActivity : AppCompatActivity() {
         val player = ExoPlayer.Builder(this).build()
         playerViewModel.exoPlayerMutableLiveData.value = player
         playerViewModel.addListener()
-
-        songViewModel.fetchSong(this)
-
 
         val storagePermissionLauncher =
             registerForActivityResult(

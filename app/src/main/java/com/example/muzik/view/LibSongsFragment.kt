@@ -24,7 +24,7 @@ class LibSongsFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLibSongsBinding.inflate(inflater)
 
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]

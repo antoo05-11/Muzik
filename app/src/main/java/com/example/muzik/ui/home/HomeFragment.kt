@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.muzik.databinding.FragmentHomeBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 
+@Deprecated("")
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

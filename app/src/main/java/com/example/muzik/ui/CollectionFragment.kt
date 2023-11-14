@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.muzik.databinding.FragmentCollectionBinding
 
-
+@Deprecated("")
 class CollectionFragment : Fragment() {
     private var _binding: FragmentCollectionBinding? = null
 

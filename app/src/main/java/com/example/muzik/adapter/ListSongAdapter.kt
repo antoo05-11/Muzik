@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
-import com.example.muzik.model.Song
+import com.example.muzik.response_model.Song
 import com.example.muzik.viewmodel.PlayerViewModel
 
-class ListSongAdapter(private val songs: List<Song>, private val playerViewModel: PlayerViewModel) : RecyclerView.Adapter<ListSongAdapter.ViewHolder>() {
+class ListSongAdapter(private val songs: List<Song>, private val playerViewModel: PlayerViewModel) :
+    RecyclerView.Adapter<ListSongAdapter.ViewHolder>() {
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,7 +18,8 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_song_lib, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_song_lib, parent, false)
         return ViewHolder(view)
     }
 
@@ -30,9 +32,10 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
             val tvSongName = holder.itemView.findViewById<TextView>(R.id.tvSongName)
             tvSongName.text = songs[position].name
             val tvAlbumArtist = holder.itemView.findViewById<TextView>(R.id.tvAlbumArtist)
-            tvAlbumArtist.text = songs[position].album + " - " + songs[position].artist
+            tvAlbumArtist.text =
+                String.format(songs[position].album + " - " + songs[position].artist)
         }
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             playerViewModel.stop()
             playerViewModel.setMedia(songs[position].uri)
             playerViewModel.setSong(songs[position])

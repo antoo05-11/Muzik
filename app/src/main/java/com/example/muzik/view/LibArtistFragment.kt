@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.adapter.ListArtistAdapter
 import com.example.muzik.databinding.FragmentLibArtistBinding
-import com.example.muzik.model.Artist
-import com.example.muzik.model.Song
+import com.example.muzik.response_model.Artist
+import com.example.muzik.response_model.Song
 import com.example.muzik.viewmodel.ArtistViewModel
 import com.example.muzik.viewmodel.SongViewModel
 

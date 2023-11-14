@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-   implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -58,10 +58,13 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
-    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
-    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-    implementation("com.google.android.exoplayer:extension-mediasession:2.19.1")
+//    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
+//    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+//    implementation("com.google.android.exoplayer:extension-mediasession:2.19.1")
+//    implementation("com.google.android.exoplayer:exoplayer-hls:2.19.1")
+
     implementation("io.coil-kt:coil:1.4.0")
+
 
     // retrofit
 
@@ -79,10 +82,11 @@ dependencies {
 
     //Load image
     implementation("io.coil-kt:coil:2.3.0")
-    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
-     //exoplayer
+    //exoplayer
     implementation("androidx.media3:media3-exoplayer:1.1.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
     implementation("androidx.media3:media3-ui:1.1.1")
+    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
 }
