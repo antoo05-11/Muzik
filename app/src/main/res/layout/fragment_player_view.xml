@@ -46,19 +46,6 @@
                 app:layout_constraintStart_toEndOf="@id/backBtn"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.media3.ui.PlayerView
-                android:id="@+id/video_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:layout_constraintDimensionRatio="16:9"/>
-
-        <ProgressBar
-                android:id="@+id/loading"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

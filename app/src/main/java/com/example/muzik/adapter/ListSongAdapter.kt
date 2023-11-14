@@ -1,5 +1,6 @@
 package com.example.muzik.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_song_lib, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
         return ViewHolder(view)
     }
 
@@ -31,13 +32,17 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
         holder.itemView.apply {
             val tvSongName = holder.itemView.findViewById<TextView>(R.id.tvSongName)
             tvSongName.text = songs[position].name
-            val tvAlbumArtist = holder.itemView.findViewById<TextView>(R.id.tvAlbumArtist)
-            tvAlbumArtist.text =
-                String.format(songs[position].album + " - " + songs[position].artist)
+            val tvArtistUnderSongItem =
+                holder.itemView.findViewById<TextView>(R.id.tv_artist_under_song_item)
+            tvArtistUnderSongItem.text =
+                String.format(songs[position].album + " - " + songs[position].artistName)
+            if (songs[position].album == null) {
+                tvArtistUnderSongItem.text = String.format(songs[position].artistName)
+            }
         }
         holder.itemView.setOnClickListener {
             playerViewModel.stop()
-            playerViewModel.setMedia(songs[position].uri)
+            playerViewModel.setMedia(if (songs[position].uri == null) Uri.parse(songs[position].songURL) else songs[position].uri)
             playerViewModel.setSong(songs[position])
         }
     }

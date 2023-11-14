@@ -27,7 +27,6 @@ class SongViewModel : ViewModel() {
         songsMutableLiveData.value = listSong
         albumsLiveData.value = mapAlbum
         artistsLiveData.value = mapArtist
-
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -101,17 +100,9 @@ class SongViewModel : ViewModel() {
                     )
                     val song =
                         Song(
-                            songId,
-                            uri,
-                            displayName,
-                            duration,
-                            size,
-                            album,
-                            artist,
-                            artistId,
-                            "", "",
-                            0,
-                            ""
+                            songId, uri, displayName, duration,
+                            size, album, artist, artistId,
+                            "", 0
                         )
                     listSong.add(song)
                     if (mapAlbum.containsKey(albumId)) {
@@ -133,26 +124,14 @@ class SongViewModel : ViewModel() {
                 }
             }
         GlobalScope.launch {
-            val result = MainActivity.muzikAPI.getSong(5)
-            val song = Song(
-                result.body()?.songID,
-                Uri.parse("https://magicpost-uet.onrender.com/api/employee/get"),
-                result.body()?.name,
-                null,
-                null,
-                null,
-                result.body()?.artistName,
-                result.body()?.artistID,
-                result.body()?.imageURL,
-                result.body()?.imageURL,
-                result.body()?.albumID,
-                result.body()?.songURL
-            )
-            listSong.add(song)
-            val newArtist =
-                Artist(result.body()?.artistID!!, result.body()?.artistName, ArrayList(), "")
-            newArtist.songs.add(song)
-            mapArtist[newArtist.artistID] = newArtist
+            val result = MainActivity.muzikAPI.getAllSongs()
+            result.body()?.forEach { song ->
+                listSong.add(song)
+                val newArtist =
+                    Artist(song.artistID!!, song.artistName)
+                newArtist.songs.add(song)
+                mapArtist[newArtist.artistID] = newArtist
+            }
         }
     }
 }

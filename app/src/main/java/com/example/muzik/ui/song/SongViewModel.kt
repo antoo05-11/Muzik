@@ -9,7 +9,7 @@ class SongViewModel: ViewModel() {
     val name: String
         get() = song.name!!
     val artistName: String
-        get() = song.artist.toString()
+        get() = song.artistName.toString()
     val imageURL: String?
         get() = song.imageURL
 }

@@ -63,7 +63,6 @@ class LibraryFragment : Fragment() {
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
             binding.pbSongPreview.max = it.duration!!
-
         }
 
         playerViewModel.currentTimeMutableLiveData.observe(viewLifecycleOwner) {
