@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.MainActivity
-import com.example.muzik.response_model.Album
 import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Song
 import kotlinx.coroutines.DelicateCoroutinesApi
