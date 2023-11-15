@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui_deprecated.song.SongFragment"
+        tools:context=".view.PlayerViewFragment"
         android:background="@color/bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +52,8 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="459dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true">
 
         <ImageView
                 android:id="@+id/activity_track_image"
@@ -65,15 +66,20 @@
 
         <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 tools:text="Buồn Thì Cứ Khóc Đi"
                 android:textSize="22sp"
                 android:textColor="@color/white"
-                android:maxLines="1"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                />
 
         <TextView
                 android:id="@+id/tv_artist_name"
