@@ -12,7 +12,6 @@ import com.example.muzik.response_model.Song
 
 class PlayerViewModel : ViewModel() {
 
-    //live data
     var exoPlayerMutableLiveData: MutableLiveData<ExoPlayer> = MutableLiveData()
         private set
 
@@ -35,7 +34,7 @@ class PlayerViewModel : ViewModel() {
 
     class OnSeekBarChangeListener(private val playerViewModel: PlayerViewModel) :
         SeekBar.OnSeekBarChangeListener {
-        var progressValue = 0
+        private var progressValue = 0
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             progressValue = seekBar!!.progress
         }

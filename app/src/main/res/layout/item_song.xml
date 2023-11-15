@@ -3,43 +3,80 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="75dp">
 
-    <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/song_image_item"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="16dp"
+    <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/default_song_image"
-            android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
+            android:id="@+id/song_image_cardview_item"
+            app:cardCornerRadius="5dp">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_song_image_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+            <ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:id="@+id/song_image_item"
+                    app:srcCompat="@drawable/default_song_image"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/song_image_item"
+            app:layout_constraintLeft_toRightOf="@id/song_image_cardview_item"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="10dp">
+            app:layout_constraintRight_toLeftOf="@id/more_under_song_item_button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
         <TextView
                 android:id="@+id/tvSongName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Song name"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:focusableInTouchMode="true"
+                android:focusable="true" />
 
         <TextView
                 android:id="@+id/tv_artist_under_song_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Album - Artist" />
+                android:text="Album - Artist"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
     </LinearLayout>
+
+    <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/more_under_song_item_button"
+            android:background="@drawable/more"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/song_image_cardview_item"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.94" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

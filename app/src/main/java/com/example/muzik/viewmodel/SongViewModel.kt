@@ -4,8 +4,10 @@ import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.MainActivity
@@ -116,14 +118,21 @@ class SongViewModel : ViewModel() {
                 }
             }
         GlobalScope.launch {
-            val result = MainActivity.muzikAPI.getAllSongs()
-            result.body()?.forEach { song ->
-                listSong.add(song)
-                val newArtist =
-                    Artist(song.artistID!!, song.artistName)
-                newArtist.songs.add(song)
-                mapArtist[newArtist.artistID] = newArtist
+            try {
+                val result = MainActivity.muzikAPI.getAllSongs()
+                result.body()?.forEach { song ->
+                    listSong.add(song)
+                    val newArtist =
+                        Artist(song.artistID!!, song.artistName)
+                    newArtist.songs.add(song)
+                    mapArtist[newArtist.artistID] = newArtist
+                }
+            } catch (_: Exception) {
+                Handler(context.mainLooper).post {
+                    Toast.makeText(context, "Check the internet again!", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
     }
 }

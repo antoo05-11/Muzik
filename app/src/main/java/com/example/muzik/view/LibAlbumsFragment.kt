@@ -14,7 +14,7 @@ class LibAlbumsFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLibAlbumsBinding.inflate(inflater)
         return binding.root
     }
