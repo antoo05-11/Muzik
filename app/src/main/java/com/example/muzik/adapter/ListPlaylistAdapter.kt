@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.response_model.Playlist
-import com.squareup.picasso.Picasso
 
 class ListPlaylistAdapter(private val listPlaylist: List<Playlist>) : RecyclerView.Adapter<ListPlaylistAdapter.ListPlaylistViewHolder>() {
 
@@ -36,13 +35,13 @@ class ListPlaylistAdapter(private val listPlaylist: List<Playlist>) : RecyclerVi
         holder.itemView.apply {
             tvPlaylistName.text = curPlaylist.name
 
-            if (curPlaylist.imageURL.isNotEmpty()) {
-                Picasso.get()
-                    .load(curPlaylist.imageURL)
-                    .fit()
-                    .centerInside()
-                    .into(playlistImage)
-            }
+//            if (curPlaylist.imageURL.isNotEmpty()) {
+//                Picasso.get()
+//                    .load(curPlaylist.imageURL)
+//                    .fit()
+//                    .centerInside()
+//                    .into(playlistImage)
+//            }
         }
 
     }

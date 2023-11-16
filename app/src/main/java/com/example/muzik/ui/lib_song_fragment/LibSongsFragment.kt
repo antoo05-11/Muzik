@@ -1,4 +1,4 @@
-package com.example.muzik.view
+package com.example.muzik.ui.lib_song_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.adapter.ListSongAdapter
 import com.example.muzik.databinding.FragmentLibSongsBinding
-import com.example.muzik.viewmodel.PlayerViewModel
-import com.example.muzik.viewmodel.SongViewModel
+import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 
 class LibSongsFragment: Fragment() {
     private lateinit var binding: FragmentLibSongsBinding

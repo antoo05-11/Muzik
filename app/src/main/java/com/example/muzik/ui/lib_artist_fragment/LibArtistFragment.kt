@@ -1,4 +1,4 @@
-package com.example.muzik.view
+package com.example.muzik.ui.lib_artist_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,7 @@ import com.example.muzik.adapter.ListArtistAdapter
 import com.example.muzik.databinding.FragmentLibArtistBinding
 import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Song
-import com.example.muzik.viewmodel.ArtistViewModel
-import com.example.muzik.viewmodel.SongViewModel
+import com.example.muzik.ui.lib_song_fragment.SongViewModel
 
 class LibArtistFragment : Fragment() {
     private lateinit var binding: FragmentLibArtistBinding

@@ -1,4 +1,4 @@
-package com.example.muzik.view
+package com.example.muzik.ui.player_view_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.R
 import com.example.muzik.databinding.FragmentPlayerViewBinding
 import com.example.muzik.utils.getReadableTime
-import com.example.muzik.viewmodel.PlayerViewModel
 import com.squareup.picasso.Picasso
 
 class PlayerViewFragment : Fragment() {

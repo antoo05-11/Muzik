@@ -1,4 +1,4 @@
-package com.example.muzik.view
+package com.example.muzik.ui.lib_album_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

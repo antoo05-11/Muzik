@@ -1,21 +1,24 @@
 package com.example.muzik.response_model;
 
+import java.util.Date;
 
-import java.sql.Date;
-
-public class PlayList {
+public class Playlist {
     private long playListID;
     private String type;
     private long userID;
     private String name;
     private Date dateAdded;
 
-    public PlayList(long playListID, String type, long userID, String name, Date dateAdded) {
+    public Playlist(long playListID, String type, long userID, String name, Date dateAdded) {
         this.playListID = playListID;
         this.type = type;
         this.userID = userID;
         this.name = name;
-        this.dateAdded = dateAdded;
+        if (dateAdded != null) {
+            this.dateAdded = dateAdded;
+        } else {
+            this.dateAdded = new Date();
+        }
     }
 
     public long getPlayListID() {

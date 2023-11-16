@@ -1,4 +1,4 @@
-package com.example.muzik.viewmodel
+package com.example.muzik.ui.player_view_fragment
 
 import android.net.Uri
 import android.os.Handler

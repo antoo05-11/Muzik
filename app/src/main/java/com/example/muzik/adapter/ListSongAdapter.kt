@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.response_model.Song
-import com.example.muzik.viewmodel.PlayerViewModel
+import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
 

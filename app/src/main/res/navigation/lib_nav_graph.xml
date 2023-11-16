@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lib_nav_graph"
     app:startDestination="@id/libAlbumsFragment">
-
     <fragment
         android:id="@+id/libAlbumsFragment"
-        android:name="com.example.muzik.view.LibAlbumsFragment"
+        android:name="com.example.muzik.ui.lib_album_fragment.LibAlbumsFragment"
         android:label="LibAlbumsFragment" />
     <fragment
         android:id="@+id/libArtistFragment"
-        android:name="com.example.muzik.view.LibArtistFragment"
+        android:name="com.example.muzik.ui.lib_artist_fragment.LibArtistFragment"
         android:label="LibArtistFragment" />
     <fragment
         android:id="@+id/libSongsFragment"
-        android:name="com.example.muzik.view.LibSongsFragment"
+        android:name="com.example.muzik.ui.lib_song_fragment.LibSongsFragment"
         android:label="LibSongsFragment" />
     <fragment
         android:id="@+id/libPlaylistFragment"
-        android:name="com.example.muzik.view.LibPlaylistFragment"
+        android:name="com.example.muzik.ui.lib_playlist_fragment.LibPlaylistFragment"
         android:label="LibPlaylistFragment" />
 </navigation>

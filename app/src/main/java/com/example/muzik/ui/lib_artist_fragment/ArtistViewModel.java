@@ -1,8 +1,8 @@
-package com.example.muzik.viewmodel;
+package com.example.muzik.ui.lib_artist_fragment;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.muzik.MainActivity;
+import com.example.muzik.ui.main_activity.MainActivity;
 import com.example.muzik.response_model.Artist;
 import com.example.muzik.response_model.Song;
 

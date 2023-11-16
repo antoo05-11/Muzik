@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/playerViewFragment"
-        android:name="com.example.muzik.view.PlayerViewFragment"
+        android:name="com.example.muzik.ui.player_view_fragment.PlayerViewFragment"
         android:label="PlayerViewFragment" />
 
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.example.muzik.view.LibraryFragment"
+        android:name="com.example.muzik.ui.main_fragment.MainFragment"
         android:label="ContentFragment" />
 
 </navigation>

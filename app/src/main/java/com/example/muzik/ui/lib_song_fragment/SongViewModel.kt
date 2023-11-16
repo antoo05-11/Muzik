@@ -1,4 +1,4 @@
-package com.example.muzik.viewmodel
+package com.example.muzik.ui.lib_song_fragment
 
 import android.content.ContentUris
 import android.content.Context
@@ -10,7 +10,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.MainActivity
+import com.example.muzik.ui.main_activity.MainActivity
+import com.example.muzik.response_model.Album
 import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Song
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -105,7 +106,7 @@ class SongViewModel : ViewModel() {
                     } else {
                         val newAlbum = Album(albumId, album, albumArtis, albumArtUri, ArrayList())
                         newAlbum.songs.add(song)
-                        mapAlbum[newAlbum.id] = newAlbum
+                        mapAlbum[newAlbum.albumID] = newAlbum
                     }
                     Log.d("uri", song.uri.toString());
                     if (mapArtist.containsKey(artistId)) {

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.PlayerViewFragment"
+        tools:context=".ui.player_view_fragment.PlayerViewFragment"
         android:background="@color/bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
