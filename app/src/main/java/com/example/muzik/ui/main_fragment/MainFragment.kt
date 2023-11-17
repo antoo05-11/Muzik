@@ -16,6 +16,8 @@ import com.example.muzik.databinding.FragmentMainBinding
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 class MainFragment : Fragment() {
 
@@ -59,6 +61,18 @@ class MainFragment : Fragment() {
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
+            binding.artistUnderPlayerPreviewTextview.text = it.artistName
+            Picasso.get().load(it.imageURL)
+                .into(binding.songImageUnderSongPreview, object : Callback {
+                    override fun onSuccess() {
+                        binding.shimmerSongImageUnderSongPreview.hideShimmer()
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+
+                })
             binding.pbSongPreview.max = it.duration!!
         }
 

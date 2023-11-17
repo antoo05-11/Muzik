@@ -12,8 +12,7 @@
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
             android:id="@+id/toolbar"
-            tools:ignore="MissingConstraints"
-            />
+            tools:ignore="MissingConstraints" />
 
     <fragment
             android:id="@+id/fragment_lib_nav"
@@ -26,15 +25,6 @@
             app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-
-    <!--    <Button-->
-    <!--        android:id="@+id/button"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,13 +36,16 @@
             android:id="@+id/clPreview"
             android:layout_width="0dp"
             android:layout_height="70dp"
-            android:background="?attr/colorPrimary"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="invisible"
             tools:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/bottom_nav_view">
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
+            android:background="@drawable/grey_round_corner"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp">
 
         <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -61,13 +54,22 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/song_bottom_item_cardview"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardCornerRadius="10dp">
 
-            <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:srcCompat="@drawable/default_albumart" />
+            <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/shimmer_song_image_under_song_preview">
+
+                <ImageView
+                        android:id="@+id/song_image_under_song_preview"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/default_song_image"
+                        android:scaleType="centerCrop" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -83,15 +85,13 @@
                     android:id="@+id/tvSongNamePreview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Song name"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:textSize="18sp" />
 
             <TextView
-                    android:text="TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView2" />
+                    android:id="@+id/artist_under_player_preview_textview" />
         </LinearLayout>
 
         <ProgressBar
@@ -104,6 +104,8 @@
                 android:progressBackgroundTint="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageButton
@@ -114,7 +116,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginRight="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

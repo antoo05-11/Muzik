@@ -27,7 +27,7 @@ class LibArtistFragment : Fragment() {
         binding = FragmentLibArtistBinding.inflate(inflater)
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         songViewModel.songsMutableLiveData.observe(viewLifecycleOwner) {
-            artistAdapter = ListArtistAdapter(this.activity, getArtistsFromSongs(it))
+            artistAdapter = ListArtistAdapter(getArtistsFromSongs(it))
             binding.rcvArtistsList.adapter = artistAdapter
             binding.rcvArtistsList.layoutManager = LinearLayoutManager(this.context)
         }
