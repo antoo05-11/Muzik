@@ -20,13 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Deprecated
 public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.ArtistViewHolder> implements Filterable {
-    private final Activity activity;
     private List<Artist> artists;
     private List<Artist> artistsOld;
 
-    public ListArtistAdapter(Activity activity, List<Artist> artists) {
-        this.activity = activity;
+    public ListArtistAdapter(List<Artist> artists) {
         this.artists = artists;
         this.artistsOld = artists;
     }
@@ -51,11 +50,13 @@ public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.Ar
 
     @SuppressLint("DefaultLocale")
     public void onBindViewHolder(@NonNull ArtistViewHolder holder, int position) {
-        Artist museum = artists.get(position);
-        if (museum == null) {
+        Artist artist = artists.get(position);
+        if (artist == null) {
             return;
         }
-        holder.artistNameTextView.setText(museum.getName());
+        if (artist.getArtistID() != -1) {
+            holder.artistNameTextView.setText(artist.getName());
+        }
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import java.util.List;
 
-public class Album {
+public class Album implements ResponseModel {
     private long albumID;
     private String name;
     private Uri albumArtURI;
@@ -13,6 +13,10 @@ public class Album {
     private String albumArtist;
 
     private List<Song> songs;
+
+    public Album(boolean isNewSample) {
+       if(isNewSample) albumID = -1;
+    }
 
     public Album(long albumID, String name, String albumArtist, Uri albumArtURI, List<Song> songs) {
         this.albumID = albumID;
@@ -31,6 +35,10 @@ public class Album {
 
     public long getAlbumID() {
         return albumID;
+    }
+
+    public String getAlbumArtist() {
+        return albumArtist;
     }
 
     public void setAlbumID(long albumID) {

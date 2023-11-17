@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +15,7 @@ import com.example.muzik.R
 import com.example.muzik.databinding.FragmentMainBinding
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.example.muzik.ui.search_fragment.SearchViewModel
 
 class MainFragment : Fragment() {
 
@@ -22,6 +24,9 @@ class MainFragment : Fragment() {
     private lateinit var songViewModel: SongViewModel
 
     private lateinit var playerViewModel: PlayerViewModel
+
+    private lateinit var searchViewModel: SearchViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,23 +42,20 @@ class MainFragment : Fragment() {
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
 
-        val libNavHostFragment =
+        val mainFragmentNavHostFragment =
             childFragmentManager.findFragmentById(R.id.fragment_lib_nav) as NavHostFragment
-        val mainFragmentNavController = libNavHostFragment.navController
+        val mainFragmentNavController = mainFragmentNavHostFragment.navController
         binding.bottomNavView.setupWithNavController(mainFragmentNavController)
 
-//        binding.tvAlbums.setOnClickListener {
-//            mainFragmentNav.navigate(R.id.libAlbumsFragment)
-//        }
-//        binding.tvSongs.setOnClickListener {
-//            mainFragmentNav.navigate(R.id.libSongsFragment)
-//        }
-//        binding.tvArtist.setOnClickListener {
-//            mainFragmentNav.navigate(R.id.libArtistFragment)
-//        }
-//        binding.tvPlaylists.setOnClickListener {
-//            mainFragmentNav.navigate(R.id.libPlaylistFragment)
-//        }
+        searchViewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
+
+        searchViewModel.opened.observe(requireActivity()) {
+            if (it) {
+                mainFragmentNavController.popBackStack()
+                mainFragmentNavController.navigate(R.id.navigation_search)
+                searchViewModel.opened.value = false
+            }
+        }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
@@ -64,9 +66,13 @@ class MainFragment : Fragment() {
             binding.pbSongPreview.progress = it
         }
 
-        playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) {
+        playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) { it ->
             if (it) {
                 binding.clPreview.visibility = View.VISIBLE
+                val navView = mainFragmentNavHostFragment.view
+                navView?.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    bottomToTop = binding.clPreview.id
+                }
             }
         }
 
@@ -77,14 +83,8 @@ class MainFragment : Fragment() {
             mainNavController.navigate(R.id.playerViewFragment)
         }
 
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        supportActionBar?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                requireContext(),
-                android.R.color.transparent
-            )
-        )
-
         mainFragmentNavController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.title = when (destination.id) {
                 R.id.navigation_explore -> "Explore"

@@ -6,4 +6,10 @@
     <string name="name_song"></string>
     <string name="artist_name"></string>
     <string name="imageURL"></string>
+    <string name="top_collections">Top Collections</string>
+    <string name="listen_again">Listen Again</string>
+    <string name="recently">Recently</string>
+    <string name="for_you">For you</string>
+    <string name="your_artist">Your artist</string>
+    <string name="playlist_name">Playlist Name</string>
 </resources>

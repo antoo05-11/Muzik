@@ -1,5 +1,6 @@
 package com.example.muzik.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
 import com.example.muzik.response_model.Playlist;
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,8 +35,13 @@ public class ListPlaylistsPreviewAdapter extends RecyclerView.Adapter<ListPlayli
     public void onBindViewHolder(@NonNull PlaylistPreviewHolder holder, int position) {
         Playlist playlist = playlists.get(position);
         if (playlist == null) return;
-        holder.playlistPreviewNameTextView.setText(playlist.getName());
-        holder.playlistPreviewImage.setImageResource(R.drawable._30px_adele_21);
+        if (playlist.getPlayListID() != -1) {
+            holder.playlistPreviewImageShimmer.hideShimmer();
+            holder.playlistPreviewNameShimmer.hideShimmer();
+            holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
+            holder.playlistPreviewNameTextView.setText(playlist.getName());
+            Picasso.get().load(playlist.getImageURL()).fit().into(holder.playlistPreviewImage);
+        }
     }
 
     @Override
@@ -44,11 +52,15 @@ public class ListPlaylistsPreviewAdapter extends RecyclerView.Adapter<ListPlayli
     public static class PlaylistPreviewHolder extends RecyclerView.ViewHolder {
         ImageView playlistPreviewImage;
         TextView playlistPreviewNameTextView;
+        ShimmerFrameLayout playlistPreviewImageShimmer;
+        ShimmerFrameLayout playlistPreviewNameShimmer;
 
         public PlaylistPreviewHolder(@NonNull View itemView) {
             super(itemView);
             playlistPreviewImage = itemView.findViewById(R.id.playlist_preview_image);
             playlistPreviewNameTextView = itemView.findViewById(R.id.playlist_preview_name_tv);
+            playlistPreviewImageShimmer = itemView.findViewById(R.id.shimmer_playlist_preview_image);
+            playlistPreviewNameShimmer = itemView.findViewById(R.id.shimmer_playlist_preview_name_tv);
         }
     }
 }

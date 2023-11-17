@@ -6,22 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.muzik.CustomItemDecoration
+import androidx.lifecycle.lifecycleScope
+import com.example.muzik.adapter.ListAlbumsPreviewAdapter
+import com.example.muzik.adapter.ListArtistsPreviewAdapter
 import com.example.muzik.adapter.ListPlaylistsPreviewAdapter
+import com.example.muzik.adapter.ListSongsPreviewAdapter
 import com.example.muzik.databinding.FragmentExploreBinding
+import com.example.muzik.response_model.Album
+import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Playlist
-import java.util.Date
+import com.example.muzik.response_model.Song
+import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.example.muzik.utils.addDecorationForHorizontalRcv
+import com.example.muzik.utils.addDecorationForVerticalRcv
+import com.example.muzik.utils.addSampleForRcv
+import kotlinx.coroutines.launch
 
 class ExploreFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ExploreFragment()
-    }
-
     private lateinit var binding: FragmentExploreBinding
-
     private lateinit var viewModel: ExploreViewModel
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            viewModel.fetchData(requireContext())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,28 +40,77 @@ class ExploreFragment : Fragment() {
     ): View {
         binding = FragmentExploreBinding.inflate(inflater, container, false)
 
-        val playlists = mutableListOf(
-            Playlist(1, "a", 1, "a", Date(20031105.toLong())),
-            Playlist(1, "a", 1, "a", Date(20031105.toLong())),
-            Playlist(1, "a", 1, "a", Date(20031105.toLong())),
-            Playlist(1, "a", 1, "a", Date(20031105.toLong())),
-            Playlist(1, "a", 1, "a", Date(20031105.toLong())),
-            Playlist(1, "a", 1, "a", Date(20031105.toLong()))
+        viewModel = ViewModelProvider(requireActivity())[ExploreViewModel::class.java]
+        val playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
+
+        // For entire view.
+        addDecorationForHorizontalRcv(
+            listOf(
+                binding.rcvPlaylistsPreview,
+                binding.rcvListenAgainPlaylistsPreview,
+                binding.rcvYourArtistPreview,
+                binding.rcvRecentAlbumsPreview
+            ),
+            requireActivity()
         )
-        val listPlaylistsPreviewAdapter = ListPlaylistsPreviewAdapter(playlists);
-        binding.rcvPlaylistsPreview.adapter = listPlaylistsPreviewAdapter
-        binding.rcvPlaylistsPreview.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rcvPlaylistsPreview.addItemDecoration(
-            CustomItemDecoration(18)
+        binding.rcvForYouSongsPreview.isNestedScrollingEnabled = false
+        addDecorationForVerticalRcv(binding.rcvForYouSongsPreview, requireActivity())
+
+        // For loading view.
+        addSampleForRcv(
+            mutableListOf(
+                Triple(
+                    binding.rcvPlaylistsPreview,
+                    ListPlaylistsPreviewAdapter::class.java,
+                    Playlist::class.java
+                ),
+                Triple(
+                    binding.rcvListenAgainPlaylistsPreview,
+                    ListPlaylistsPreviewAdapter::class.java,
+                    Playlist::class.java
+                )
+            ),
+            5
         )
+        addSampleForRcv(
+            binding.rcvYourArtistPreview,
+            ListArtistsPreviewAdapter::class.java,
+            Artist::class.java, 5
+        )
+        addSampleForRcv(
+            binding.rcvRecentAlbumsPreview,
+            ListAlbumsPreviewAdapter::class.java,
+            Album::class.java, 5
+        )
+        addSampleForRcv(
+            binding.rcvForYouSongsPreview,
+            ListSongsPreviewAdapter::class.java,
+            Song::class.java, 5
+        )
+
+        // For rendering data.
+        viewModel.topPlaylistsList.observe(viewLifecycleOwner) { it ->
+            val adapter = ListPlaylistsPreviewAdapter(it);
+            binding.rcvPlaylistsPreview.adapter = adapter
+        }
+        viewModel.topSongList.observe(viewLifecycleOwner) {
+            val adapter = ListSongsPreviewAdapter(it)
+            adapter.setPlayerViewModel(playerViewModel)
+            binding.rcvForYouSongsPreview.adapter = adapter
+        }
+        viewModel.listenAgainPlaylistsList.observe(viewLifecycleOwner) {
+            val adapter = ListPlaylistsPreviewAdapter(it)
+            binding.rcvListenAgainPlaylistsPreview.adapter = adapter
+        }
+        viewModel.recentAlbumsList.observe(viewLifecycleOwner) {
+            val adapter = ListAlbumsPreviewAdapter(it)
+            binding.rcvRecentAlbumsPreview.adapter = adapter
+        }
+        viewModel.yourArtistsList.observe(viewLifecycleOwner) {
+            val adapter = ListArtistsPreviewAdapter(it)
+            binding.rcvYourArtistPreview.adapter = adapter
+        }
+
         return binding.root
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[ExploreViewModel::class.java]
-    }
-
 }

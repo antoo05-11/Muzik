@@ -1,10 +1,14 @@
 package com.example.muzik.response_model;
 
-public class User {
+public class User implements ResponseModel {
     private long userID;
     private String name;
     private String email;
     private String password;
+
+    public User(boolean isNewSample) {
+        if(isNewSample) userID = -1;
+    }
 
     public User(long userID, String name, String email, String password) {
         this.userID = userID;

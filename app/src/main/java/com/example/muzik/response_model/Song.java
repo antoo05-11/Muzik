@@ -2,8 +2,8 @@ package com.example.muzik.response_model;
 
 import android.net.Uri;
 
-public class Song {
-    private Long songID;
+public class Song implements ResponseModel {
+    private int songID;
     private Uri uri;
     private String name;
     private Integer duration;
@@ -15,7 +15,11 @@ public class Song {
     private Integer albumID;
     private String songURL;
 
-    public Song(Long songID, Uri uri, String name, Integer duration, Integer size, String album, String artistName, Long artistID, String imageURL, Integer albumID) {
+    public Song(boolean isNewSample) {
+        if(isNewSample) songID = -1;
+    }
+
+    public Song(int songID, Uri uri, String name, Integer duration, Integer size, String album, String artistName, Long artistID, String imageURL, Integer albumID) {
         this.songID = songID;
         this.name = name;
         this.uri = uri;
@@ -32,11 +36,11 @@ public class Song {
         return songURL;
     }
 
-    public Long getSongID() {
+    public int getSongID() {
         return songID;
     }
 
-    public void setSongID(Long songID) {
+    public void setSongID(int songID) {
         this.songID = songID;
     }
 

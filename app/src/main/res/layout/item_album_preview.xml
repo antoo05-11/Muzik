@@ -7,15 +7,15 @@
 
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:id="@+id/playlist_preview_linear_layout"
+            android:id="@+id/album_preview_linear_layout"
             tools:ignore="MissingConstraints">
 
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/shimmer_playlist_preview_image"
+                android:id="@+id/shimmer_album_preview_image"
                 android:layout_marginBottom="10dp">
 
             <androidx.cardview.widget.CardView
@@ -25,10 +25,10 @@
 
                 <ImageView
                         android:background="@drawable/grey_round_corner"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:scaleType="centerCrop"
-                        android:id="@+id/playlist_preview_image"
+                        android:id="@+id/album_preview_image"
                         tools:ignore="ContentDescription" />
             </androidx.cardview.widget.CardView>
 
@@ -37,15 +37,18 @@
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/shimmer_playlist_preview_name_tv">
+                android:id="@+id/shimmer_album_preview_name_tv">
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:id="@+id/playlist_preview_name_tv"
+                    android:textAlignment="textStart"
+                    android:id="@+id/album_preview_name_tv"
                     android:background="@drawable/grey_round_corner"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:ellipsize="end" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

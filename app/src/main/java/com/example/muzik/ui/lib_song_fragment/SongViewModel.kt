@@ -10,10 +10,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.ui.main_activity.MainActivity
 import com.example.muzik.response_model.Album
 import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Song
+import com.example.muzik.ui.main_activity.MainActivity
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -96,7 +96,7 @@ class SongViewModel : ViewModel() {
                     )
                     val song =
                         Song(
-                            songId, uri, displayName, duration,
+                            songId.toInt(), uri, displayName, duration,
                             size, album, artist, artistId,
                             "", 0
                         )
@@ -118,6 +118,7 @@ class SongViewModel : ViewModel() {
                     }
                 }
             }
+
         GlobalScope.launch {
             try {
                 val result = MainActivity.muzikAPI.getAllSongs()

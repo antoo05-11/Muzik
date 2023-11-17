@@ -18,6 +18,7 @@ import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.example.muzik.ui.search_fragment.SearchViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var songViewModel: SongViewModel
 
     private lateinit var artistViewModel: ArtistViewModel
+
+    private lateinit var searchViewModel: SearchViewModel
 
     private lateinit var mainNavController: NavController
 
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         songViewModel = ViewModelProvider(this)[SongViewModel::class.java]
         artistViewModel = ArtistViewModel(this)[ArtistViewModel::class.java]
+        searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         val player = ExoPlayer.Builder(this).build()
         playerViewModel.exoPlayerMutableLiveData.value = player
@@ -69,8 +73,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
         mainNavController = mainNavHostFragment.navController
         setContentView(binding.root)
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_action_bar, menu)
@@ -80,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search_button_item -> {
-                mainNavController.navigate(R.id.playerViewFragment)
+                searchViewModel.opened.value = true
             }
 
             else -> {}

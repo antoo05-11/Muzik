@@ -3,13 +3,14 @@ package com.example.muzik.response_model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Artist {
+public class Artist implements ResponseModel {
     private long artistID;
     private String name;
     private List<Song> songs;
     private String imageURL;
 
-    public Artist() {
+    public Artist(boolean isNewSample) {
+        if (isNewSample) artistID = -1;
     }
 
     public Artist(long artistID, String name) {

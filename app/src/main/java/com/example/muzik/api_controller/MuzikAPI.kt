@@ -36,4 +36,16 @@ interface MuzikAPI {
 
     @GET("/api/user/{id}/info")
     suspend fun getUser(@Path("id") userID: Int): Response<User>
+
+    @GET("/api/playlist/getTopPlaylists")
+    suspend fun getTopPlaylists(): Response<List<Playlist>>
+
+    @GET("/api/album/getRecentAlbums")
+    suspend fun getRecentAlbums(): Response<List<Album>>
+
+    @GET("/api/artist/getYourArtists")
+    suspend fun getYourArtists(): Response<List<Artist>>
+
+    @GET("/api/song/getYourTopSongs")
+    suspend fun getYourTopSongs(): Response<List<Song>>
 }

@@ -2,14 +2,19 @@ package com.example.muzik.response_model;
 
 import java.util.Date;
 
-public class Playlist {
+public class Playlist implements ResponseModel {
     private long playListID;
     private String type;
     private long userID;
     private String name;
     private Date dateAdded;
+    private String imageURL;
 
-    public Playlist(long playListID, String type, long userID, String name, Date dateAdded) {
+    public Playlist(boolean isNewSample) {
+        if(isNewSample) playListID = -1;
+    }
+
+    public Playlist(long playListID, String type, long userID, String name, Date dateAdded, String imageURL) {
         this.playListID = playListID;
         this.type = type;
         this.userID = userID;
@@ -19,6 +24,7 @@ public class Playlist {
         } else {
             this.dateAdded = new Date();
         }
+        this.imageURL = imageURL;
     }
 
     public long getPlayListID() {
@@ -59,5 +65,13 @@ public class Playlist {
 
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

@@ -16,7 +16,7 @@
             app:cardCornerRadius="5dp">
 
         <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_song_image_item"
+                android:id="@+id/shimmer_song_preview_image_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
@@ -28,7 +28,6 @@
                     app:srcCompat="@drawable/default_song_image"
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription" />
-
         </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.cardview.widget.CardView>
@@ -44,27 +43,41 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
-        <TextView
-                android:id="@+id/tvSongName"
+        <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Song name"
-                android:textSize="18dp"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:focusableInTouchMode="true"
-                android:focusable="true" />
+                android:id="@+id/shimmer_song_preview_name_textview"
+                android:layout_marginBottom="5dp">
 
-        <TextView
-                android:id="@+id/tv_artist_under_song_item"
+            <TextView
+                    android:id="@+id/song_preview_name_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:background="@drawable/grey_round_corner" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Album - Artist"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true" />
+                android:id="@+id/shimmer_artist_name_song_preview_textview">
+
+            <TextView
+                    android:id="@+id/artist_name_song_preview_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@drawable/grey_round_corner"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
     </LinearLayout>
 
     <ImageButton
@@ -77,6 +90,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.94" />
+            app:layout_constraintHorizontal_bias="0.94"
+            tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
