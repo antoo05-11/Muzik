@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.muzik.R
@@ -18,6 +19,7 @@ import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+
 
 class MainFragment : Fragment() {
 
@@ -93,8 +95,16 @@ class MainFragment : Fragment() {
         val mainNavHostFragment =
             activity?.supportFragmentManager?.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
         val mainNavController = mainNavHostFragment.navController
+
         binding.clPreview.setOnClickListener {
-            mainNavController.navigate(R.id.playerViewFragment)
+            mainNavController.navigate(
+               R.id.playerViewFragment, null, NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_up)
+                    .setExitAnim(R.anim.slide_out_up)
+                    .setPopEnterAnim(R.anim.slide_in_up)
+                    .setPopExitAnim(R.anim.slide_out_up)
+                    .build()
+            )
         }
 
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)

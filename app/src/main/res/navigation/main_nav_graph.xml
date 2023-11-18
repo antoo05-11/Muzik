@@ -7,11 +7,27 @@
     <fragment
         android:id="@+id/playerViewFragment"
         android:name="com.example.muzik.ui.player_view_fragment.PlayerViewFragment"
-        android:label="PlayerViewFragment" />
+        android:label="PlayerViewFragment" >
+        <action
+                android:id="@+id/action_playerViewFragment_to_libraryFragment"
+                app:destination="@id/libraryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.example.muzik.ui.main_fragment.MainFragment"
-        android:label="ContentFragment" />
+        android:label="ContentFragment" >
+        <action
+                android:id="@+id/action_libraryFragment_to_playerViewFragment"
+                app:destination="@id/playerViewFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/libSongsFragment2"
+            android:name="com.example.muzik.ui.lib_song_fragment.LibSongsFragment"
+            android:label="LibSongsFragment" />
+    <fragment
+            android:id="@+id/libAlbumsFragment2"
+            android:name="com.example.muzik.ui.lib_album_fragment.LibAlbumsFragment"
+            android:label="LibAlbumsFragment" />
 
 </navigation>
