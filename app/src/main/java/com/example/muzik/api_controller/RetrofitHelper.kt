@@ -5,6 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
     private const val baseUrl = "http://10.0.2.2:6600/"
+    //private const val baseUrl = "https://muzik-server-uet-i4e7.onrender.com/"
 
     fun getInstance(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)

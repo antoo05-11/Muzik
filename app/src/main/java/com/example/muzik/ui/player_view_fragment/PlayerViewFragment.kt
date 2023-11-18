@@ -11,7 +11,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.R
 import com.example.muzik.databinding.FragmentPlayerViewBinding
 import com.example.muzik.utils.getReadableTime
+import com.example.muzik.utils.setRotateAnimation
 import com.squareup.picasso.Picasso
+
 
 class PlayerViewFragment : Fragment() {
 
@@ -26,6 +28,8 @@ class PlayerViewFragment : Fragment() {
     ): View {
         binding = FragmentPlayerViewBinding.inflate(inflater)
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
+
+        setRotateAnimation(binding.activityTrackImage)
 
         binding.playPauseSongButton.setOnClickListener {
             playerViewModel.playPause()
@@ -82,6 +86,7 @@ class PlayerViewFragment : Fragment() {
                 playerViewModel
             )
         )
+
 
         return binding.root
     }

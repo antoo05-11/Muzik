@@ -53,16 +53,22 @@
             android:layout_width="match_parent"
             android:layout_height="459dp"
             android:orientation="vertical"
-            android:focusable="true">
+            android:focusable="true"
+            android:gravity="center">
 
-        <ImageView
-                android:id="@+id/activity_track_image"
-                android:layout_width="match_parent"
-                android:layout_height="383dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/track" />
+        <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="150dp"
+                android:layout_marginBottom="20dp">
+
+            <ImageView
+                    android:id="@+id/activity_track_image"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/track" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
                 android:id="@+id/tvTitle"
@@ -78,8 +84,7 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                />
+                android:focusableInTouchMode="true" />
 
         <TextView
                 android:id="@+id/tv_artist_name"
