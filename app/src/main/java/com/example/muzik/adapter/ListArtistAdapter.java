@@ -1,7 +1,6 @@
 package com.example.muzik.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.Ar
         public ArtistViewHolder(@NonNull View itemView) {
             super(itemView);
             artistNameTextView = itemView.findViewById(R.id.tv_artist_name_item);
-            artistImageView = itemView.findViewById(R.id.artist_image);
+            artistImageView = itemView.findViewById(R.id.center_image_cardview);
         }
     }
 

@@ -17,19 +17,19 @@ interface MuzikAPI {
     suspend fun getAllSongs(): Response<List<Song>>
 
     @GET("/api/album/{id}/info")
-    suspend fun getAlbum(@Path("id") albumID: Int): Response<Album>
+    suspend fun getAlbum(@Path("id") albumID: Int): Response<List<Song>>
 
     @GET("/api/album/getAll")
     suspend fun getAllAlbums(): Response<List<Album>>
 
     @GET("/api/playlist/{id}/info")
-    suspend fun getPlaylist(@Path("id") playListID: Int): Response<Playlist>
+    suspend fun getPlaylist(@Path("id") playListID: Int): Response<List<Song>>
 
     @GET("/api/playlist/getAll")
     suspend fun getAllPlaylists(): Response<List<Playlist>>
 
     @GET("/api/artist/{id}/info")
-    suspend fun getArtist(@Path("id") artistID: Int): Response<Artist>
+    suspend fun getArtist(@Path("id") artistID: Int): Response<List<Song>>
 
     @GET("/api/artist/getAll")
     suspend fun getAllArtists(): Response<List<Artist>>
@@ -48,4 +48,7 @@ interface MuzikAPI {
 
     @GET("/api/song/getYourTopSongs")
     suspend fun getYourTopSongs(): Response<List<Song>>
+
+    @GET("/api/artist/{id}/artistAlbums")
+    suspend fun getArtistAlbums(@Path("id") artistID: Int): Response<List<Album>>
 }

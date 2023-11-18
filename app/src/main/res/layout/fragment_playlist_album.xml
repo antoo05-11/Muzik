@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.playlist_album_fragment.PlaylistAlbumFragment"
+        android:id="@+id/frameLayout2">
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_button"
+            android:background="@drawable/ic_back_arrow"
+            android:elevation="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:stateListAnimator="@animator/zoom_out_animator" />
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:id="@+id/main_image_container">
+
+    </FrameLayout>
+
+    <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/main_playlist_album_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp" />
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/main_image_container"
+            android:layout_marginTop="-20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/artist_names_list_textview" />
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_time_textview" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rcv_songs_inside_playlist_album_view" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

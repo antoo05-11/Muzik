@@ -98,7 +98,7 @@ class MainFragment : Fragment() {
 
         binding.clPreview.setOnClickListener {
             mainNavController.navigate(
-               R.id.playerViewFragment, null, NavOptions.Builder()
+                R.id.playerViewFragment, null, NavOptions.Builder()
                     .setEnterAnim(R.anim.slide_in_up)
                     .setExitAnim(R.anim.slide_out_up)
                     .setPopEnterAnim(R.anim.slide_in_up)
@@ -110,18 +110,33 @@ class MainFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
         mainFragmentNavController.addOnDestinationChangedListener { _, destination, _ ->
-            supportActionBar?.title = when (destination.id) {
-                R.id.navigation_explore -> "Explore"
-                R.id.navigation_chart -> "Chart"
-                R.id.navigation_search -> "Search"
-                R.id.navigation_library -> "Library"
+            when (destination.id) {
+                R.id.navigation_explore -> {
+                    supportActionBar?.title = "Explore"
+                    supportActionBar?.show()
+                }
+
+                R.id.navigation_chart -> {
+                    supportActionBar?.title = "Chart"
+                    supportActionBar?.show()
+                }
+
+                R.id.navigation_search -> {
+                    supportActionBar?.title = "Search"
+                    supportActionBar?.show()
+                }
+
+                R.id.navigation_library -> {
+                    supportActionBar?.title = "Library"
+                    supportActionBar?.show()
+                }
+
                 else -> {
                     supportActionBar?.hide()
                     return@addOnDestinationChangedListener
                 }
             }
         }
-
         return binding.root
     }
 }

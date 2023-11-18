@@ -7,15 +7,25 @@
         android:clickable="true"
         android:stateListAnimator="@animator/zoom_out_animator">
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_index_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
     <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/song_image_cardview_item"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/item_index_text_view"
+            android:layout_marginLeft="10dp">
 
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_song_preview_image_item"

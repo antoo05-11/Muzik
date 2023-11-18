@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.muzik.adapter.ListAlbumsPreviewAdapter
+import androidx.navigation.NavHostController
+import androidx.navigation.fragment.findNavController
+import com.example.muzik.R
+import com.example.muzik.adapter.ListAlbumsHorizontalPreviewAdapter
 import com.example.muzik.adapter.ListArtistsPreviewAdapter
 import com.example.muzik.adapter.ListPlaylistsPreviewAdapter
 import com.example.muzik.adapter.ListSongsPreviewAdapter
@@ -75,12 +78,12 @@ class ExploreFragment : Fragment() {
         addSampleForRcv(
             binding.rcvYourArtistPreview,
             ListArtistsPreviewAdapter::class.java,
-            Artist::class.java, 5
+            Artist::class.java, 5, findNavController() as NavHostController
         )
         addSampleForRcv(
             binding.rcvRecentAlbumsPreview,
-            ListAlbumsPreviewAdapter::class.java,
-            Album::class.java, 5
+            ListAlbumsHorizontalPreviewAdapter::class.java,
+            Album::class.java, 5, findNavController() as NavHostController
         )
         addSampleForRcv(
             binding.rcvForYouSongsPreview,
@@ -103,11 +106,20 @@ class ExploreFragment : Fragment() {
             binding.rcvListenAgainPlaylistsPreview.adapter = adapter
         }
         viewModel.recentAlbumsList.observe(viewLifecycleOwner) {
-            val adapter = ListAlbumsPreviewAdapter(it)
+            val adapter =
+                ListAlbumsHorizontalPreviewAdapter(
+                    it,
+                    requireParentFragment().childFragmentManager.findFragmentById(R.id.fragment_lib_nav)
+                        ?.findNavController() as NavHostController
+                )
             binding.rcvRecentAlbumsPreview.adapter = adapter
         }
         viewModel.yourArtistsList.observe(viewLifecycleOwner) {
-            val adapter = ListArtistsPreviewAdapter(it)
+            val adapter = ListArtistsPreviewAdapter(
+                it,
+                requireParentFragment().childFragmentManager.findFragmentById(R.id.fragment_lib_nav)
+                    ?.findNavController() as NavHostController
+            )
             binding.rcvYourArtistPreview.adapter = adapter
         }
 

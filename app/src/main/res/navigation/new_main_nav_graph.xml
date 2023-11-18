@@ -24,4 +24,13 @@
             android:name="com.example.muzik.ui.search_fragment.SearchFragment"
             android:label="SearchFragment"
             tools:layout="@layout/fragment_search" />
+    <fragment
+            android:id="@+id/artistFragment"
+            android:name="com.example.muzik.ui.artist_fragment.ArtistFragment"
+            android:label="ArtistFragment" />
+    <fragment
+            android:id="@+id/playlistAlbumFragment"
+            android:name="com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumFragment"
+            android:label="fragment_playlist_album"
+            tools:layout="@layout/fragment_playlist_album" />
 </navigation>

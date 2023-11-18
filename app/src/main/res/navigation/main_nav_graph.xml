@@ -21,13 +21,5 @@
                 android:id="@+id/action_libraryFragment_to_playerViewFragment"
                 app:destination="@id/playerViewFragment" />
     </fragment>
-    <fragment
-            android:id="@+id/libSongsFragment2"
-            android:name="com.example.muzik.ui.lib_song_fragment.LibSongsFragment"
-            android:label="LibSongsFragment" />
-    <fragment
-            android:id="@+id/libAlbumsFragment2"
-            android:name="com.example.muzik.ui.lib_album_fragment.LibAlbumsFragment"
-            android:label="LibAlbumsFragment" />
 
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.muzik.adapter;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavHostController;
+import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
@@ -19,10 +22,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ListArtistsPreviewAdapter extends RecyclerView.Adapter<ListArtistsPreviewAdapter.ArtistPreviewHolder> {
-    private List<Artist> artists;
+    private final List<Artist> artists;
+    private final NavHostController navHostController;
 
-    public ListArtistsPreviewAdapter(List<Artist> artists) {
+    public ListArtistsPreviewAdapter(List<Artist> artists, NavHostController navHostController) {
         this.artists = artists;
+        this.navHostController = navHostController;
     }
 
     @NonNull
@@ -58,6 +63,21 @@ public class ListArtistsPreviewAdapter extends RecyclerView.Adapter<ListArtistsP
                             }
                         });
             }
+            holder.itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt("artistID", (int) artist.getArtistID());
+                bundle.putString("artistImageURL", artist.getImageURL());
+                bundle.putString("artistName", artist.getName());
+
+                navHostController.navigate(
+                        R.id.artistFragment, bundle, new NavOptions.Builder()
+                                .setEnterAnim(R.anim.slide_in_right)
+                                .setExitAnim(R.anim.slide_out_right)
+                                .setPopEnterAnim(R.anim.slide_in_right)
+                                .setPopExitAnim(R.anim.slide_out_right)
+                                .build()
+                );
+            });
         }
 
     }

@@ -8,7 +8,7 @@
     <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/artist_image"
+            android:id="@+id/center_image_cardview"
             android:layout_weight="1"
             app:srcCompat="@drawable/default_albumart"
             android:scaleType="centerCrop" />

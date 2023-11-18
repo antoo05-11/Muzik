@@ -6,27 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.muzik.R
+import com.example.muzik.databinding.FragmentLibraryBinding
 
 class LibraryFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = LibraryFragment()
-    }
-
     private lateinit var viewModel: LibraryViewModel
+    private lateinit var binding: FragmentLibraryBinding
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
+
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_library, container, false)
+    ): View {
+        viewModel = ViewModelProvider(this)[LibraryViewModel::class.java]
+        binding = FragmentLibraryBinding.inflate(inflater, container, false)
+        return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LibraryViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

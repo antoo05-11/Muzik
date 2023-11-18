@@ -23,6 +23,12 @@ import java.util.List;
 public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPreviewAdapter.SongPreviewHolder> {
     private final List<Song> songsPreviewList;
     private PlayerViewModel playerViewModel;
+    private boolean hasItemIndexTextView = false;
+
+    public ListSongsPreviewAdapter hasItemIndexTextView() {
+        this.hasItemIndexTextView = true;
+        return this;
+    }
 
     public ListSongsPreviewAdapter(List<Song> songsPreviewList) {
         this.songsPreviewList = songsPreviewList;
@@ -69,6 +75,11 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
                             }
                         });
             }
+
+            if (hasItemIndexTextView) {
+                holder.itemIndexTextView.setText(String.valueOf(position + 1));
+            }
+
             holder.itemView.setOnClickListener(v -> {
                 playerViewModel.stop();
                 playerViewModel.setMedia(
@@ -91,6 +102,7 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
         TextView artistNameSongPreviewTextview;
         TextView tvSongName;
         ImageView songImageItem;
+        TextView itemIndexTextView;
 
         public SongPreviewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +112,7 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
             shimmerSongPreviewNameTextView = itemView.findViewById(R.id.shimmer_song_preview_name_textview);
             artistNameSongPreviewTextview = itemView.findViewById(R.id.artist_name_song_preview_textview);
             songImageItem = itemView.findViewById(R.id.song_image_item);
+            itemIndexTextView = itemView.findViewById(R.id.item_index_text_view);
         }
     }
 }

@@ -12,7 +12,8 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:id="@+id/album_preview_linear_layout"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="parent">
 
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="wrap_content"
