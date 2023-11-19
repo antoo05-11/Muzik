@@ -1,16 +1,17 @@
 package com.example.muzik.utils
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
 import android.widget.Toast
 import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.response_model.ResponseModel
+
 
 fun getReadableTime(time: Int): String {
     var s: Int = time / 1000
@@ -81,19 +82,10 @@ fun showNotification(context: Context, content: Any) {
     Toast.makeText(context, content.toString(), Toast.LENGTH_SHORT).show()
 }
 
-fun setRotateAnimation(view: View) {
-    val rotate = RotateAnimation(
-        0f,
-        360f,
-        Animation.RELATIVE_TO_SELF,
-        0.5f,
-        Animation.RELATIVE_TO_SELF,
-        0.5f
-    )
-    rotate.duration = 10000
-    rotate.interpolator = LinearInterpolator()
-    rotate.fillAfter = true
-    rotate.repeatCount = Animation.INFINITE
-
-    view.startAnimation(rotate)
+fun setRotateAnimation(view: View): ObjectAnimator {
+    val anim = ObjectAnimator.ofFloat(view, View.ROTATION, 0f, 360f).setDuration(12000)
+    anim.repeatCount = ValueAnimator.INFINITE
+    anim.interpolator = LinearInterpolator()
+    anim.start()
+    return anim
 }

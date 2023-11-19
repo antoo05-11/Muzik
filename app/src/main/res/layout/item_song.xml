@@ -96,7 +96,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:id="@+id/more_under_song_item_button"
-            android:background="@drawable/more"
+            android:background="@drawable/icon_more"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@id/song_image_cardview_item"
             android:scaleType="centerCrop"

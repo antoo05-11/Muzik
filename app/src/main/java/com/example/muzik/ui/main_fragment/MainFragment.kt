@@ -1,5 +1,8 @@
 package com.example.muzik.ui.main_fragment
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import com.example.muzik.databinding.FragmentMainBinding
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
+import com.example.muzik.utils.PaletteUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -68,6 +72,16 @@ class MainFragment : Fragment() {
                 .into(binding.songImageUnderSongPreview, object : Callback {
                     override fun onSuccess() {
                         binding.shimmerSongImageUnderSongPreview.hideShimmer()
+
+                        val imageBitmap: Bitmap =
+                            (binding.songImageUnderSongPreview.drawable as BitmapDrawable).bitmap
+                        val backgroundDominantColor =
+                            PaletteUtils.getDominantGradient(
+                                imageBitmap,
+                                15.0f,
+                                GradientDrawable.Orientation.TL_BR, null
+                            )
+                        binding.clPreview.background = (backgroundDominantColor)
                     }
 
                     override fun onError(e: Exception?) {

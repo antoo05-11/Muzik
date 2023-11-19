@@ -40,7 +40,7 @@ class PlaylistAlbumFragment : Fragment() {
                     val imageBitmap: Bitmap =
                         (binding.mainPlaylistAlbumImageView.drawable as BitmapDrawable).bitmap
                     val backgroundDominantColor =
-                        PaletteUtils.getDominantGradient(imageBitmap)
+                        PaletteUtils.getDominantGradient(imageBitmap, null, null, "#303030")
                     binding.mainImageContainer.background = (backgroundDominantColor)
                 }
 
@@ -74,7 +74,7 @@ class PlaylistAlbumFragment : Fragment() {
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {
             val adapter = ListSongsPreviewAdapter(it)
-            if(it.size > 1) {
+            if (it.size > 1) {
                 adapter.hasItemIndexTextView()
             }
             if (requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type == PlaylistAlbumViewModel.Type.ALBUM) {

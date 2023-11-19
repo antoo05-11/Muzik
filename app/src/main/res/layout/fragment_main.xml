@@ -112,7 +112,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/imageButton"
-                android:background="@drawable/ic_exo_pause_btn"
+                android:background="@drawable/icon_pause"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginRight="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"

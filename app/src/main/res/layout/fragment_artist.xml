@@ -13,8 +13,8 @@
             android:elevation="4dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
             android:stateListAnimator="@animator/zoom_out_animator" />
 
     <androidx.cardview.widget.CardView
@@ -34,7 +34,7 @@
 
     <TextView
             android:text="Artist Name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/artist_name_textview"
             app:layout_constraintBottom_toBottomOf="@id/center_image_cardview"
@@ -44,7 +44,9 @@
             android:textSize="50sp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="10dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="#1C444444" />
 
     <LinearLayout
             android:orientation="vertical"

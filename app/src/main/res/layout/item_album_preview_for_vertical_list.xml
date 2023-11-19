@@ -41,8 +41,10 @@
             android:layout_height="match_parent"
             app:layout_constraintLeft_toRightOf="@id/shimmer_album_vertical_preview_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="5dp"
-            tools:layout_editor_absoluteY="10dp">
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
@@ -54,6 +56,24 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
                     android:id="@+id/album_vertical_preview_name_tv"
+                    android:background="@drawable/grey_round_corner"
+                    android:textSize="20sp"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:ellipsize="end" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/shimmer_album_meta_data_textview">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:id="@+id/album_meta_data_textview"
                     android:background="@drawable/grey_round_corner"
                     android:textSize="16sp"
                     android:maxLines="2"
