@@ -18,15 +18,23 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPreviewAdapter.SongPreviewHolder> {
     private final List<Song> songsPreviewList;
     private PlayerViewModel playerViewModel;
     private boolean hasItemIndexTextView = false;
+    private boolean hasViewsShowed = false;
 
     public ListSongsPreviewAdapter hasItemIndexTextView() {
         this.hasItemIndexTextView = true;
+        return this;
+    }
+
+    public ListSongsPreviewAdapter hasViewsShowed() {
+        this.hasViewsShowed = true;
         return this;
     }
 
@@ -50,7 +58,12 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
         Song song = songsPreviewList.get(position);
         if (song.getSongID() != -1) {
             holder.tvSongName.setText(song.getName());
-            holder.artistNameSongPreviewTextview.setText(song.getArtistName());
+            if (!hasViewsShowed)
+                holder.artistNameSongPreviewTextview.setText(song.getArtistName());
+            else {
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+                holder.artistNameSongPreviewTextview.setText(numberFormat.format(song.getViews()));
+            }
 
             holder.artistNameSongPreviewTextview.setBackgroundColor(Color.TRANSPARENT);
             holder.tvSongName.setBackgroundColor(Color.TRANSPARENT);

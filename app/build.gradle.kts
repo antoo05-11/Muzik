@@ -46,9 +46,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
-    implementation("androidx.navigation:navigation-fragment:2.7.4")
-    implementation("androidx.navigation:navigation-ui:2.7.4")
-    implementation("androidx.media3:media3-ui:1.1.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    implementation("androidx.media3:media3-ui:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     testImplementation("junit:junit:4.13.2")
@@ -58,11 +58,6 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
-
-//    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
-//    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-//    implementation("com.google.android.exoplayer:extension-mediasession:2.19.1")
-//    implementation("com.google.android.exoplayer:exoplayer-hls:2.19.1")
 
     implementation("io.coil-kt:coil:1.4.0")
 
@@ -77,7 +72,7 @@ dependencies {
 
     // coroutine
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
@@ -86,11 +81,14 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
 
     //exoplayer
-    implementation("androidx.media3:media3-exoplayer:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
-    implementation("androidx.media3:media3-ui:1.1.1")
-    implementation("androidx.media3:media3-exoplayer-hls:1.1.1")
+    implementation("androidx.media3:media3-exoplayer:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+    implementation("androidx.media3:media3-ui:1.2.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
 
     //skeleton
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    //palette
+    implementation("androidx.palette:palette-ktx:1.0.0")
 }

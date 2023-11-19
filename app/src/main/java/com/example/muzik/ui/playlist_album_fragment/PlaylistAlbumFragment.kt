@@ -1,5 +1,7 @@
 package com.example.muzik.ui.playlist_album_fragment
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +14,17 @@ import com.example.muzik.adapter.ListSongsPreviewAdapter
 import com.example.muzik.databinding.FragmentPlaylistAlbumBinding
 import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.example.muzik.utils.PaletteUtils
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
 class PlaylistAlbumFragment : Fragment() {
-
     private lateinit var viewModel: PlaylistAlbumViewModel
     private lateinit var binding: FragmentPlaylistAlbumBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
@@ -31,7 +35,18 @@ class PlaylistAlbumFragment : Fragment() {
             )
         }
         Picasso.get().load(requireArguments().getString("playlistAlbumImageURL"))
-            .into(binding.mainPlaylistAlbumImageView)
+            .into(binding.mainPlaylistAlbumImageView, object : Callback {
+                override fun onSuccess() {
+                    val imageBitmap: Bitmap =
+                        (binding.mainPlaylistAlbumImageView.drawable as BitmapDrawable).bitmap
+                    val backgroundDominantColor =
+                        PaletteUtils.getDominantGradient(imageBitmap)
+                    binding.mainImageContainer.background = (backgroundDominantColor)
+                }
+
+                override fun onError(e: Exception?) {
+                }
+            })
     }
 
     override fun onCreateView(
@@ -58,9 +73,23 @@ class PlaylistAlbumFragment : Fragment() {
         }
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView()
+            val adapter = ListSongsPreviewAdapter(it)
+            if(it.size > 1) {
+                adapter.hasItemIndexTextView()
+            }
+            if (requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type == PlaylistAlbumViewModel.Type.ALBUM) {
+                adapter.hasViewsShowed()
+            }
             adapter.setPlayerViewModel(playerViewModel)
             binding.rcvSongsInsidePlaylistAlbumView.adapter = adapter
+
+            binding.playlistAlbumNameTextview.text =
+                requireArguments().getString("playlistAlbumName")
+            binding.artistsListTextview.text = requireArguments().getString("albumArtistName")
+
+            for (song in it) {
+                song.artistName = requireArguments().getString("albumArtistName")
+            }
         }
 
         return binding.root

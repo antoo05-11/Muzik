@@ -14,9 +14,10 @@ public class Song implements ResponseModel {
     private String imageURL;
     private Integer albumID;
     private String songURL;
+    private int views;
 
     public Song(boolean isNewSample) {
-        if(isNewSample) songID = -1;
+        if (isNewSample) songID = -1;
     }
 
     public Song(int songID, Uri uri, String name, Integer duration, Integer size, String album, String artistName, Long artistID, String imageURL, Integer albumID) {
@@ -115,5 +116,17 @@ public class Song implements ResponseModel {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public void setSongURL(String songURL) {
+        this.songURL = songURL;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 }

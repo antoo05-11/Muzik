@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.response_model.Song
 import com.example.muzik.ui.main_activity.MainActivity
-import com.example.muzik.utils.showNotification
 
 class PlaylistAlbumViewModel : ViewModel() {
     private val _playlistAlbumsList: MutableLiveData<List<Song>> = MutableLiveData()
@@ -19,11 +18,5 @@ class PlaylistAlbumViewModel : ViewModel() {
             _playlistAlbumsList.value = MainActivity.muzikAPI.getPlaylist(playlistAlbumID).body()
         else
             _playlistAlbumsList.value = MainActivity.muzikAPI.getAlbum(playlistAlbumID).body()
-        if (_playlistAlbumsList.value != null) {
-            for (item in _playlistAlbumsList.value!!) {
-                showNotification(context, "Item: $item")
-
-            }
-        }
     }
 }

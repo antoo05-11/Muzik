@@ -55,6 +55,7 @@ public class ListAlbumsHorizontalPreviewAdapter extends RecyclerView.Adapter<Lis
                 bundle.putInt("playlistAlbumID", (int) album.getAlbumID());
                 bundle.putString("playlistAlbumImageURL", album.getImageURL());
                 bundle.putString("playlistAlbumName", album.getName());
+                bundle.putString("albumArtistName", album.getArtistName());
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);
                 navHostController.navigate(
                         R.id.playlistAlbumFragment, bundle, new NavOptions.Builder()

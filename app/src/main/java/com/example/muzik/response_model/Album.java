@@ -12,10 +12,12 @@ public class Album implements ResponseModel {
     private long artistID;
     private String albumArtist;
 
+    private String artistName;
+
     private List<Song> songs;
 
     public Album(boolean isNewSample) {
-       if(isNewSample) albumID = -1;
+        if (isNewSample) albumID = -1;
     }
 
     public Album(long albumID, String name, String albumArtist, Uri albumArtURI, List<Song> songs) {
@@ -83,5 +85,17 @@ public class Album implements ResponseModel {
 
     public void setAlbumArtURI(Uri albumArtURI) {
         this.albumArtURI = albumArtURI;
+    }
+
+    public void setAlbumArtist(String albumArtist) {
+        this.albumArtist = albumArtist;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }
