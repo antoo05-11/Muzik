@@ -120,6 +120,10 @@ class PlayerViewFragment : Fragment() {
             )
         )
 
+        // TODO: Navigate to artist fragment of main fragment.
+        binding.tvArtistName.setOnClickListener {
+            navController.navigate(R.id.libraryFragment)
+        }
 
         return binding.root
     }

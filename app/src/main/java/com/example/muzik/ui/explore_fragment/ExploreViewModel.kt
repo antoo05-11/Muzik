@@ -1,6 +1,6 @@
 package com.example.muzik.ui.explore_fragment
 
-import android.content.Context
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,7 @@ import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Playlist
 import com.example.muzik.response_model.Song
 import com.example.muzik.ui.main_activity.MainActivity
+import kotlinx.coroutines.launch
 
 class ExploreViewModel : ViewModel() {
     private var _topPlaylistsList = MutableLiveData<List<Playlist>>()
@@ -32,24 +33,26 @@ class ExploreViewModel : ViewModel() {
         fetched.value = false
     }
 
-    suspend fun fetchData(context: Context) {
-        try {
+    fun fetchData(lifecycleCoroutineScope: LifecycleCoroutineScope) {
+        lifecycleCoroutineScope.launch {
             val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
             _topPlaylistsList.value = topPlaylistsRes.body()
-
+        }
+        lifecycleCoroutineScope.launch {
             val topSongsRes = MainActivity.muzikAPI.getYourTopSongs()
             _topSongsList.value = topSongsRes.body()
-
+        }
+        lifecycleCoroutineScope.launch {
             val listenAgainPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
             _listenAgainPlaylistsList.value = listenAgainPlaylistsRes.body()
-
+        }
+        lifecycleCoroutineScope.launch {
             val yourArtistsListRes = MainActivity.muzikAPI.getYourArtists()
             _yourArtistsList.value = yourArtistsListRes.body()
-
+        }
+        lifecycleCoroutineScope.launch {
             val recentAlbumsListRes = MainActivity.muzikAPI.getRecentAlbums()
             _recentAlbumsList.value = recentAlbumsListRes.body()
-        } catch (_: Exception) {
-
         }
     }
 }

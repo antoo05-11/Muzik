@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.response_model.ResponseModel
 
-
 fun getReadableTime(time: Int): String {
     var s: Int = time / 1000
     val m = s / 60
@@ -44,7 +43,6 @@ fun addDecorationForVerticalRcv(rcvList: List<RecyclerView>, activity: Activity)
         addDecorationForVerticalRcv(it, activity)
     }
 }
-
 
 fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : ResponseModel> addSampleForRcv(
     rcv: RecyclerView,

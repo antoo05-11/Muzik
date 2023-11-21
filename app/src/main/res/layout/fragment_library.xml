@@ -4,17 +4,56 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.library_fragment.LibraryFragment"
-        android:id="@+id/frameLayout">
+        tools:context=".ui.library_fragment.LibraryFragment" >
 
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="tesst"
-            android:id="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/option_linear_layout">
+
+        <Button
+                android:text="Playlists"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/grey_round_corner"
+                android:id="@+id/your_playlists_button"
+                android:layout_marginRight="20dp"
+                android:stateListAnimator="@animator/zoom_out_animator" />
+
+        <Button
+                android:text="Artists"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/grey_round_corner"
+                android:id="@+id/your_artist_button"
+                android:stateListAnimator="@animator/zoom_out_animator" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/option_linear_layout"
+            android:layout_marginTop="20dp"
+            android:id="@+id/your_playlists_rcv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/your_playlists_rcv"
+            android:layout_marginTop="20dp"
+            android:id="@+id/your_artists_rcv" />
+
+    <include
+            layout="@layout/item_playlist_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/your_artists_rcv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

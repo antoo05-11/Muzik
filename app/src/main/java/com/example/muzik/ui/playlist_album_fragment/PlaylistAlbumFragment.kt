@@ -73,14 +73,13 @@ class PlaylistAlbumFragment : Fragment() {
         }
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it)
+            val adapter = ListSongsPreviewAdapter(it).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
             if (it.size > 1) {
                 adapter.hasItemIndexTextView()
             }
             if (requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type == PlaylistAlbumViewModel.Type.ALBUM) {
                 adapter.hasViewsShowed()
             }
-            adapter.setPlayerViewModel(playerViewModel)
             binding.rcvSongsInsidePlaylistAlbumView.adapter = adapter
 
             binding.playlistAlbumNameTextview.text =

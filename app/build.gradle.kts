@@ -62,33 +62,34 @@ dependencies {
     implementation("io.coil-kt:coil:1.4.0")
 
 
-    // retrofit
-
+    //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // GSON
-
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // coroutine
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
     //Load image
     implementation("io.coil-kt:coil:2.3.0")
     implementation("com.squareup.picasso:picasso:2.71828")
 
-    //exoplayer
+    //Exoplayer
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
     implementation("androidx.media3:media3-ui:1.2.0")
     implementation("androidx.media3:media3-exoplayer-hls:1.2.0")
 
-    //skeleton
+    //Skeleton
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
-    //palette
+    //Palette
     implementation("androidx.palette:palette-ktx:1.0.0")
+
+    //Loading lottie gif.
+    implementation("com.airbnb.android:lottie:3.4.0")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -71,9 +71,9 @@ class ArtistFragment : Fragment() {
         )
 
         viewModel.artistSongs.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView().hasViewsShowed()
+            val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView().setFragmentOwner(this)
+                .hasViewsShowed().setPlayerViewModel(playerViewModel)
             for (song in it) song.artistName = requireArguments().getString("artistName")
-            adapter.setPlayerViewModel(playerViewModel)
             binding.rcvArtistPopularSongs.adapter = adapter
         }
 

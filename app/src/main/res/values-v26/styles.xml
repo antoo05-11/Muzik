@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="collectionName" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">#D8FFFFFF</item>
         <item name="android:textSize">22sp</item>
         <item name="android:paddingLeft">9dp</item>
         <item name="android:textStyle">bold</item>
@@ -27,6 +27,16 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+
+        <item name="android:color">@color/white</item>
+    </style>
+
+    <style name="ToolbarTextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
 </resources>

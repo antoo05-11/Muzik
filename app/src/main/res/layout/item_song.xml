@@ -55,24 +55,31 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/shimmer_song_preview_name_textview"
-                android:layout_marginBottom="5dp">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/song_name_linear_layout">
 
-            <TextView
-                    android:id="@+id/song_preview_name_textview"
+            <com.facebook.shimmer.ShimmerFrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true"
-                    android:background="@drawable/grey_round_corner" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
+                    android:id="@+id/shimmer_song_preview_name_textview">
+
+                <TextView
+                        android:id="@+id/song_preview_name_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true"
+                        android:background="@drawable/grey_round_corner" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </LinearLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
@@ -103,6 +110,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.94"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:stateListAnimator="@animator/zoom_out_animator" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

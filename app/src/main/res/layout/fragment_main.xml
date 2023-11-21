@@ -3,7 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
 
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -12,6 +13,7 @@
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
             android:id="@+id/toolbar"
+            app:titleTextAppearance="@style/ToolbarTextAppearance"
             tools:ignore="MissingConstraints" />
 
     <fragment
@@ -27,15 +29,19 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/bottom_nav_view"
-            app:menu="@menu/bottom_nav_menu" />
+            app:menu="@menu/bottom_nav_menu"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:labelVisibilityMode="labeled"
+            android:isScrollContainer="true"
+            app:itemIconSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clPreview"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +108,9 @@
                 android:layout_height="2dp"
                 android:background="#595959"
                 android:progressBackgroundTint="#FFFFFF"
+                android:thumbTint="@color/white"
+                android:thumb="@drawable/custom_thumb"
+                android:progressTint="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="8dp"
@@ -111,13 +120,14 @@
         <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/imageButton"
+                android:id="@+id/preview_playing_state_button"
                 android:background="@drawable/icon_pause"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:stateListAnimator="@animator/zoom_out_animator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

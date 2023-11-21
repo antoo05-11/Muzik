@@ -35,11 +35,6 @@ class MainFragment : Fragment() {
 
     private lateinit var searchViewModel: SearchViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,7 +43,6 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater)
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
-
 
         val mainFragmentNavHostFragment =
             childFragmentManager.findFragmentById(R.id.fragment_lib_nav) as NavHostFragment
@@ -63,6 +57,17 @@ class MainFragment : Fragment() {
                 mainFragmentNavController.navigate(R.id.navigation_search)
                 searchViewModel.opened.value = false
             }
+        }
+
+        playerViewModel.playingMutableLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.previewPlayingStateButton.setBackgroundResource(R.drawable.icon_pause)
+            } else {
+                binding.previewPlayingStateButton.setBackgroundResource(R.drawable.icon_play)
+            }
+        }
+        binding.previewPlayingStateButton.setOnClickListener {
+            playerViewModel.playPause()
         }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
