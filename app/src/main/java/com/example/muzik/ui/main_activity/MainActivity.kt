@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         artistViewModel = ArtistViewModel(this)[ArtistViewModel::class.java]
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
+
         val player = ExoPlayer.Builder(this).build()
         playerViewModel.exoPlayerMutableLiveData.value = player
         playerViewModel.addListener()
