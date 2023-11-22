@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MUZIK"
-        android:fontFamily="sans-serif-condensed"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="50sp"
-        android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -30,14 +20,14 @@
             android:layout_gravity="center_horizontal"
 
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="20dp">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:id="@+id/signin"
+                android:text="Sign Up"
+                android:id="@+id/signup"
                 android:textAlignment="center"
                 android:textSize="50sp"
                 android:textStyle="bold" />
@@ -47,13 +37,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="50dp"
-                android:id="@+id/username"
+                android:id="@+id/fullname"
                 android:drawableLeft="@drawable/baseline_person_24"
-                android:hint="Username"
-                android:inputType="textEmailSubject||textPhonetic"
+                android:hint="Your Fullname"
+                android:inputType="textEmailSubject"
                 android:padding="18dp"
                 android:textSize="20sp" />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/email"
+                android:drawableLeft="@drawable/baseline_mail_24"
+                android:hint="Your Email"
+                android:inputType="textEmailSubject"
+                android:padding="18dp"
+                android:textSize="20sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/phone"
+                android:drawableLeft="@drawable/baseline_contact_phone_24"
+                android:hint="Your Phone Number"
+                android:inputType="phone"
+                android:padding="18dp"
+                android:textSize="20sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/birthdate"
+                android:drawableLeft="@drawable/baseline_date_range_24"
+                android:hint="Date of birth (dd/mm/yyyy)"
+                android:inputType="date"
+                android:padding="18dp"
+                android:textSize="20sp" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -64,21 +84,15 @@
                 android:inputType="textPassword"
                 android:padding="18dp"
                 android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/forgotpass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot password?"
-                android:layout_gravity="right"/>
-
-            <Button
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:id="@+id/loginbtn"
-                android:padding="20dp"
-                android:text="Sign in"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/confirmPass"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:padding="18dp"
                 android:textSize="20sp" />
             <Button
                 android:layout_width="300dp"
