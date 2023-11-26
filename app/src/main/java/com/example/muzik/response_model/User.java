@@ -1,13 +1,32 @@
 package com.example.muzik.response_model;
 
+import android.provider.ContactsContract;
+
+import java.util.Date;
+
 public class User implements ResponseModel {
     private long userID;
     private String name;
     private String email;
     private String password;
+    private Date dateOfBirth;
+    private Integer phoneNumber;
 
     public User(boolean isNewSample) {
         if(isNewSample) userID = -1;
+    }
+
+    public User (String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(long userID, String name, String email, Integer phoneNumber, Date dateOfBirth) {
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber= phoneNumber;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public User(long userID, String name, String email, String password) {
@@ -47,5 +66,21 @@ public class User implements ResponseModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -64,6 +64,7 @@ dependencies {
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // GSON
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -88,8 +89,17 @@ dependencies {
     //Palette
     implementation("androidx.palette:palette-ktx:1.0.0")
 
+    //token
+    implementation ("io.jsonwebtoken:jjwt-api:0.12.3")
+    implementation ("io.jsonwebtoken:jjwt-impl:0.12.3")
+    implementation ("io.jsonwebtoken:jjwt-jackson:0.12.3")
+    implementation ("com.auth0.android:jwtdecode:2.0.2")
+
+
     //Loading lottie gif.
     implementation("com.airbnb.android:lottie:3.4.0")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 }

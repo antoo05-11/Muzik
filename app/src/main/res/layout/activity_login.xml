@@ -50,7 +50,7 @@
                 android:id="@+id/username"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:hint="Username"
-                android:inputType="textEmailSubject||textPhonetic"
+                android:inputType="textEmailSubject"
                 android:padding="18dp"
                 android:textSize="20sp" />
 
