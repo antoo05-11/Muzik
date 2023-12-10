@@ -48,7 +48,6 @@ class PlayerViewModel : ViewModel() {
             playerViewModel.currentTimeMutableLiveData.value = progressValue
             playerViewModel.player.seekTo(seekBar.progress.toLong())
         }
-
     }
 
     val player get() = exoPlayerMutableLiveData.value!!

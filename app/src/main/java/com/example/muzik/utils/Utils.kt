@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.response_model.ResponseModel
+import java.io.Serializable
 
 fun getReadableTime(time: Int): String {
     var s: Int = time / 1000
@@ -86,4 +88,8 @@ fun setRotateAnimation(view: View): ObjectAnimator {
     anim.interpolator = LinearInterpolator()
     anim.start()
     return anim
+}
+
+fun <T: Serializable> printLogcat(string: T) {
+    Log.d("app-debug", string.toString())
 }

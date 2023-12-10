@@ -86,8 +86,6 @@ class PlayerViewFragment : Fragment() {
             if (it.imageURL.isNotEmpty())
                 Picasso.get()
                     .load(it.imageURL)
-                    .fit()
-                    .centerInside()
                     .into(binding.activityTrackImage, object : Callback {
                         override fun onSuccess() {
                             binding.root.background = PaletteUtils.getDominantGradient(

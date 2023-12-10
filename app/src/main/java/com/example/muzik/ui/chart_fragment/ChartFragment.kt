@@ -1,5 +1,6 @@
 package com.example.muzik.ui.chart_fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +14,39 @@ import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
+import com.example.muzik.utils.printLogcat
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import kotlinx.coroutines.launch
 
+
+val lineChartColors =
+    listOf(
+        Color.parseColor("#3877f9"),
+        Color.parseColor("#02d59a"),
+        Color.parseColor("#e56a34")
+    )
 
 class ChartFragment : Fragment() {
     private lateinit var viewModel: ChartViewModel
     private lateinit var binding: FragmentChartBinding
+    private lateinit var chartView: LineChart
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             viewModel.fetchData()
+        }
+        lifecycleScope.launch {
+            viewModel.fetchChartViewData()
         }
     }
 
@@ -50,28 +70,82 @@ class ChartFragment : Fragment() {
             binding.rcvChartSongsList.adapter = adapter
         }
 
-        var dataObjects = mutableListOf(Pair(1, 2), Pair(4, 6), Pair(10, 24))
-        var entries = ArrayList<Entry>();
-        for (data in dataObjects) {
-            entries.add(Entry(data.first.toFloat(), data.second.toFloat()));
+
+        chartView = binding.chart
+
+        val yAxisRight: YAxis = chartView.axisRight
+        val yAxisLeft: YAxis = chartView.axisLeft
+        val xAxis: XAxis = chartView.xAxis
+        val l: Legend = chartView.legend
+
+        yAxisLeft.isEnabled = false
+        yAxisRight.isEnabled = false
+        xAxis.textColor = Color.WHITE
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.setLabelCount(10, true)
+        yAxisLeft.setDrawGridLines(false)
+        yAxisRight.setDrawGridLines(false)
+        l.isEnabled = false
+        chartView.description = Description()
+        chartView.description.text = ""
+        chartView.isDoubleTapToZoomEnabled = false
+
+        chartView.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(e: Entry, h: Highlight) {
+                val x = e.x
+                val y = e.y
+            }
+
+            override fun onNothingSelected() {}
+        })
+
+        viewModel.chart.observe(viewLifecycleOwner) {
+            val dataSets = ArrayList<ILineDataSet>()
+            for (i in 0..2) {
+                val songWithView = it[i]
+                val dataObjects = mutableListOf<Pair<Int, Int>>()
+                songWithView.songViews.sort()
+                for (j in 0..9) {
+                    printLogcat(songWithView.songViews[j].date.date)
+                    dataObjects.add(
+                        Pair(
+                            (songWithView.songViews[j].date.date),
+                            songWithView.songViews[j].views
+                        )
+                    )
+                }
+                val entries = ArrayList<Entry>()
+                for (data in dataObjects) {
+                    entries.add(
+                        Entry(
+                            data.first.toFloat(),
+                            data.second.toFloat()
+                        )
+                    )
+                }
+                val dataSet = LineDataSet(entries, songWithView.song.name)
+                dataSet.color = lineChartColors[i]
+                dataSet.setDrawHorizontalHighlightIndicator(false)
+                dataSet.setDrawVerticalHighlightIndicator(false)
+                dataSets.add(dataSet)
+            }
+
+            val lineData = LineData(dataSets)
+            lineData.setDrawValues(false)
+            chartView.data = lineData
+            chartView.invalidate()
         }
 
-        val chart = binding.chart
-
-        val dataSet1 = LineDataSet(entries, "")
-        dataObjects = mutableListOf(Pair(7, 10), Pair(10, 8), Pair(14, 44))
-        entries = ArrayList();
-        for (data in dataObjects) {
-            entries.add(Entry(data.first.toFloat(), data.second.toFloat()));
-        }
-
-        val dataSet2 = LineDataSet(entries, "DataSet2")
-        val dataSets = ArrayList<ILineDataSet>()
-        dataSets.add(dataSet1)
-        dataSets.add(dataSet2)
-        val lineData = LineData(dataSets)
-
-        chart.data = lineData
         return binding.root
+    }
+
+    private fun resetChart() {
+        chartView.fitScreen()
+        chartView.data?.clearValues()
+        chartView.xAxis.valueFormatter = null
+        chartView.notifyDataSetChanged()
+        chartView.clear()
+        chartView.invalidate()
     }
 }
