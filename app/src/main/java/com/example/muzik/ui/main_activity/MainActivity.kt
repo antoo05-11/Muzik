@@ -1,7 +1,12 @@
 package com.example.muzik.ui.main_activity
 
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -19,6 +24,8 @@ import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
+import me.danhpb.danhpbexoplayer.exoplayer.MusicService
+import me.danhpb.danhpbexoplayer.exoplayer.local.LocalMusicRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +46,24 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
+        var musicService: MusicService? = null
+    }
+
+    private var isServiceConnected = false
+
+    private val serviceConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as MusicService.MyBinder
+            musicService = binder.getService()
+            isServiceConnected = true
+            musicService?.setSong(LocalMusicRepository.getSongs()[129])
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            musicService = null
+            isServiceConnected = false
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,22 +81,27 @@ class MainActivity : AppCompatActivity() {
         playerViewModel.exoPlayerMutableLiveData.value = player
         playerViewModel.addListener()
 
+        val mainNavHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
+        mainNavController = mainNavHostFragment.navController
+
         val storagePermissionLauncher =
             registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
             ) { isGranted: Boolean ->
                 if (isGranted) {
-                    songViewModel.fetchSong(this)
+                    LocalMusicRepository.fetchSong(applicationContext)
                 } else {
-                    Log.d("ActivityMain", "Failure")
                 }
             }
 
         storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        val mainNavHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
-        mainNavController = mainNavHostFragment.navController
+        //connect service
+        val intent = Intent(this, MusicService::class.java)
+        startService(intent)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+
         setContentView(binding.root)
     }
 
