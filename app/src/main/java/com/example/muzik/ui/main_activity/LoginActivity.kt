@@ -12,7 +12,7 @@ package com.example.muzik.ui.main_activity
  import android.widget.TextView
  import android.widget.Toast
  import androidx.appcompat.app.AppCompatActivity
- import com.auth0.android.jwt.JWT
+// import com.auth0.android.jwt.JWT
  import com.example.muzik.R
  import com.example.muzik.api_controller.MuzikAPI
  import com.example.muzik.api_controller.RetrofitHelper
@@ -44,7 +44,7 @@ class LoginActivity: AppCompatActivity() {
         val et_username: EditText = findViewById(R.id.username)
         val et_password: EditText = findViewById(R.id.password)
         val loginBtn: Button = findViewById(R.id.loginbtn)
-        val signUpBtn: Button = findViewById(R.id.signupbtn)
+        val signUpBtn: Button = findViewById(R.id.signupbtn1)
 
         Log.i(tag, "oncreate")
         loginBtn.setOnClickListener {
@@ -56,7 +56,7 @@ class LoginActivity: AppCompatActivity() {
                 return@setOnClickListener
             }
             Log.i(tag, "onclickLoginBtn")
-
+            println(username)
             performLogin(username, password)
 //            Toast.makeText(this@LoginActivity, username, Toast.LENGTH_LONG).show()
         }
@@ -96,6 +96,18 @@ class LoginActivity: AppCompatActivity() {
                     response: Response<LoginResponse>
                 ) {
                     Log.i(tag, "onResponse")
+                    println(response.body())
+//                    val accessToken = response.body()?.accessToken
+//                    Log.i(tag, "val accessToken")
+//
+//                    if (accessToken != null) {
+//                        SharedPrefManager.getInstance(this@LoginActivity).saveAccessToken(accessToken)
+//                    }
+//                    val intent = Intent(applicationContext, MainActivity::class.java)
+//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//
+//                    startActivity(intent)
+
                     if(!response.body()?.error!!){
 
                         Log.i(tag, "!response.body()?.error!!")
@@ -103,15 +115,19 @@ class LoginActivity: AppCompatActivity() {
                         if (accessToken != null) {
                             SharedPrefManager.getInstance(this@LoginActivity).saveAccessToken(accessToken)
                         }
-                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
+//                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
 
-                        val intent = Intent(applicationContext, ProfileActivity::class.java)
+                        val intent = Intent(applicationContext, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                         startActivity(intent)
 
 
                     }else{
+                        val intent = Intent(applicationContext, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                        startActivity(intent)
                         Toast.makeText(applicationContext, response.body()?.message, Toast.LENGTH_LONG).show()
 
                     }

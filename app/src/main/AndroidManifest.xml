@@ -20,7 +20,17 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Muzik"
-            tools:targetApi="31">
+            tools:targetApi="31"
+            android:usesCleartextTraffic="true"
+        >
+        <activity
+            android:name=".ui.main_activity.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".ui.main_activity.MainActivity"
                 android:exported="true"
@@ -32,22 +42,15 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name=".ui.main_activity.LoginActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
-        <!--        <activity android:name=".ui.main_activity.LoginActivity"-->
-        <!--            android:exported="true">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.LOGIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+
+<!--                <activity android:name=".ui.main_activity.LoginActivity"-->
+<!--                    android:exported="true">-->
+<!--                    <intent-filter>-->
+<!--                        <action android:name="android.intent.action.LOGIN" />-->
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                    </intent-filter>-->
+<!--                </activity>-->
         <activity
                 android:name=".ui.main_activity.SignUpActivity"
                 android:exported="true">

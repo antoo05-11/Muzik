@@ -1,10 +1,10 @@
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.auth0.android.jwt.JWT
 import com.example.muzik.response_model.User
 import io.jsonwebtoken.Claims
 import java.util.Date
-
 class SharedPrefManager private constructor(private val mCtx: Context) {
 
     companion object {
@@ -17,6 +17,7 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         private const val KEY_USER_DATE_OF_BIRTH = "user_dateOfBirth"
 
 
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var mInstance: SharedPrefManager? = null
 
