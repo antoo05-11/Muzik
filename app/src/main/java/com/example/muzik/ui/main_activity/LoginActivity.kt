@@ -17,6 +17,7 @@ package com.example.muzik.ui.main_activity
  import com.example.muzik.api_controller.MuzikAPI
  import com.example.muzik.api_controller.RetrofitHelper
  import com.example.muzik.databinding.ActivityLoginBinding
+ import com.example.muzik.response_model.LoginRequest
  import com.example.muzik.response_model.LoginResponse
  import com.example.muzik.response_model.User
 // import com.example.muzik.storage.SharedPrefManager
@@ -56,8 +57,8 @@ class LoginActivity: AppCompatActivity() {
                 return@setOnClickListener
             }
             Log.i(tag, "onclickLoginBtn")
-            println(username)
-            performLogin(username, password)
+            val loginRequest = LoginRequest(username = username, password = password)
+            performLogin(loginRequest)
 //            Toast.makeText(this@LoginActivity, username, Toast.LENGTH_LONG).show()
         }
 
@@ -82,8 +83,8 @@ class LoginActivity: AppCompatActivity() {
         }
     }
 
-    private fun performLogin(username: String, password: String) {
-        RetrofitHelper.getInstance().create(MuzikAPI::class.java).userLogin(username, password)
+    private fun performLogin(loginRequest: LoginRequest) {
+        RetrofitHelper.getInstance().create(MuzikAPI::class.java).userLogin(loginRequest = loginRequest)
             .enqueue(object: Callback<LoginResponse>{
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
