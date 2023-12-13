@@ -3,6 +3,7 @@ package com.example.muzik.api_controller
 import com.example.muzik.response_model.Album
 import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Chart
+import com.example.muzik.response_model.LoginRequest
 import com.example.muzik.response_model.LoginResponse
 import com.example.muzik.response_model.Playlist
 import com.example.muzik.response_model.SignUpResponse
@@ -10,6 +11,7 @@ import com.example.muzik.response_model.Song
 import com.example.muzik.response_model.User
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -63,11 +65,9 @@ interface MuzikAPI {
     @GET("/api/song/chart")
     suspend fun getSongCharts(): Response<List<Chart.SongWithView>>
 
-    @FormUrlEncoded
     @POST("/api/auth/login")
     fun userLogin(
-        @Field("email") email:String,
-        @Field("password") password: String
+        @Body loginRequest: LoginRequest
     ):Call<LoginResponse>
 
     @FormUrlEncoded
