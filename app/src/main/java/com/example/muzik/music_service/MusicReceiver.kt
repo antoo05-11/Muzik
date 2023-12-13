@@ -1,4 +1,4 @@
-package me.danhpb.danhpbexoplayer.exoplayer
+package com.example.muzik.music_service
 
 import android.content.BroadcastReceiver
 import android.content.Context

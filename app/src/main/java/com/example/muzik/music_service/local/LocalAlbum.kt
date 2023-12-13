@@ -1,9 +1,9 @@
-package me.danhpb.danhpbexoplayer.exoplayer.local
+package com.example.muzik.music_service.local
 
 import android.net.Uri
-import me.danhpb.danhpbexoplayer.exoplayer.model.Album
-import me.danhpb.danhpbexoplayer.exoplayer.model.Artist
-import me.danhpb.danhpbexoplayer.exoplayer.model.Song
+import com.example.muzik.music_service.model.Album
+import com.example.muzik.music_service.model.Artist
+import com.example.muzik.music_service.model.Song
 
 class LocalAlbum(
     val albumId: Long,

@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="80dp">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:clickable="true"
+        android:stateListAnimator="@animator/zoom_out_animator">
 
-    <ImageView
-        android:id="@+id/playlist_image_item"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_song_image"
-        tools:ignore="ContentDescription" />
+    <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_view_playlist_image_item"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:cardCornerRadius="10dp">
+
+        <ImageView
+                android:id="@+id/playlist_image_item"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+    </androidx.cardview.widget.CardView>
+
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/song_image_item"
-        app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/card_view_playlist_image_item"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvPlaylistsName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Playlist"
-            android:textSize="18dp" />
+                android:id="@+id/tvPlaylistsName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Playlist"
+                android:textSize="18dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Playlist" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Playlist" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

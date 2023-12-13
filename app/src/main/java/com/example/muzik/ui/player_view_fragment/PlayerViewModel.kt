@@ -9,6 +9,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.response_model.Song
+import com.example.muzik.ui.main_activity.MainActivity.Companion.musicService
 
 class PlayerViewModel : ViewModel() {
 
@@ -28,7 +29,6 @@ class PlayerViewModel : ViewModel() {
         private set
 
     init {
-        updateCurrentProgress()
         isSelectedMutableLiveData.value = false
     }
 
@@ -59,6 +59,7 @@ class PlayerViewModel : ViewModel() {
     fun setSong(song: Song) {
         isSelectedMutableLiveData.value = true
         songMutableLiveData.value = song
+        musicService!!.setSong(song)
     }
 
     fun addListener() {

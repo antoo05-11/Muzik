@@ -1,4 +1,4 @@
-package me.danhpb.danhpbexoplayer.exoplayer.model
+package com.example.muzik.music_service.model
 
 abstract class Playlist {
 }

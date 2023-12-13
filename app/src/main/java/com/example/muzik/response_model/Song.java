@@ -2,13 +2,14 @@ package com.example.muzik.response_model;
 
 import android.net.Uri;
 
-public class Song implements ResponseModel {
+import androidx.annotation.Nullable;
+
+import com.example.muzik.music_service.model.Album;
+import com.example.muzik.music_service.model.Artist;
+
+public class Song extends com.example.muzik.music_service.model.Song implements ResponseModel {
     private int songID;
-    private Uri uri;
-    private String name;
-    private Integer duration;
     private Integer size;
-    private String album;
     private String artistName;
     private Long artistID;
     private String imageURL;
@@ -17,20 +18,8 @@ public class Song implements ResponseModel {
     private int views;
 
     public Song(boolean isNewSample) {
+        super(null, null, null);
         if (isNewSample) songID = -1;
-    }
-
-    public Song(int songID, Uri uri, String name, Integer duration, Integer size, String album, String artistName, Long artistID, String imageURL, Integer albumID) {
-        this.songID = songID;
-        this.name = name;
-        this.uri = uri;
-        this.duration = duration;
-        this.size = size;
-        this.album = album;
-        this.artistName = artistName;
-        this.artistID = artistID;
-        this.imageURL = imageURL;
-        this.albumID = albumID;
     }
 
     public String getSongURL() {
@@ -45,30 +34,6 @@ public class Song implements ResponseModel {
         this.songID = songID;
     }
 
-    public Uri getUri() {
-        return uri;
-    }
-
-    public void setUri(Uri uri) {
-        this.uri = uri;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
     public Integer getSize() {
         return size;
     }
@@ -76,15 +41,6 @@ public class Song implements ResponseModel {
     public void setSize(Integer size) {
         this.size = size;
     }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
 
     public Long getArtistID() {
         return artistID;
@@ -114,6 +70,7 @@ public class Song implements ResponseModel {
         return artistName;
     }
 
+
     public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
@@ -128,5 +85,23 @@ public class Song implements ResponseModel {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    @Nullable
+    @Override
+    public Artist getArtist() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Uri getImg() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Album getAlbum() {
+        return null;
     }
 }

@@ -1,9 +1,9 @@
-package me.danhpb.danhpbexoplayer.exoplayer.local
+package com.example.muzik.music_service.local
 
 import android.net.Uri
-import me.danhpb.danhpbexoplayer.exoplayer.model.Album
-import me.danhpb.danhpbexoplayer.exoplayer.model.Artist
-import me.danhpb.danhpbexoplayer.exoplayer.model.Song
+import com.example.muzik.music_service.model.Album
+import com.example.muzik.music_service.model.Artist
+import com.example.muzik.music_service.model.Song
 
 class LocalSong(
     val songID: Long,
@@ -11,14 +11,14 @@ class LocalSong(
     name: String,
     duration: Int,
     val size: Int,
-    val albumId: Long,
-    val artistId: Long): Song(uri, name, duration){
+    private val albumId: Long,
+    private val artistId: Long): Song(uri, name, duration){
     override fun getArtist(): Artist {
-        return LocalMusicRepository.getArtist(artistId) ?: LocalArtist(-1, "Unknow")
+        return LocalMusicRepository.getArtist(artistId) ?: LocalArtist(-1, "Unknown")
     }
 
     override fun getAlbum(): Album {
-        return LocalMusicRepository.getAlbum(albumId) ?: LocalAlbum(-1, "Unknow", Uri.parse("default"), -1)
+        return LocalMusicRepository.getAlbum(albumId) ?: LocalAlbum(-1, "Unknown", Uri.parse("default"), -1)
     }
 
     override fun getImg(): Uri {

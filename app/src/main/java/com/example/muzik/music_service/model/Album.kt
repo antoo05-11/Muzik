@@ -1,4 +1,4 @@
-package me.danhpb.danhpbexoplayer.exoplayer.model
+package com.example.muzik.music_service.model
 
 import android.net.Uri
 

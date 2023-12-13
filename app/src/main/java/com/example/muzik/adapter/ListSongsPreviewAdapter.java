@@ -21,6 +21,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.example.muzik.R;
 import com.example.muzik.response_model.Song;
+import com.example.muzik.ui.main_activity.MainActivity;
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
@@ -122,7 +123,6 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
                     playerViewModel.setMedia(
                             (song.getUri() == null) ? Uri.parse(song.getSongURL()) : song.getUri());
                     playerViewModel.setSong(song);
-
                     setPlayingEffect(holder);
                 }
             });

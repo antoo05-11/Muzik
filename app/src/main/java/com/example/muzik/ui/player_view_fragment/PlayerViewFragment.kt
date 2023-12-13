@@ -74,7 +74,7 @@ class PlayerViewFragment : Fragment() {
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvTitle.text = it.name
             binding.tvTotal.text = getReadableTime(it.duration!!)
-            binding.sb.max = it.duration
+            binding.sb.max = it.duration!!
         }
 
         playerViewModel.currentTimeMutableLiveData.observe(viewLifecycleOwner) {
@@ -101,7 +101,7 @@ class PlayerViewFragment : Fragment() {
 
                     })
 
-            binding.tvArtistName.text = it.artistName
+            binding.tvArtistName.text = it.getArtistName()
         }
 
         val navHostFragment =

@@ -1,6 +1,7 @@
 package com.example.muzik.adapter;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +11,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavHostController;
+import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
 import com.example.muzik.response_model.Artist;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Deprecated
 public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.ArtistViewHolder> implements Filterable {
     private List<Artist> artists;
     private List<Artist> artistsOld;
+    private final NavHostController navHostController;
 
-    public ListArtistAdapter(List<Artist> artists) {
+
+    public ListArtistAdapter(List<Artist> artists, NavHostController navHostController) {
         this.artists = artists;
         this.artistsOld = artists;
+        this.navHostController = navHostController;
     }
 
     public static class ArtistViewHolder extends RecyclerView.ViewHolder {
@@ -55,6 +62,32 @@ public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.Ar
         }
         if (artist.getArtistID() != -1) {
             holder.artistNameTextView.setText(artist.getName());
+            Picasso.get().load(artist.getImageURL()).into(holder.artistImageView, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
+            holder.itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt("artistID", (int) artist.getArtistID());
+                bundle.putString("artistImageURL", artist.getImageURL());
+                bundle.putString("artistName", artist.getName());
+
+                navHostController.navigate(
+                        R.id.artistFragment, bundle, new NavOptions.Builder()
+                                .setEnterAnim(R.anim.slide_in_right)
+                                .setExitAnim(R.anim.slide_out_right)
+                                .setPopEnterAnim(R.anim.slide_in_right)
+                                .setPopExitAnim(R.anim.slide_out_right)
+                                .build()
+                );
+            });
         }
     }
 

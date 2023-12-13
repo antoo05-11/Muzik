@@ -1,9 +1,12 @@
-package me.danhpb.danhpbexoplayer.exoplayer
+package com.example.muzik.music_service
 
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
@@ -15,7 +18,9 @@ import androidx.media3.common.Player.Listener
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.MuzikApplication
 import com.example.muzik.R
-import me.danhpb.danhpbexoplayer.exoplayer.model.Song
+import com.example.muzik.music_service.model.Song
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 
 class MusicService : Service() {
     companion object {
@@ -30,18 +35,18 @@ class MusicService : Service() {
         const val KEY_IS_PLAYING = "IS_PLAYING"
     }
 
-    private lateinit var exoPlayer: ExoPlayer
+    lateinit var exoPlayer: ExoPlayer
+        private set
     private var curSong: Song? = null
     private var curProgress: Int = 0
 
-
-    inner class MyBinder: Binder() {
+    inner class MyBinder : Binder() {
         fun getService(): MusicService = this@MusicService
     }
 
     private val binder = MyBinder()
 
-    override fun onBind(intent: Intent?): IBinder? {
+    override fun onBind(intent: Intent?): IBinder {
         return binder
     }
 
@@ -77,6 +82,7 @@ class MusicService : Service() {
         val builder = NotificationCompat.Builder(this, MuzikApplication.CHANNEL_ID)
         builder.foregroundServiceBehavior = NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
         builder.priority = NotificationCompat.PRIORITY_HIGH
+
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         builder.setSmallIcon(R.drawable.baseline_music_note_24)
         builder.addAction(
@@ -107,14 +113,29 @@ class MusicService : Service() {
                 .setShowActionsInCompactView(0, 1, 2)
         )
         builder.setContentTitle(curSong?.name)
-        builder.setContentText(curSong?.getArtist()?.name)
-//        builder.setLargeIcon(bitmap)
+        builder.setContentText(curSong?.getArtistName())
+
+        curSong?.let {
+            Picasso.get().load((curSong as com.example.muzik.response_model.Song).imageURL)
+                .into(object : Target {
+                    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                        builder.setLargeIcon(bitmap)
+                    }
+
+                    override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                    }
+
+                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                    }
+                })
+        }
+
         val notification = builder.build()
         startForeground(ID, notification)
     }
 
     private fun getPendingIntent(context: Context, action: Int): PendingIntent {
-        val intent = Intent(this, MusicReceiver::class.java)
+        val intent = Intent(context, MusicReceiver::class.java)
         intent.putExtra(ACTION, action)
         return PendingIntent.getBroadcast(
             context.applicationContext,
@@ -125,17 +146,17 @@ class MusicService : Service() {
     }
 
     fun playPause() {
-        if(exoPlayer.isPlaying) {
+        if (exoPlayer.isPlaying) {
             exoPlayer.pause()
-        }
-        else {
+        } else {
             exoPlayer.play()
         }
     }
 
     fun setSong(song: Song) {
         curSong = song
-        val mediaItem = MediaItem.fromUri(song.uri)
+        val mediaItem =
+            MediaItem.fromUri((if (song.uri == null) Uri.parse((song as com.example.muzik.response_model.Song).songURL) else song.uri)!!)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
         exoPlayer.play()
@@ -148,7 +169,7 @@ class MusicService : Service() {
     }
 
     fun skipPreSong() {
-        if(exoPlayer.hasPreviousMediaItem()) {
+        if (exoPlayer.hasPreviousMediaItem()) {
             exoPlayer.seekToPreviousMediaItem()
         }
     }

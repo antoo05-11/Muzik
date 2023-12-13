@@ -14,7 +14,6 @@ import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
-import com.example.muzik.utils.printLogcat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -91,6 +90,18 @@ class ChartFragment : Fragment() {
         chartView.description.text = ""
         chartView.isDoubleTapToZoomEnabled = false
 
+//        xAxis.valueFormatter = object : ValueFormatter() {
+//            private val mFormat = SimpleDateFormat("dd/MMM/HH:mm", Locale.ENGLISH)
+//
+//            @Deprecated("Deprecated in Java")
+//            override fun getFormattedValue(value: Float, axis: AxisBase): String {
+//                val millis = TimeUnit.HOURS.toMillis(value.toLong())
+//                return mFormat.format(Date(millis))
+//            }
+//        }
+
+
+
         chartView.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onValueSelected(e: Entry, h: Highlight) {
                 val x = e.x
@@ -107,10 +118,9 @@ class ChartFragment : Fragment() {
                 val dataObjects = mutableListOf<Pair<Int, Int>>()
                 songWithView.songViews.sort()
                 for (j in 0..9) {
-                    printLogcat(songWithView.songViews[j].date.date)
                     dataObjects.add(
                         Pair(
-                            (songWithView.songViews[j].date.date),
+                            ((songWithView.songViews[j].date).date),
                             songWithView.songViews[j].views
                         )
                     )

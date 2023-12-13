@@ -87,7 +87,7 @@ class PlaylistAlbumFragment : Fragment() {
             binding.artistsListTextview.text = requireArguments().getString("albumArtistName")
 
             for (song in it) {
-                song.artistName = requireArguments().getString("albumArtistName")
+                song.setArtistName(requireArguments().getString("albumArtistName"))
             }
         }
 

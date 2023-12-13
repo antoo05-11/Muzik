@@ -72,7 +72,7 @@ class MainFragment : Fragment() {
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
-            binding.artistUnderPlayerPreviewTextview.text = it.artistName
+            binding.artistUnderPlayerPreviewTextview.text = it.getArtistName()
             Picasso.get().load(it.imageURL)
                 .into(binding.songImageUnderSongPreview, object : Callback {
                     override fun onSuccess() {

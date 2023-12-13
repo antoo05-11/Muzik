@@ -21,8 +21,7 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
         return ViewHolder(view)
     }
 
@@ -51,7 +50,8 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
 
                 val artistNameSongPreviewTextview =
                     holder.itemView.findViewById<TextView>(R.id.artist_name_song_preview_textview)
-                artistNameSongPreviewTextview.text = String.format(songs[position].artistName)
+                artistNameSongPreviewTextview.text = songs[position].getArtistName()
+                    ?.let { String.format(it) }
 
                 val songImageItem = holder.itemView.findViewById<ImageView>(R.id.song_image_item)
 
@@ -72,7 +72,7 @@ class ListSongAdapter(private val songs: List<Song>, private val playerViewModel
             }
             holder.itemView.setOnClickListener {
                 playerViewModel.stop()
-                playerViewModel.setMedia(if (songs[position].uri == null) Uri.parse(songs[position].songURL) else songs[position].uri)
+                playerViewModel.setMedia(if (songs[position].uri == null) Uri.parse(songs[position].songURL) else songs[position].uri!!)
                 playerViewModel.setSong(songs[position])
             }
         }
