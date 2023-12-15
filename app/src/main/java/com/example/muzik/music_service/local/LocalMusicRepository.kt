@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 
 object LocalMusicRepository {
     private val mapSong: MutableMap<Long, LocalSong> = HashMap()
@@ -122,5 +123,11 @@ object LocalMusicRepository {
                     }
                 }
             }
+        //log-test
+        var i = 1
+        for(song in getSongs()) {
+            Log.e("DanhPB", (i.toString() + ": " + song.name))
+            i++
+        }
     }
 }

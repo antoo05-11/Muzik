@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.adapter.ListSongAdapter
 import com.example.muzik.databinding.FragmentLibSongsBinding
+import com.example.muzik.music_service.local.LocalMusicRepository
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 
 class LibSongsFragment: Fragment() {
@@ -29,11 +30,10 @@ class LibSongsFragment: Fragment() {
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
-        songViewModel.songsMutableLiveData.observe(viewLifecycleOwner){
-            listSongAdapter = ListSongAdapter(it, playerViewModel)
-            binding.rvListSong.adapter = listSongAdapter
-            binding.rvListSong.layoutManager = LinearLayoutManager(this.context)
-        }
+        listSongAdapter = ListSongAdapter(LocalMusicRepository.getSongs(), playerViewModel)
+        binding.rvListSong.adapter = listSongAdapter
+        binding.rvListSong.layoutManager = LinearLayoutManager(this.context)
+
 
         return binding.root
     }
