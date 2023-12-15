@@ -1,5 +1,6 @@
 package com.example.muzik.ui.explore_fragment
 
+import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,24 +36,54 @@ class ExploreViewModel : ViewModel() {
 
     fun fetchData(lifecycleCoroutineScope: LifecycleCoroutineScope) {
         lifecycleCoroutineScope.launch {
-            val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
-            _topPlaylistsList.value = topPlaylistsRes.body()
+
+            try {
+                val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
+                _topPlaylistsList.value = topPlaylistsRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
         lifecycleCoroutineScope.launch {
-            val topSongsRes = MainActivity.muzikAPI.getYourTopSongs()
-            _topSongsList.value = topSongsRes.body()
+
+            try {
+                val topSongsRes = MainActivity.muzikAPI.getYourTopSongs()
+                _topSongsList.value = topSongsRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
         lifecycleCoroutineScope.launch {
-            val listenAgainPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
-            _listenAgainPlaylistsList.value = listenAgainPlaylistsRes.body()
+
+            try {
+                val listenAgainPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
+                _listenAgainPlaylistsList.value = listenAgainPlaylistsRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
         lifecycleCoroutineScope.launch {
-            val yourArtistsListRes = MainActivity.muzikAPI.getYourArtists()
-            _yourArtistsList.value = yourArtistsListRes.body()
+
+            try {
+                val yourArtistsListRes = MainActivity.muzikAPI.getYourArtists()
+                _yourArtistsList.value = yourArtistsListRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
         lifecycleCoroutineScope.launch {
-            val recentAlbumsListRes = MainActivity.muzikAPI.getRecentAlbums()
-            _recentAlbumsList.value = recentAlbumsListRes.body()
+
+            try {
+                val recentAlbumsListRes = MainActivity.muzikAPI.getRecentAlbums()
+                _recentAlbumsList.value = recentAlbumsListRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
     }
 }

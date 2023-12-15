@@ -1,5 +1,6 @@
 package com.example.muzik.ui.library_fragment
 
+import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,12 +19,24 @@ class LibraryViewModel : ViewModel() {
 
     fun fetchData(lifecycleCoroutineScope: LifecycleCoroutineScope) {
         lifecycleCoroutineScope.launch {
-            val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
-            _topPlaylistsList.value = topPlaylistsRes.body()
+
+            try {
+                val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
+                _topPlaylistsList.value = topPlaylistsRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
         lifecycleCoroutineScope.launch {
-            val yourArtistsListRes = MainActivity.muzikAPI.getYourArtists()
-            _yourArtistsList.value = yourArtistsListRes.body()
+
+            try {
+                val yourArtistsListRes = MainActivity.muzikAPI.getYourArtists()
+                _yourArtistsList.value = yourArtistsListRes.body()
+            }
+            catch (e: Throwable) {
+                Log.e("NETWORK_ERROR", "Network error!")
+            }
         }
     }
 }

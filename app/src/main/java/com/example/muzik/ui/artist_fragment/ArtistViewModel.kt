@@ -1,5 +1,6 @@
 package com.example.muzik.ui.artist_fragment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,10 +20,20 @@ class ArtistViewModel : ViewModel() {
     val artistAlbums = _artistAlbums as LiveData<List<Album>>
 
     suspend fun fetchArtistSongs(artistID: Int) {
-        _artistSongs.value = MainActivity.muzikAPI.getArtist(artistID).body()
+        try {
+            _artistSongs.value = MainActivity.muzikAPI.getArtist(artistID).body()
+        }
+        catch (e: Throwable) {
+            Log.e("NETWORK_ERROR", "Network error!")
+        }
     }
 
     suspend fun fetchArtistAlbums(artistID: Int) {
-        _artistAlbums.value = MainActivity.muzikAPI.getArtistAlbums(artistID).body()
+        try {
+            _artistAlbums.value = MainActivity.muzikAPI.getArtistAlbums(artistID).body()
+        }
+        catch (e: Throwable) {
+            Log.e("NETWORK_ERROR", "Network error!")
+        }
     }
 }

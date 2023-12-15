@@ -1,5 +1,6 @@
 package com.example.muzik.ui.chart_fragment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,10 +16,21 @@ class ChartViewModel : ViewModel() {
     val chart = _chart as LiveData<List<SongWithView>>
 
     suspend fun fetchData() {
-        _chartSongsList.value = MainActivity.muzikAPI.getAllSongs().body()
+        try {
+            _chartSongsList.value = MainActivity.muzikAPI.getAllSongs().body()
+        }
+        catch (e: Throwable) {
+            Log.e("NETWORK_ERROR", "Network error!")
+        }
+
     }
 
     suspend fun fetchChartViewData() {
-        _chart.value = MainActivity.muzikAPI.getSongCharts().body()
+        try {
+            _chart.value = MainActivity.muzikAPI.getSongCharts().body()
+        }
+        catch (e: Throwable) {
+            Log.e("NETWORK_ERROR", "Network error!")
+        }
     }
 }
