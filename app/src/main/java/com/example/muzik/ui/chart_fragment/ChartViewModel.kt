@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.response_model.Chart.SongWithView
-import com.example.muzik.response_model.Song
-import com.example.muzik.ui.main_activity.MainActivity
+import com.example.muzik.data_model.retrofit_model.response.Chart.SongWithView
+import com.example.muzik.data_model.standard_model.Song
+import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
 
 class ChartViewModel : ViewModel() {
     private val _chartSongsList: MutableLiveData<List<Song>> = MutableLiveData()
@@ -17,9 +17,14 @@ class ChartViewModel : ViewModel() {
 
     suspend fun fetchData() {
         try {
-            _chartSongsList.value = MainActivity.muzikAPI.getAllSongs().body()
-        }
-        catch (e: Throwable) {
+            val songList = mutableListOf<Song>()
+            muzikAPI.getAllSongs().body()?.let {
+                for (i in it) {
+                    songList.add(Song.buildOnline(i))
+                }
+                _chartSongsList.value = songList
+            }
+        } catch (e: Throwable) {
             Log.e("NETWORK_ERROR", "Network error!")
         }
 
@@ -27,9 +32,8 @@ class ChartViewModel : ViewModel() {
 
     suspend fun fetchChartViewData() {
         try {
-            _chart.value = MainActivity.muzikAPI.getSongCharts().body()
-        }
-        catch (e: Throwable) {
+            _chart.value = muzikAPI.getSongCharts().body()
+        } catch (e: Throwable) {
             Log.e("NETWORK_ERROR", "Network error!")
         }
     }

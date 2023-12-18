@@ -1,13 +1,13 @@
 package com.example.muzik.api_controller
 
-import com.example.muzik.response_model.Album
-import com.example.muzik.response_model.Artist
-import com.example.muzik.response_model.Chart
-import com.example.muzik.response_model.LoginRequest
-import com.example.muzik.response_model.LoginResponse
+import com.example.muzik.data_model.retrofit_model.request.LoginRequest
+import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
+import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
+import com.example.muzik.data_model.retrofit_model.response.Chart
+import com.example.muzik.data_model.retrofit_model.response.LoginResponse
+import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
+import com.example.muzik.data_model.retrofit_model.response.SongResponse
 import com.example.muzik.response_model.Playlist
-import com.example.muzik.response_model.SignUpResponse
-import com.example.muzik.response_model.Song
 import com.example.muzik.response_model.User
 import retrofit2.Call
 import retrofit2.Response
@@ -21,28 +21,28 @@ import java.util.Date
 
 interface MuzikAPI {
     @GET("/api/song/{id}/info")
-    suspend fun getSong(@Path("id") songID: Int): Response<Song>
+    suspend fun getSong(@Path("id") songID: Int): Response<SongResponse>
 
     @GET("/api/song/getAll")
-    suspend fun getAllSongs(): Response<List<Song>>
+    suspend fun getAllSongs(): Response<List<SongResponse>>
 
     @GET("/api/album/{id}/info")
-    suspend fun getAlbum(@Path("id") albumID: Int): Response<List<Song>>
+    suspend fun getAlbum(@Path("id") albumID: Long): Response<List<SongResponse>>
 
     @GET("/api/album/getAll")
-    suspend fun getAllAlbums(): Response<List<Album>>
+    suspend fun getAllAlbums(): Response<List<AlbumResponse>>
 
     @GET("/api/playlist/{id}/info")
-    suspend fun getPlaylist(@Path("id") playListID: Int): Response<List<Song>>
+    suspend fun getPlaylist(@Path("id") playListID: Long): Response<List<SongResponse>>
 
     @GET("/api/playlist/getAll")
     suspend fun getAllPlaylists(): Response<List<Playlist>>
 
     @GET("/api/artist/{id}/info")
-    suspend fun getArtist(@Path("id") artistID: Int): Response<List<Song>>
+    suspend fun getArtist(@Path("id") artistID: Long): Response<List<SongResponse>>
 
     @GET("/api/artist/getAll")
-    suspend fun getAllArtists(): Response<List<Artist>>
+    suspend fun getAllArtists(): Response<List<ArtistResponse>>
 
     @GET("/api/user/{id}/info")
     suspend fun getUser(@Path("id") userID: Int): Response<User>
@@ -51,16 +51,16 @@ interface MuzikAPI {
     suspend fun getTopPlaylists(): Response<List<Playlist>>
 
     @GET("/api/album/getRecentAlbums")
-    suspend fun getRecentAlbums(): Response<List<Album>>
+    suspend fun getRecentAlbums(): Response<List<AlbumResponse>>
 
     @GET("/api/artist/getYourArtists")
-    suspend fun getYourArtists(): Response<List<Artist>>
+    suspend fun getYourArtists(): Response<List<ArtistResponse>>
 
     @GET("/api/song/getYourTopSongs")
-    suspend fun getYourTopSongs(): Response<List<Song>>
+    suspend fun getYourTopSongs(): Response<List<SongResponse>>
 
     @GET("/api/artist/{id}/artistAlbums")
-    suspend fun getArtistAlbums(@Path("id") artistID: Int): Response<List<Album>>
+    suspend fun getArtistAlbums(@Path("id") artistID: Long): Response<List<AlbumResponse>>
 
     @GET("/api/song/chart")
     suspend fun getSongCharts(): Response<List<Chart.SongWithView>>

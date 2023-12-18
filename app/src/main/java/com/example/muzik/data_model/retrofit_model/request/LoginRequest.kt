@@ -1,4 +1,4 @@
-package com.example.muzik.response_model
+package com.example.muzik.data_model.retrofit_model.request
 
 import com.google.gson.annotations.SerializedName
 

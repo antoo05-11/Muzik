@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentPlaylistAlbumBinding
-import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.PaletteUtils
 import com.example.muzik.utils.addDecorationForVerticalRcv
@@ -29,9 +29,8 @@ class PlaylistAlbumFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             viewModel.fetchSongs(
-                requireArguments().getInt("playlistAlbumID"),
-                requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type,
-                requireContext()
+                requireArguments().getLong("playlistAlbumID"),
+                requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type
             )
         }
         Picasso.get().load(requireArguments().getString("playlistAlbumImageURL"))
@@ -87,7 +86,7 @@ class PlaylistAlbumFragment : Fragment() {
             binding.artistsListTextview.text = requireArguments().getString("albumArtistName")
 
             for (song in it) {
-                song.setArtistName(requireArguments().getString("albumArtistName"))
+                song.artistName = (requireArguments().getString("albumArtistName"))
             }
         }
 

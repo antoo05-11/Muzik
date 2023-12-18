@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.muzik.response_model.ResponseModel
+import com.example.muzik.data_model.standard_model.Model
 import java.io.Serializable
 
 fun getReadableTime(time: Int): String {
@@ -46,7 +46,7 @@ fun addDecorationForVerticalRcv(rcvList: List<RecyclerView>, activity: Activity)
     }
 }
 
-fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : ResponseModel> addSampleForRcv(
+fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSampleForRcv(
     rcv: RecyclerView,
     adapterClazz: Class<T>,
     itemClazz: Class<X>,
@@ -68,7 +68,7 @@ fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : ResponseModel> a
     rcv.adapter = adapter
 }
 
-fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : ResponseModel> addSampleForRcv(
+fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSampleForRcv(
     rcvList: List<Triple<RecyclerView, Class<T>, Class<X>>>,
     sampleSize: Int,
     navHostController: NavHostController? = null
@@ -91,5 +91,5 @@ fun setRotateAnimation(view: View): ObjectAnimator {
 }
 
 fun <T: Serializable> printLogcat(string: T) {
-    Log.d("app-debug", string.toString())
+    Log.e("app-debug", string.toString())
 }

@@ -72,8 +72,8 @@ class MainFragment : Fragment() {
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
-            binding.artistUnderPlayerPreviewTextview.text = it.getArtistName()
-            Picasso.get().load(it.imageURL)
+            binding.artistUnderPlayerPreviewTextview.text = it.artistName
+            Picasso.get().load(it.imageURI)
                 .into(binding.songImageUnderSongPreview, object : Callback {
                     override fun onSuccess() {
                         binding.shimmerSongImageUnderSongPreview.hideShimmer()
@@ -101,7 +101,7 @@ class MainFragment : Fragment() {
             binding.pbSongPreview.progress = it
         }
 
-        playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) { it ->
+        playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) {
             if (it) {
                 binding.clPreview.visibility = View.VISIBLE
                 val navView = mainFragmentNavHostFragment.view

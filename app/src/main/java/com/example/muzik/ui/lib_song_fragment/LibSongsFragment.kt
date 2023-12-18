@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.muzik.adapter.ListSongAdapter
+import com.example.muzik.adapter.ListSongsPreviewAdapter
 import com.example.muzik.databinding.FragmentLibSongsBinding
-import com.example.muzik.music_service.local.LocalMusicRepository
+import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 
-class LibSongsFragment: Fragment() {
+class LibSongsFragment : Fragment() {
     private lateinit var binding: FragmentLibSongsBinding
 
     private lateinit var songViewModel: SongViewModel
     private lateinit var playerViewModel: PlayerViewModel
 
-    private lateinit var listSongAdapter: ListSongAdapter
+    private lateinit var listSongAdapter: ListSongsPreviewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +30,11 @@ class LibSongsFragment: Fragment() {
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
-        listSongAdapter = ListSongAdapter(LocalMusicRepository.getSongs(), playerViewModel)
+        listSongAdapter = ListSongsPreviewAdapter(
+            LocalMusicRepository.getSongs().toMutableList()
+        ).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
         binding.rvListSong.adapter = listSongAdapter
         binding.rvListSong.layoutManager = LinearLayoutManager(this.context)
-
 
         return binding.root
     }

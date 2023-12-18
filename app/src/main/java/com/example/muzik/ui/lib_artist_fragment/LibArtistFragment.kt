@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.adapter.ListArtistAdapter
+import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentLibArtistBinding
-import com.example.muzik.response_model.Artist
-import com.example.muzik.response_model.Song
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 
 class LibArtistFragment : Fragment() {

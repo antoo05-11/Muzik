@@ -19,7 +19,7 @@ import com.example.muzik.api_controller.MuzikAPI
 import com.example.muzik.api_controller.RetrofitHelper
 import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.music_service.MusicService
-import com.example.muzik.music_service.local.LocalMusicRepository
+import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel

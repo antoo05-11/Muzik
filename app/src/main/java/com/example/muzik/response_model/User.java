@@ -1,10 +1,10 @@
 package com.example.muzik.response_model;
 
-import android.provider.ContactsContract;
+import com.example.muzik.data_model.standard_model.Model;
 
 import java.util.Date;
 
-public class User implements ResponseModel {
+public class User implements Model {
     private long userID;
     private String name;
     private String email;

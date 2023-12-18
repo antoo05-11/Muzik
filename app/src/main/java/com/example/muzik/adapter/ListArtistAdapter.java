@@ -16,7 +16,7 @@ import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
-import com.example.muzik.response_model.Artist;
+import com.example.muzik.data_model.standard_model.Artist;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.ArtistViewHolder> implements Filterable {
     private List<Artist> artists;
-    private List<Artist> artistsOld;
+    private final List<Artist> artistsOld;
     private final NavHostController navHostController;
 
 
@@ -62,7 +62,7 @@ public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.Ar
         }
         if (artist.getArtistID() != -1) {
             holder.artistNameTextView.setText(artist.getName());
-            Picasso.get().load(artist.getImageURL()).into(holder.artistImageView, new Callback() {
+            Picasso.get().load(artist.getImageURI()).into(holder.artistImageView, new Callback() {
                 @Override
                 public void onSuccess() {
 
@@ -75,8 +75,9 @@ public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.Ar
             });
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt("artistID", (int) artist.getArtistID());
-                bundle.putString("artistImageURL", artist.getImageURL());
+                bundle.putLong("artistID", artist.getArtistID());
+                bundle.putString("artistImageURL",
+                        Objects.requireNonNull(artist.getImageURI()).toString());
                 bundle.putString("artistName", artist.getName());
 
                 navHostController.navigate(

@@ -10,10 +10,6 @@ import com.example.muzik.R
 
 class SearchFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
     private lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(

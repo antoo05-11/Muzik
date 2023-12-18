@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentChartBinding
-import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
+import com.example.muzik.utils.printLogcat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -101,7 +102,6 @@ class ChartFragment : Fragment() {
 //        }
 
 
-
         chartView.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onValueSelected(e: Entry, h: Highlight) {
                 val x = e.x
@@ -115,12 +115,18 @@ class ChartFragment : Fragment() {
             val dataSets = ArrayList<ILineDataSet>()
             for (i in 0..2) {
                 val songWithView = it[i]
-                val dataObjects = mutableListOf<Pair<Int, Int>>()
-                songWithView.songViews.sort()
+                val dataObjects = mutableListOf<Pair<Int, Long>>()
+
+                songWithView.songViews =
+                    songWithView.songViews.sortedWith { songView1, songView2 ->
+                        songView1.date.compareTo(songView2.date)
+                    }
+
                 for (j in 0..9) {
+                    printLogcat(songWithView.songViews[j].date.date)
                     dataObjects.add(
                         Pair(
-                            ((songWithView.songViews[j].date).date),
+                            (songWithView.songViews[j].date.date),
                             songWithView.songViews[j].views
                         )
                     )

@@ -60,7 +60,8 @@
                     android:textSize="20sp"
                     android:maxLines="2"
                     android:minLines="1"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/colorOnPrimary" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -78,7 +79,8 @@
                     android:textSize="16sp"
                     android:maxLines="2"
                     android:minLines="1"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/colorOnPrimary" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
     </LinearLayout>

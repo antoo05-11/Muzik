@@ -2,7 +2,6 @@ package com.example.muzik.ui.main_activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -13,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.muzik.R
 import com.example.muzik.api_controller.MuzikAPI
 import com.example.muzik.api_controller.RetrofitHelper
-import com.example.muzik.response_model.SignUpResponse
+import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

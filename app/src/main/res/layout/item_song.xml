@@ -5,7 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:clickable="true"
-        android:stateListAnimator="@animator/zoom_out_animator">
+        android:stateListAnimator="@animator/zoom_out_animator"
+        android:focusable="true">
 
     <TextView
             android:layout_width="wrap_content"
@@ -14,7 +15,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorOnPrimary"
             android:textSize="16sp" />
 
     <androidx.cardview.widget.CardView
@@ -77,7 +78,8 @@
                         android:ellipsize="marquee"
                         android:focusableInTouchMode="true"
                         android:focusable="true"
-                        android:background="@drawable/grey_round_corner" />
+                        android:background="@drawable/grey_round_corner"
+                        android:textColor="@color/colorOnPrimary" />
             </com.facebook.shimmer.ShimmerFrameLayout>
         </LinearLayout>
 
@@ -94,7 +96,8 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:background="@drawable/grey_round_corner" />
+                    android:background="@drawable/grey_round_corner"
+                    android:textColor="@color/colorOnPrimary" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
     </LinearLayout>

@@ -8,20 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavHostController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.example.muzik.R
-import com.example.muzik.adapter.ListArtistAdapter
-import com.example.muzik.adapter.ListPlaylistAdapter
 import com.example.muzik.databinding.FragmentLibraryBinding
-import com.example.muzik.response_model.Playlist
 import com.example.muzik.ui.lib_album_fragment.LibAlbumsFragment
 import com.example.muzik.ui.lib_artist_fragment.LibArtistFragment
 import com.example.muzik.ui.lib_playlist_fragment.LibPlaylistFragment
 import com.example.muzik.ui.lib_song_fragment.LibSongsFragment
-import com.example.muzik.utils.addDecorationForVerticalRcv
 
 class LibraryFragment : Fragment() {
 
@@ -40,7 +31,7 @@ class LibraryFragment : Fragment() {
         viewPager.adapter = viewPagerAdapter
     }
 
-    class ViewPagerAdapter(private val fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
+    class ViewPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
 
         private val fragments: MutableList<Fragment> = ArrayList()
         private val titles: MutableList<String> = ArrayList()
@@ -57,7 +48,7 @@ class LibraryFragment : Fragment() {
             return fragments[position]
         }
 
-        override fun getPageTitle(position: Int): CharSequence? {
+        override fun getPageTitle(position: Int): CharSequence {
             return titles[position]
         }
 
@@ -72,6 +63,4 @@ class LibraryFragment : Fragment() {
         initViewPager()
         return binding.root
     }
-
-
 }

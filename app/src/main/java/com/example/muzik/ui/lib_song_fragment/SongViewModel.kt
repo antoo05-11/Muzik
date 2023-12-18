@@ -2,9 +2,9 @@ package com.example.muzik.ui.lib_song_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.response_model.Album
-import com.example.muzik.response_model.Artist
-import com.example.muzik.response_model.Song
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Song
 
 class SongViewModel : ViewModel() {
     var songsMutableLiveData: MutableLiveData<List<Song>> = MutableLiveData()

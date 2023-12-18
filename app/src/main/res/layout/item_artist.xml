@@ -29,5 +29,6 @@
             android:id="@+id/tv_artist_name_item"
             android:textSize="18dp"
             android:layout_marginLeft="16dp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:textColor="@color/colorOnPrimary" />
 </LinearLayout>

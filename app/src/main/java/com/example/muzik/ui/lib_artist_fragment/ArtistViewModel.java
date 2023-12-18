@@ -2,9 +2,9 @@ package com.example.muzik.ui.lib_artist_fragment;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.muzik.data_model.standard_model.Artist;
 import com.example.muzik.ui.main_activity.MainActivity;
-import com.example.muzik.response_model.Artist;
-import com.example.muzik.response_model.Song;
+import com.example.muzik.data_model.standard_model.Song;
 
 import org.jetbrains.annotations.NotNull;
 

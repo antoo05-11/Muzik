@@ -20,14 +20,14 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/Theme.Muzik"
             tools:targetApi="31"
             android:usesCleartextTraffic="true">
         <activity
                 android:name=".ui.main_activity.MainActivity"
                 android:exported="true"
                 android:screenOrientation="fullSensor"
-                android:theme="@style/Theme.AppCompat.NoActionBar">
+                android:theme="@style/Theme.Muzik">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -58,7 +58,8 @@
 
         <receiver android:name=".music_service.MusicReceiver"
                 android:exported="true"
-                android:permission="TODO">
+                android:permission="TODO"
+                tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="MUSIC_SERVICE_ACTION" />
             </intent-filter>

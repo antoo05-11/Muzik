@@ -51,7 +51,8 @@
                     android:textSize="16sp"
                     android:maxLines="2"
                     android:minLines="1"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/colorOnPrimary" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

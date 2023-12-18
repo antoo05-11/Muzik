@@ -1,38 +1,40 @@
-package com.example.muzik.music_service.local
+package com.example.muzik.music_service
 
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Song
 
 object LocalMusicRepository {
-    private val mapSong: MutableMap<Long, LocalSong> = HashMap()
-    private val mapAlbum: MutableMap<Long, LocalAlbum> = HashMap()
-    private val mapArtist: MutableMap<Long, LocalArtist> = HashMap()
+    private val mapSong: MutableMap<Long, Song> = HashMap()
+    private val mapAlbum: MutableMap<Long, Album> = HashMap()
+    private val mapArtist: MutableMap<Long, Artist> = HashMap()
 
-    fun getSong(id: Long): LocalSong? {
+    fun getSong(id: Long): Song? {
         return mapSong[id]
     }
 
-    fun getArtist(id: Long): LocalArtist? {
+    fun getArtist(id: Long): Artist? {
         return mapArtist[id]
     }
 
-    fun getAlbum(id: Long): LocalAlbum? {
+    fun getAlbum(id: Long): Album? {
         return mapAlbum[id]
     }
 
-    fun getSongs(): List<LocalSong> {
+    fun getSongs(): List<Song> {
         return mapSong.values.toList()
     }
 
-    fun getArtists(): List<LocalArtist> {
+    fun getArtists(): List<Artist> {
         return mapArtist.values.toList()
     }
 
-    fun getAlbums(): List<LocalAlbum> {
+    fun getAlbums(): List<Album> {
         return mapAlbum.values.toList()
     }
 
@@ -85,7 +87,7 @@ object LocalMusicRepository {
                     val size: Int = cursor.getInt(sizeColumn)
                     val albumId: Long = cursor.getLong(albumIdColumn)
                     val album: String? = cursor.getString(albumColumn)
-                    val albumArtis: String? = cursor.getString(albumArtistColumn)
+                    val albumArtist: String? = cursor.getString(albumArtistColumn)
                     val artistId: Long = cursor.getLong(artistIdColumn)
                     val artist: String? = cursor.getString(artistColumn)
 
@@ -97,37 +99,27 @@ object LocalMusicRepository {
                         Uri.parse("content://media/external/audio/albumart"),
                         albumId
                     )
-                    val song = LocalSong(
-                            songId,
-                            uri,
-                            displayName ?: "",
-                            duration,
-                            size,
-                            albumId,
-                            artistId
-                        )
+                    val song = Song.buildLocal(
+                        songId, uri,
+                        displayName ?: "",
+                        duration, size, albumId, artistId
+                    )
                     mapSong[songId] = song
                     if (mapAlbum.containsKey(albumId)) {
                         mapAlbum[albumId]!!.listSongId.add(songId)
                     } else {
-                        val newAlbum = LocalAlbum(albumId, album ?: "", albumArtUri, artistId)
+                        val newAlbum = Album.buildLocal(albumId, album ?: "", albumArtUri, artistId)
                         newAlbum.listSongId.add(songId)
                         mapAlbum[albumId] = newAlbum
                     }
                     if (mapArtist.containsKey(artistId)) {
                         mapArtist[artistId]!!.listSongId.add(songId)
                     } else {
-                        val newArtist = LocalArtist(artistId, artist ?: "")
+                        val newArtist = Artist.buildLocal(artistId, artist ?: "")
                         newArtist.listSongId.add(songId)
                         mapArtist[artistId] = newArtist
                     }
                 }
             }
-        //log-test
-        var i = 1
-        for(song in getSongs()) {
-            Log.e("DanhPB", (i.toString() + ": " + song.name))
-            i++
-        }
     }
 }

@@ -13,9 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.muzik.R
 import com.example.muzik.adapter.ListAlbumsVerticalPreviewAdapter
 import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentArtistBinding
-import com.example.muzik.response_model.Album
-import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
@@ -29,8 +29,8 @@ class ArtistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            viewModel.fetchArtistSongs(requireArguments().getInt("artistID"))
-            viewModel.fetchArtistAlbums(requireArguments().getInt("artistID"))
+            viewModel.fetchArtistSongs(requireArguments().getLong("artistID"))
+            viewModel.fetchArtistAlbums(requireArguments().getLong("artistID"))
         }
         Picasso.get().load(requireArguments().getString("artistImageURL"))
             .into(binding.artistImageView)
@@ -73,7 +73,7 @@ class ArtistFragment : Fragment() {
         viewModel.artistSongs.observe(viewLifecycleOwner) {
             val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView().setFragmentOwner(this)
                 .hasViewsShowed().setPlayerViewModel(playerViewModel)
-            for (song in it) song.setArtistName(requireArguments().getString("artistName"))
+            for (song in it) song.artistName = (requireArguments().getString("artistName"))
             binding.rcvArtistPopularSongs.adapter = adapter
         }
 

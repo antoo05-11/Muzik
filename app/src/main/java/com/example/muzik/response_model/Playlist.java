@@ -1,8 +1,10 @@
 package com.example.muzik.response_model;
 
+import com.example.muzik.data_model.standard_model.Model;
+
 import java.util.Date;
 
-public class Playlist implements ResponseModel {
+public class Playlist implements Model {
     private long playListID;
     private String type;
     private long userID;

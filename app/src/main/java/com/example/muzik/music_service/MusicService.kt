@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
@@ -18,7 +17,7 @@ import androidx.media3.common.Player.Listener
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.MuzikApplication
 import com.example.muzik.R
-import com.example.muzik.music_service.model.Song
+import com.example.muzik.data_model.standard_model.Song
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 
@@ -113,10 +112,10 @@ class MusicService : Service() {
                 .setShowActionsInCompactView(0, 1, 2)
         )
         builder.setContentTitle(curSong?.name)
-        builder.setContentText(curSong?.getArtistName())
+        builder.setContentText(curSong?.artistName)
 
         curSong?.let {
-            Picasso.get().load((curSong as com.example.muzik.response_model.Song).imageURL)
+            Picasso.get().load(it.imageURI)
                 .into(object : Target {
                     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                         builder.setLargeIcon(bitmap)
@@ -156,7 +155,7 @@ class MusicService : Service() {
     fun setSong(song: Song) {
         curSong = song
         val mediaItem =
-            MediaItem.fromUri((if (song.uri == null) Uri.parse((song as com.example.muzik.response_model.Song).songURL) else song.uri)!!)
+            MediaItem.fromUri(song.songURI)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
         exoPlayer.play()

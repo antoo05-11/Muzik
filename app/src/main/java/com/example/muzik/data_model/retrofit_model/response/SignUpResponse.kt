@@ -1,6 +1,5 @@
-package com.example.muzik.response_model
+package com.example.muzik.data_model.retrofit_model.response
 
 import android.os.Message
-import java.lang.Error
 
 data class SignUpResponse (val success: Boolean, val message: Message)

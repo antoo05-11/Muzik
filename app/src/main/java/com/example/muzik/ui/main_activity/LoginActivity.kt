@@ -2,35 +2,21 @@ package com.example.muzik.ui.main_activity
 
  import android.content.Intent
  import android.os.Bundle
- import android.provider.Telephony.Mms.Intents
  import android.util.Log
- import android.view.Menu
- import android.view.MenuItem
- import android.view.View
  import android.widget.Button
  import android.widget.EditText
- import android.widget.TextView
  import android.widget.Toast
  import androidx.appcompat.app.AppCompatActivity
 // import com.auth0.android.jwt.JWT
  import com.example.muzik.R
  import com.example.muzik.api_controller.MuzikAPI
  import com.example.muzik.api_controller.RetrofitHelper
- import com.example.muzik.databinding.ActivityLoginBinding
- import com.example.muzik.response_model.LoginRequest
- import com.example.muzik.response_model.LoginResponse
- import com.example.muzik.response_model.User
-// import com.example.muzik.storage.SharedPrefManager
- import kotlinx.coroutines.Dispatchers
- import kotlinx.coroutines.GlobalScope
- import kotlinx.coroutines.launch
+ import com.example.muzik.data_model.retrofit_model.request.LoginRequest
+ import com.example.muzik.data_model.retrofit_model.response.LoginResponse
+ // import com.example.muzik.storage.SharedPrefManager
  import retrofit2.Call
  import retrofit2.Callback
- import retrofit2.HttpException
  import retrofit2.Response
- import retrofit2.awaitResponse
- import retrofit2.create
- import java.util.Date
 
 
 class LoginActivity: AppCompatActivity() {

@@ -14,12 +14,13 @@ import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
-import com.example.muzik.response_model.Artist;
+import com.example.muzik.data_model.standard_model.Artist;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ListArtistsPreviewAdapter extends RecyclerView.Adapter<ListArtistsPreviewAdapter.ArtistPreviewHolder> {
     private final List<Artist> artists;
@@ -46,27 +47,26 @@ public class ListArtistsPreviewAdapter extends RecyclerView.Adapter<ListArtistsP
             holder.artistNameTextView.setText(artist.getName());
             holder.artistNameTextView.setBackgroundColor(Color.TRANSPARENT);
 
-            if (artist.getImageURL() != null) {
-                Picasso.get()
-                        .load(artist.getImageURL())
-                        .fit()
-                        .centerInside()
-                        .into(holder.artistPreviewImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                holder.shimmerArtistPreviewImage.hideShimmer();
-                            }
+            Picasso.get()
+                    .load(artist.getImageURI())
+                    .fit()
+                    .centerInside()
+                    .into(holder.artistPreviewImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.shimmerArtistPreviewImage.hideShimmer();
+                        }
 
-                            @Override
-                            public void onError(Exception e) {
+                        @Override
+                        public void onError(Exception e) {
 
-                            }
-                        });
-            }
+                        }
+                    });
+
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt("artistID", (int) artist.getArtistID());
-                bundle.putString("artistImageURL", artist.getImageURL());
+                bundle.putLong("artistID", artist.getArtistID());
+                bundle.putString("artistImageURL", Objects.requireNonNull(artist.getImageURI()).toString());
                 bundle.putString("artistName", artist.getName());
 
                 navHostController.navigate(

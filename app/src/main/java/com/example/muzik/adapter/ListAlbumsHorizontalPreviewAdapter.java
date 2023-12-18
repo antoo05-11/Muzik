@@ -14,12 +14,13 @@ import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
-import com.example.muzik.response_model.Album;
+import com.example.muzik.data_model.standard_model.Album;
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ListAlbumsHorizontalPreviewAdapter extends RecyclerView.Adapter<ListAlbumsHorizontalPreviewAdapter.AlbumPreviewHolder> {
     private final List<Album> albums;
@@ -48,12 +49,12 @@ public class ListAlbumsHorizontalPreviewAdapter extends RecyclerView.Adapter<Lis
             holder.albumPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
             holder.albumPreviewNameTextView.setText(album.getName());
 
-            Picasso.get().load(album.getImageURL()).fit().into(holder.albumPreviewImage);
+            Picasso.get().load(album.getImageURI()).fit().into(holder.albumPreviewImage);
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt("playlistAlbumID", (int) album.getAlbumID());
-                bundle.putString("playlistAlbumImageURL", album.getImageURL());
+                bundle.putLong("playlistAlbumID", album.getAlbumID());
+                bundle.putString("playlistAlbumImageURL", Objects.requireNonNull(album.getImageURI()).toString());
                 bundle.putString("playlistAlbumName", album.getName());
                 bundle.putString("albumArtistName", album.getArtistName());
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);

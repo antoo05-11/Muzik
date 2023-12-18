@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.response_model.Album
-import com.example.muzik.response_model.Artist
-import com.example.muzik.response_model.Song
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.ui.main_activity.MainActivity
 
 class ArtistViewModel : ViewModel() {
@@ -19,20 +19,28 @@ class ArtistViewModel : ViewModel() {
     private val _artistAlbums: MutableLiveData<List<Album>> = MutableLiveData()
     val artistAlbums = _artistAlbums as LiveData<List<Album>>
 
-    suspend fun fetchArtistSongs(artistID: Int) {
+    suspend fun fetchArtistSongs(artistID: Long) {
         try {
-            _artistSongs.value = MainActivity.muzikAPI.getArtist(artistID).body()
-        }
-        catch (e: Throwable) {
+            val songList = mutableListOf<Song>()
+            MainActivity.muzikAPI.getArtist(artistID).body()?.let {
+                for (i in it) {
+                    songList.add(Song.buildOnline(i))
+                }
+            }
+            _artistSongs.value = songList
+        } catch (e: Throwable) {
             Log.e("NETWORK_ERROR", "Network error!")
         }
     }
 
-    suspend fun fetchArtistAlbums(artistID: Int) {
+    suspend fun fetchArtistAlbums(artistID: Long) {
         try {
-            _artistAlbums.value = MainActivity.muzikAPI.getArtistAlbums(artistID).body()
-        }
-        catch (e: Throwable) {
+            val albumList = mutableListOf<Album>()
+            MainActivity.muzikAPI.getArtistAlbums(artistID).body()?.let {
+                for (i in it) albumList.add(Album.buildOnline(i))
+            }
+            _artistAlbums.value = albumList
+        } catch (e: Throwable) {
             Log.e("NETWORK_ERROR", "Network error!")
         }
     }

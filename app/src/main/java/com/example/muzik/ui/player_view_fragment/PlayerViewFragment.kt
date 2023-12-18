@@ -83,9 +83,8 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
-            if (it.imageURL.isNotEmpty())
                 Picasso.get()
-                    .load(it.imageURL)
+                    .load(it.imageURI)
                     .into(binding.activityTrackImage, object : Callback {
                         override fun onSuccess() {
                             binding.root.background = PaletteUtils.getDominantGradient(
@@ -101,7 +100,7 @@ class PlayerViewFragment : Fragment() {
 
                     })
 
-            binding.tvArtistName.text = it.getArtistName()
+            binding.tvArtistName.text = it.artistName
         }
 
         val navHostFragment =

@@ -1,4 +1,6 @@
-package com.example.muzik.response_model
+package com.example.muzik.data_model.retrofit_model.response
+
+import com.example.muzik.response_model.User
 
 data class LoginResponse(
     val error: Boolean?,

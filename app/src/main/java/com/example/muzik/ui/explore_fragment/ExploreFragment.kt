@@ -15,11 +15,11 @@ import com.example.muzik.adapter.ListAlbumsHorizontalPreviewAdapter
 import com.example.muzik.adapter.ListArtistsPreviewAdapter
 import com.example.muzik.adapter.ListPlaylistsPreviewAdapter
 import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentExploreBinding
-import com.example.muzik.response_model.Album
-import com.example.muzik.response_model.Artist
 import com.example.muzik.response_model.Playlist
-import com.example.muzik.response_model.Song
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForHorizontalRcv
 import com.example.muzik.utils.addDecorationForVerticalRcv

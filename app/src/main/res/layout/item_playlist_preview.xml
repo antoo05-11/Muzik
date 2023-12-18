@@ -47,7 +47,8 @@
                     android:textAlignment="center"
                     android:id="@+id/playlist_preview_name_tv"
                     android:background="@drawable/grey_round_corner"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/colorOnPrimary" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

@@ -2,8 +2,6 @@ package com.example.muzik.adapter;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.example.muzik.R;
-import com.example.muzik.response_model.Song;
-import com.example.muzik.ui.main_activity.MainActivity;
+import com.example.muzik.data_model.standard_model.Song;
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Callback;
@@ -30,7 +26,6 @@ import com.squareup.picasso.Picasso;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPreviewAdapter.SongPreviewHolder> {
     private final List<Song> songsPreviewList;
@@ -89,23 +84,22 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
             holder.shimmerArtistSongPreviewNameTextView.hideShimmer();
             holder.shimmerSongPreviewNameTextView.hideShimmer();
 
-            if (!song.getImageURL().isEmpty()) {
-                Picasso.get()
-                        .load(song.getImageURL())
-                        .fit()
-                        .centerInside()
-                        .into(holder.songImageItem, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                holder.shimmerSongImageItem.hideShimmer();
-                            }
+            Picasso.get()
+                    .load(song.getImageURI())
+                    .fit()
+                    .centerInside()
+                    .into(holder.songImageItem, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.shimmerSongImageItem.hideShimmer();
+                        }
 
-                            @Override
-                            public void onError(Exception e) {
+                        @Override
+                        public void onError(Exception e) {
 
-                            }
-                        });
-            }
+                        }
+                    });
+
 
             if (hasItemIndexTextView) {
                 holder.itemIndexTextView.setText(String.valueOf(position + 1));
@@ -120,8 +114,7 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
                 if (playerViewModel.getSongMutableLiveData().getValue() == null ||
                         playerViewModel.getSongMutableLiveData().getValue().getSongID() != song.getSongID()) {
                     playerViewModel.stop();
-                    playerViewModel.setMedia(
-                            (song.getUri() == null) ? Uri.parse(song.getSongURL()) : song.getUri());
+                    playerViewModel.setMedia(song.getSongURI());
                     playerViewModel.setSong(song);
                     setPlayingEffect(holder);
                 }
