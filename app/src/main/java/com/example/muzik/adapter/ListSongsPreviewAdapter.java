@@ -29,11 +29,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPreviewAdapter.SongPreviewHolder> {
-    private final List<Song> songsPreviewList;
-    private PlayerViewModel playerViewModel;
-    private boolean hasItemIndexTextView = false;
-    private boolean hasViewsShowed = false;
-    private Fragment fragmentOwner;
+    protected   List<Song> songsPreviewList;
+    protected PlayerViewModel playerViewModel;
+    protected boolean hasItemIndexTextView = false;
+    protected boolean hasViewsShowed = false;
+    protected Fragment fragmentOwner;
     LottieAnimationView playingGifView;
 
     public ListSongsPreviewAdapter hasItemIndexTextView() {
