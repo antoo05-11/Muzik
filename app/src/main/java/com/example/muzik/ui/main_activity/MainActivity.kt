@@ -20,10 +20,12 @@ import com.example.muzik.api_controller.RetrofitHelper
 import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.music_service.MusicService
+import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
+import com.example.muzik.utils.printLogcat
 import io.socket.client.IO
 import io.socket.client.Socket
 
@@ -44,11 +46,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainNavController: NavController
 
-    private var mSocket: Socket = IO.socket("http://10.0.2.2:6600");
 
     companion object {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
         var musicService: MusicService? = null
+        val mSocket: Socket = IO.socket("http://10.0.2.2:6600")
     }
 
     private var isServiceConnected = false
@@ -69,18 +71,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun attemptSend() {
-        mSocket.emit("joinRoom", 1)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         mSocket.connect()
 
-        attemptSend()
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]
@@ -99,8 +94,6 @@ class MainActivity : AppCompatActivity() {
             ) { isGranted: Boolean ->
                 if (isGranted) {
                     LocalMusicRepository.fetchSong(applicationContext)
-                } else {
-
                 }
             }
 
@@ -114,6 +107,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mSocket.disconnect()
+        mSocket.off("off")
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_action_bar, menu)
@@ -122,8 +122,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.search_button_item -> {
-                searchViewModel.opened.value = true
+            R.id.account_button_item -> {
+                printLogcat(SharedPrefManager.getInstance(applicationContext).user.userID.toString())
+                if (SharedPrefManager.getInstance(applicationContext).isAccessTokenExpired ||
+                    SharedPrefManager.getInstance(applicationContext).user.userID == -1L
+                ) {
+                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    this.startActivity(intent)
+                }
             }
 
             else -> {}

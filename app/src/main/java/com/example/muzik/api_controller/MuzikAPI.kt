@@ -67,17 +67,15 @@ interface MuzikAPI {
     suspend fun getSongCharts(): Response<List<Chart.SongWithView>>
 
     @POST("/api/auth/login")
-    fun userLogin(
-        @Body loginRequest: LoginRequest
-    ):Call<LoginResponse>
+    suspend fun userLogin(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
     @FormUrlEncoded
     @POST("/api/auth/signup")
-    fun signUp(
-        @Field("fullName") fullName: String,
+    suspend fun signUp(
+        @Field("name") name: String,
         @Field("email") email: String,
         @Field("phoneNumber") phoneNumber: Int,
-        @Field("dateOfBirth") date: Date,
+        @Field("birthDate") date: Date,
         @Field("password") password: String
     ): Call<SignUpResponse>
 }

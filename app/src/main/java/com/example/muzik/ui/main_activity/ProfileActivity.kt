@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.User
+import com.example.muzik.storage.SharedPrefManager
 
 class ProfileActivity: AppCompatActivity() {
 

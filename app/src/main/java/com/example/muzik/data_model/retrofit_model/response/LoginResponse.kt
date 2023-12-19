@@ -1,11 +1,11 @@
 package com.example.muzik.data_model.retrofit_model.response
 
-import com.example.muzik.data_model.standard_model.User
-
 data class LoginResponse(
-    val error: Boolean?,
-    val message: String?,
-    val accessToken: String?,
-    val user: User?
+    val userID: Long,
+    val username: String,
+    val name: String,
+    val email: String?,
+    val phoneNumber: String?,
+    val accessToken: String
 )
 

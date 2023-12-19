@@ -9,6 +9,7 @@ import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Artist
 import com.example.muzik.data_model.standard_model.Song
 
+
 object LocalMusicRepository {
     private val mapSong: MutableMap<Long, Song> = HashMap()
     private val mapAlbum: MutableMap<Long, Album> = HashMap()
@@ -90,6 +91,8 @@ object LocalMusicRepository {
                     val albumArtist: String? = cursor.getString(albumArtistColumn)
                     val artistId: Long = cursor.getLong(artistIdColumn)
                     val artist: String? = cursor.getString(artistColumn)
+
+                    if (displayName == null) continue
 
                     val uri = ContentUris.withAppendedId(
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,

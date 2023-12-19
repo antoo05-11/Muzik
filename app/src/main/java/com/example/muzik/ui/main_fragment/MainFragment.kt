@@ -51,14 +51,6 @@ class MainFragment : Fragment() {
 
         searchViewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
 
-        searchViewModel.opened.observe(requireActivity()) {
-            if (it) {
-                mainFragmentNavController.popBackStack()
-                mainFragmentNavController.navigate(R.id.navigation_search)
-                searchViewModel.opened.value = false
-            }
-        }
-
         playerViewModel.playingMutableLiveData.observe(viewLifecycleOwner) {
             if (it) {
                 binding.previewPlayingStateButton.setBackgroundResource(R.drawable.icon_pause)
@@ -94,7 +86,7 @@ class MainFragment : Fragment() {
                     }
 
                 })
-            binding.pbSongPreview.max = it.duration!!
+            binding.pbSongPreview.max = it.duration
         }
 
         playerViewModel.currentTimeMutableLiveData.observe(viewLifecycleOwner) {
@@ -147,6 +139,11 @@ class MainFragment : Fragment() {
 
                 R.id.navigation_library -> {
                     supportActionBar?.title = "Library"
+                    supportActionBar?.show()
+                }
+
+                R.id.navigation_stream_share -> {
+                    supportActionBar?.title = "Stream share"
                     supportActionBar?.show()
                 }
 

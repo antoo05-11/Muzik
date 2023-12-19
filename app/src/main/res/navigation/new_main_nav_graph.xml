@@ -33,4 +33,9 @@
             android:name="com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumFragment"
             android:label="fragment_playlist_album"
             tools:layout="@layout/fragment_playlist_album" />
+    <fragment
+            android:id="@+id/navigation_stream_share"
+            android:name="com.example.muzik.ui.stream_share_fragment.StreamShareFragment"
+            android:label="fragment_stream_share"
+            tools:layout="@layout/fragment_stream_share" />
 </navigation>

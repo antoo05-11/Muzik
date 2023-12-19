@@ -12,6 +12,11 @@
             android:icon="@drawable/baseline_travel_explore_24" />
 
     <item
+            android:id="@+id/navigation_stream_share"
+            android:icon="@drawable/noun_share_music_6140172_1_"
+            android:title="Stream" />
+
+    <item
             android:id="@+id/navigation_chart"
             android:icon="@drawable/chart_icon"
             android:title="Chart" />
