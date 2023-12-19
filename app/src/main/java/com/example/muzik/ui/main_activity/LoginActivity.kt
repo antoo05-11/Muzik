@@ -104,7 +104,7 @@ class LoginActivity: AppCompatActivity() {
                         }
 //                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
 
-                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        val intent = Intent(applicationContext, ProfileActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                         startActivity(intent)
