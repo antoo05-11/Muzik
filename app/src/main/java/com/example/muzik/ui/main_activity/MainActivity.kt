@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var playerViewModel: PlayerViewModel
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
@@ -51,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
         var musicService: MusicService? = null
         val mSocket: Socket = IO.socket("http://10.0.2.2:6600")
+
+        lateinit var playerViewModel: PlayerViewModel
     }
 
     private var isServiceConnected = false

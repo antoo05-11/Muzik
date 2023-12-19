@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center">
 
             <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -40,6 +41,16 @@
                         app:srcCompat="@drawable/baseline_account_circle_24"
                         android:id="@+id/imageView" />
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                    android:text="Room Creator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/room_creator_name_text_view" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,15 +59,45 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="right|center_vertical">
+
+            <TextView
+                    android:text="123"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stream_view_text_view"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:background="@drawable/stream_views_shape"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:maxLength="3"
+                    android:gravity="center"
+                    android:stateListAnimator="@animator/zoom_out_animator" />
+
+            <TextView
+                    android:text="QUIT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/out_room_button"
+                    android:textColor="@color/colorOnPrimary"
+                    android:clickable="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:focusable="true"
+                    android:stateListAnimator="@animator/zoom_out_animator" />
 
             <ImageButton
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:id="@+id/quit_room_button"
-                    android:background="@drawable/baseline_output_24"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:id="@+id/hide_room_button"
+                    android:background="@android:drawable/ic_menu_close_clear_cancel"
                     android:stateListAnimator="@animator/zoom_out_animator" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -65,7 +106,8 @@
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="10dp"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-            android:id="@+id/linearLayout">
+            android:id="@+id/linearLayout"
+            android:layout_marginTop="10dp">
 
         <TextView
                 android:text="Room ID"
@@ -73,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/room_name_text_view"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimary"
+                android:layout_marginBottom="10dp" />
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -163,14 +206,52 @@
                 android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/rcv_comment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="bottom">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rcv_comment"
+                android:layout_weight="1"
+                app:stackFromEnd="true" />
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/comment_edit_text"
+                    tools:layout_editor_absoluteY="697dp"
+                    tools:layout_editor_absoluteX="34dp"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@color/colorOnPrimary" />
+
+            <ImageButton
+                    android:background="@drawable/baseline_send_24"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/sendButton"
+                    android:stateListAnimator="@animator/zoom_out_animator" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

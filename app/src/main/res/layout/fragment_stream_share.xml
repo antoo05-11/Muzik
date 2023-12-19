@@ -57,7 +57,8 @@
                     android:ems="10"
                     android:gravity="center"
                     android:id="@+id/room_id_input_text"
-                    android:textColor="@color/colorOnPrimary" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:backgroundTint="@color/colorOnPrimary" />
 
         </LinearLayout>
 

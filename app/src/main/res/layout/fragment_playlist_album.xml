@@ -53,13 +53,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/playlistAlbumNameTextView"
-                android:id="@+id/playlist_album_name_textview" />
+                android:id="@+id/playlist_album_name_textview"
+                android:textColor="@color/colorOnPrimary" />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/artists_list_textview"
-                style="@style/playlistAlbumArtistsTextView" />
+                style="@style/playlistAlbumArtistsTextView"
+                android:textColor="@color/colorOnPrimary" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
