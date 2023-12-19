@@ -2,6 +2,7 @@ package com.example.muzik.adapter;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,8 +87,6 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
 
             Picasso.get()
                     .load(song.getImageURI())
-                    .fit()
-                    .centerInside()
                     .into(holder.songImageItem, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -126,6 +125,8 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
         if (playingGifView != null) {
             ((TextView) ((LinearLayout) playingGifView.getParent()).findViewById(R.id.song_preview_name_textview))
                     .setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            ((TextView) ((LinearLayout) playingGifView.getParent()).findViewById(R.id.song_preview_name_textview))
+                    .setEllipsize(TextUtils.TruncateAt.END);
             ((LinearLayout) playingGifView.getParent()).removeView(playingGifView);
         }
 
@@ -144,6 +145,7 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
         playingGifView.playAnimation();
         ((LinearLayout) holder.tvSongName.getParent().getParent()).addView(playingGifView, 0);
 
+        holder.tvSongName.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         holder.tvSongName.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     }
 

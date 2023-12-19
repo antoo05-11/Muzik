@@ -18,12 +18,14 @@ import com.example.muzik.R
 import com.example.muzik.api_controller.MuzikAPI
 import com.example.muzik.api_controller.RetrofitHelper
 import com.example.muzik.databinding.ActivityMainBinding
-import com.example.muzik.music_service.MusicService
 import com.example.muzik.music_service.LocalMusicRepository
+import com.example.muzik.music_service.MusicService
 import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
+import io.socket.client.IO
+import io.socket.client.Socket
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchViewModel: SearchViewModel
 
     private lateinit var mainNavController: NavController
+
+    private var mSocket: Socket = IO.socket("http://10.0.2.2:6600");
 
     companion object {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
@@ -65,9 +69,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun attemptSend() {
+        mSocket.emit("joinRoom", 1)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        mSocket.connect()
+
+        attemptSend()
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]

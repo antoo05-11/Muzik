@@ -3,11 +3,9 @@ package com.example.muzik.utils
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.widget.Toast
 import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,8 +51,8 @@ fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSample
     sampleSize: Int,
     navHostController: NavHostController? = null
 ) {
-    val itemConstructor = itemClazz.getConstructor(Boolean::class.java)
-    val list = List(sampleSize) { itemConstructor.newInstance(true) }
+    val itemConstructor = itemClazz.getConstructor()
+    val list = List(sampleSize) { itemConstructor.newInstance() }
 
     val adapter: T? = if (navHostController != null) {
         val adapterConstructor =
@@ -66,20 +64,6 @@ fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSample
     }
 
     rcv.adapter = adapter
-}
-
-fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSampleForRcv(
-    rcvList: List<Triple<RecyclerView, Class<T>, Class<X>>>,
-    sampleSize: Int,
-    navHostController: NavHostController? = null
-) {
-    rcvList.forEach { (rcv, adapterClazz, itemClazz) ->
-        addSampleForRcv(rcv, adapterClazz, itemClazz, sampleSize, navHostController)
-    }
-}
-
-fun showNotification(context: Context, content: Any) {
-    Toast.makeText(context, content.toString(), Toast.LENGTH_SHORT).show()
 }
 
 fun setRotateAnimation(view: View): ObjectAnimator {

@@ -14,7 +14,7 @@ import androidx.navigation.NavOptions;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muzik.R;
-import com.example.muzik.response_model.Playlist;
+import com.example.muzik.data_model.standard_model.Playlist;
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
@@ -46,12 +46,12 @@ public class ListPlaylistsPreviewAdapter extends RecyclerView.Adapter<ListPlayli
             holder.playlistPreviewNameShimmer.hideShimmer();
             holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
             holder.playlistPreviewNameTextView.setText(playlist.getName());
-            Picasso.get().load(playlist.getImageURL()).fit().into(holder.playlistPreviewImage);
+            Picasso.get().load(playlist.getImageURI()).fit().into(holder.playlistPreviewImage);
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt("playlistAlbumID", (int) playlist.getPlayListID());
-                bundle.putString("playlistAlbumImageURL", playlist.getImageURL());
+                bundle.putLong("playlistAlbumID", playlist.getPlayListID());
+                bundle.putString("playlistAlbumImageURL", playlist.getImageURI().toString());
                 bundle.putString("playlistAlbumName", playlist.getName());
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);
                 navHostController.navigate(

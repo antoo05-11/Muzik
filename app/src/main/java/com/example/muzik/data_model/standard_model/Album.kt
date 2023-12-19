@@ -4,15 +4,13 @@ import android.net.Uri
 import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
-class Album private constructor(
+class Album (
     val name: String? = "",
     val imageURI: Uri? = null,
     val albumID: Long? = -1,
     val artistID: Long? = -1,
     val artistName: String? = ""
 ) : Model {
-    constructor(isNewSample: Boolean) : this()
-
     val listSongId: MutableList<Long> = ArrayList()
 
     companion object {

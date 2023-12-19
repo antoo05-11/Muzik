@@ -4,28 +4,22 @@ import android.net.Uri
 import com.example.muzik.data_model.retrofit_model.response.SongResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
-class Song private constructor(
-    val songID: Long,
-    val name: String,
+class Song(
+    val songID: Long = -1,
+    val name: String? = "",
     var artistName: String? = null,
-    val songURI: Uri,
+    val songURI: Uri = Uri.parse(""),
     val views: Long? = -1,
     val imageURI: Uri? = null,
     val artistID: Long? = -1,
-    val duration: Int? = -1,
+    val duration: Int = -1,
     val size: Int? = -1,
     val albumID: Long? = -1
 ) : Model {
 
-    constructor(isNewSample: Boolean) : this(
-        songID = -1,
-        name = "",
-        songURI = Uri.parse("")
-    )
-
-    fun getArtist(): com.example.muzik.data_model.standard_model.Artist {
+    fun getArtist(): Artist {
         return LocalMusicRepository.getArtist(artistID as Long)
-            ?: com.example.muzik.data_model.standard_model.Artist.buildLocal(-1, "Unknown")
+            ?: Artist.buildLocal(-1, "Unknown")
     }
 
     fun getAlbum(): Album {

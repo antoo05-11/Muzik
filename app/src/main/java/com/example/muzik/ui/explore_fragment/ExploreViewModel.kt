@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.Song
-import com.example.muzik.response_model.Playlist
 import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
 import kotlinx.coroutines.launch
 
@@ -38,8 +38,11 @@ class ExploreViewModel : ViewModel() {
 
         lifecycleCoroutineScope.launch {
             try {
-                val topPlaylistsRes = muzikAPI.getTopPlaylists()
-                _topPlaylistsList.value = topPlaylistsRes.body()
+                val playlistList = mutableListOf<Playlist>()
+                muzikAPI.getTopPlaylists().body()?.let {
+                    for (i in it) playlistList.add(Playlist.buildOnline(i))
+                }
+                _topPlaylistsList.value = playlistList
             } catch (e: Throwable) {
                 Log.e("NETWORK_ERROR", "Network error!")
             }
@@ -61,8 +64,11 @@ class ExploreViewModel : ViewModel() {
 
         lifecycleCoroutineScope.launch {
             try {
-                val listenAgainPlaylistsRes = muzikAPI.getTopPlaylists()
-                _listenAgainPlaylistsList.value = listenAgainPlaylistsRes.body()
+                val playlistList = mutableListOf<Playlist>()
+                muzikAPI.getTopPlaylists().body()?.let {
+                    for (i in it) playlistList.add(Playlist.buildOnline(i))
+                }
+                _listenAgainPlaylistsList.value = playlistList
             } catch (e: Throwable) {
                 Log.e("NETWORK_ERROR", "Network error!")
             }

@@ -31,7 +31,8 @@ class LibraryFragment : Fragment() {
         viewPager.adapter = viewPagerAdapter
     }
 
-    class ViewPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
+    class ViewPagerAdapter(fragmentManager: FragmentManager) :
+        FragmentPagerAdapter(fragmentManager) {
 
         private val fragments: MutableList<Fragment> = ArrayList()
         private val titles: MutableList<String> = ArrayList()
@@ -40,6 +41,7 @@ class LibraryFragment : Fragment() {
             fragments.add(fragment)
             titles.add(title)
         }
+
         override fun getCount(): Int {
             return fragments.size
         }
@@ -52,6 +54,11 @@ class LibraryFragment : Fragment() {
             return titles[position]
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initViewPager()
     }
 
     override fun onCreateView(

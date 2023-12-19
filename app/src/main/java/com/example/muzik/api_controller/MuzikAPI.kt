@@ -5,10 +5,11 @@ import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.data_model.retrofit_model.response.Chart
 import com.example.muzik.data_model.retrofit_model.response.LoginResponse
+import com.example.muzik.data_model.retrofit_model.response.PlaylistResponse
 import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
 import com.example.muzik.data_model.retrofit_model.response.SongResponse
-import com.example.muzik.response_model.Playlist
-import com.example.muzik.response_model.User
+import com.example.muzik.data_model.standard_model.Playlist
+import com.example.muzik.data_model.standard_model.User
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -48,7 +49,7 @@ interface MuzikAPI {
     suspend fun getUser(@Path("id") userID: Int): Response<User>
 
     @GET("/api/playlist/getTopPlaylists")
-    suspend fun getTopPlaylists(): Response<List<Playlist>>
+    suspend fun getTopPlaylists(): Response<List<PlaylistResponse>>
 
     @GET("/api/album/getRecentAlbums")
     suspend fun getRecentAlbums(): Response<List<AlbumResponse>>

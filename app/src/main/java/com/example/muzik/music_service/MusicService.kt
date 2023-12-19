@@ -154,11 +154,14 @@ class MusicService : Service() {
 
     fun setSong(song: Song) {
         curSong = song
-        val mediaItem =
-            MediaItem.fromUri(song.songURI)
-        exoPlayer.setMediaItem(mediaItem)
-        exoPlayer.prepare()
-        exoPlayer.play()
+        song.songURI?.let {
+            val mediaItem =
+                MediaItem.fromUri(it)
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
+            exoPlayer.play()
+        }
+
     }
 
     fun skipNextSong() {

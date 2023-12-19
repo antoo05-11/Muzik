@@ -3,13 +3,13 @@
 
     <item
             android:id="@+id/navigation_explore"
-            android:icon="@drawable/explore_icon"
+            android:icon="@drawable/icons8_brake_discs_50"
             android:title="Explore" />
 
     <item
             android:id="@+id/navigation_search"
             android:title="Search"
-            android:icon="@drawable/baseline_search_24" />
+            android:icon="@drawable/baseline_travel_explore_24" />
 
     <item
             android:id="@+id/navigation_chart"

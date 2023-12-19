@@ -2,8 +2,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.auth0.android.jwt.JWT
-import com.example.muzik.response_model.User
-import io.jsonwebtoken.Claims
+import com.example.muzik.data_model.standard_model.User
 import java.util.Date
 class SharedPrefManager private constructor(private val mCtx: Context) {
 
@@ -60,11 +59,11 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         val sharedPreferences: SharedPreferences =
             mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putLong(KEY_USER_ID, user.userID)
+        user.userID?.let { editor.putLong(KEY_USER_ID, it) }
         editor.putString(KEY_USER_EMAIL, user.email)
         editor.putString(KEY_USERNAME, user.name)
-        editor.putLong(KEY_USER_DATE_OF_BIRTH, user.dateOfBirth.time)
-        editor.putInt(KEY_USER_PHONE_NUMBER, user.phoneNumber)
+        user.dateOfBirth?.let { editor.putLong(KEY_USER_DATE_OF_BIRTH, it.time) }
+        user.phoneNumber?.let { editor.putInt(KEY_USER_PHONE_NUMBER, it) }
         editor.apply()
     }
 

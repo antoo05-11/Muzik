@@ -8,17 +8,18 @@
         android:clickable="true"
         android:stateListAnimator="@animator/zoom_out_animator">
 
-    <androidx.cardview.widget.CardView
+    <com.facebook.shimmer.ShimmerFrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="40dp"
-            android:id="@+id/artist_preview_image_cardview">
+            android:id="@+id/shimmer_artist_preview_image"
+            tools:ignore="MissingConstraints">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
+        <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/shimmer_artist_preview_image"
-                tools:ignore="MissingConstraints">
+                app:cardCornerRadius="40dp"
+                android:id="@+id/artist_preview_image_cardview">
+
 
             <ImageView
                     android:layout_width="80dp"
@@ -28,8 +29,9 @@
                     tools:ignore="ContentDescription"
                     android:background="@drawable/grey_round_corner" />
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
     <com.facebook.shimmer.ShimmerFrameLayout
             android:layout_width="match_parent"

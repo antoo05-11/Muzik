@@ -4,14 +4,12 @@ import android.net.Uri
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
-class Artist private constructor(
+class Artist (
     val name: String? = "",
     val artistID: Long? = -1,
     val imageURI: Uri? = null
 ) : Model {
     val listSongId: MutableList<Long> = ArrayList()
-
-    constructor(isNewSample: Boolean) : this()
 
     companion object {
         fun buildOnline(artistResponse: ArtistResponse): Artist {

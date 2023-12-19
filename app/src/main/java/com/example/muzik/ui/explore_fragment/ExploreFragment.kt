@@ -17,9 +17,9 @@ import com.example.muzik.adapter.ListPlaylistsPreviewAdapter
 import com.example.muzik.adapter.ListSongsPreviewAdapter
 import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentExploreBinding
-import com.example.muzik.response_model.Playlist
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForHorizontalRcv
 import com.example.muzik.utils.addDecorationForVerticalRcv
@@ -59,19 +59,15 @@ class ExploreFragment : Fragment() {
 
         // For loading view.
         addSampleForRcv(
-            mutableListOf(
-                Triple(
-                    binding.rcvPlaylistsPreview,
-                    ListPlaylistsPreviewAdapter::class.java,
-                    Playlist::class.java,
-                ),
-                Triple(
-                    binding.rcvListenAgainPlaylistsPreview,
-                    ListPlaylistsPreviewAdapter::class.java,
-                    Playlist::class.java
-                )
-            ),
-            5, findNavController() as NavHostController
+            binding.rcvPlaylistsPreview,
+            ListPlaylistsPreviewAdapter::class.java,
+            Playlist::class.java, 5, findNavController() as NavHostController
+        )
+
+        addSampleForRcv(
+            binding.rcvListenAgainPlaylistsPreview,
+            ListPlaylistsPreviewAdapter::class.java,
+            Playlist::class.java, 5, findNavController() as NavHostController
         )
         addSampleForRcv(
             binding.rcvYourArtistPreview,

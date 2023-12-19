@@ -6,8 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.data_model.standard_model.Artist
-import com.example.muzik.response_model.Playlist
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.main_activity.MainActivity
+import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
 import kotlinx.coroutines.launch
 
 class LibraryViewModel : ViewModel() {
@@ -20,10 +21,12 @@ class LibraryViewModel : ViewModel() {
     fun fetchData(lifecycleCoroutineScope: LifecycleCoroutineScope) {
         lifecycleCoroutineScope.launch {
             try {
-                val topPlaylistsRes = MainActivity.muzikAPI.getTopPlaylists()
-                _topPlaylistsList.value = topPlaylistsRes.body()
-            }
-            catch (e: Throwable) {
+                val playlistList = mutableListOf<Playlist>()
+                muzikAPI.getTopPlaylists().body()?.let {
+                    for (i in it) playlistList.add(Playlist.buildOnline(i))
+                }
+                _topPlaylistsList.value = playlistList
+            } catch (e: Throwable) {
                 Log.e("NETWORK_ERROR", "Network error!")
             }
         }

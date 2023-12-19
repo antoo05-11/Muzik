@@ -1,0 +1,12 @@
+package com.example.muzik.data_model.retrofit_model.response
+
+import java.util.Date
+
+data class PlaylistResponse(
+    val playListID: Long,
+    val type: String,
+    val userID: Long,
+    val name: String,
+    val dateAdded: Date,
+    val imageURL: String
+)

@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
-import com.example.muzik.response_model.Playlist
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.squareup.picasso.Picasso
 
@@ -44,7 +44,7 @@ class ListPlaylistAdapter(
         val tvPlaylistName: TextView = holder.itemView.findViewById(R.id.tvPlaylistsName)
         val playlistImage: ImageView = holder.itemView.findViewById(R.id.playlist_image_item)
 
-        if (curPlaylist.playListID.toInt() == -1) {
+        if (curPlaylist.playListID?.toInt() == -1) {
             playlistImage.setBackgroundResource(R.drawable.baseline_add_box_24)
             (tvPlaylistName.parent as LinearLayout).removeViewAt(1)
             tvPlaylistName.text = "Add more playlists!"
@@ -52,17 +52,16 @@ class ListPlaylistAdapter(
             holder.itemView.apply {
                 tvPlaylistName.text = curPlaylist.name
 
-                if (!curPlaylist.imageURL.isNullOrEmpty()) {
-                    Picasso.get()
-                        .load(curPlaylist.imageURL)
-                        .into(playlistImage)
-                }
+                Picasso.get()
+                    .load(curPlaylist.imageURI)
+                    .into(playlistImage)
+
             }
 
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putInt("playlistAlbumID", curPlaylist.playListID.toInt())
-                bundle.putString("playlistAlbumImageURL", curPlaylist.imageURL)
+                curPlaylist.playListID?.let { it1 -> bundle.putLong("playlistAlbumID", it1) }
+                bundle.putString("playlistAlbumImageURL", curPlaylist.imageURI.toString())
                 bundle.putString("playlistAlbumName", curPlaylist.name)
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
                 navHostController.navigate(

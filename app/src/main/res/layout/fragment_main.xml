@@ -28,13 +28,16 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/bottom_nav_view"
             app:menu="@menu/bottom_nav_menu"
             app:itemActiveIndicatorStyle="@android:color/transparent"
             app:labelVisibilityMode="labeled"
             android:isScrollContainer="true"
+            app:itemIconTint="@color/bottom_nav_color"
+            app:itemTextColor="@color/bottom_nav_color"
+            android:background="@drawable/shape_bottom_nav_view"
             app:itemIconSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,51 +55,59 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp">
 
-        <androidx.cardview.widget.CardView
+        <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/shimmer_song_image_under_song_preview"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/song_bottom_item_cardview"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:cardCornerRadius="10dp">
+                app:layout_constraintTop_toTopOf="parent">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
+            <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/shimmer_song_image_under_song_preview">
+
+                    android:id="@+id/song_bottom_item_cardview"
+
+                    app:cardCornerRadius="10dp">
+
 
                 <ImageView
                         android:id="@+id/song_image_under_song_preview"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/default_song_image"
-                        android:scaleType="centerCrop" />
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/grey_round_corner" />
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@id/song_bottom_item_cardview"
+                app:layout_constraintLeft_toRightOf="@id/shimmer_song_image_under_song_preview"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/preview_playing_state_button"
+                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
 
             <TextView
                     android:id="@+id/tvSongNamePreview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="18sp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/artist_under_player_preview_textview" />
+                    android:id="@+id/artist_under_player_preview_textview"
+                    android:textColor="@color/colorOnPrimary" />
         </LinearLayout>
 
         <ProgressBar
