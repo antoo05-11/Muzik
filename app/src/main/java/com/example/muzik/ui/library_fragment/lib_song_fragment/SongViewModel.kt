@@ -1,4 +1,4 @@
-package com.example.muzik.ui.lib_song_fragment
+package com.example.muzik.ui.library_fragment.lib_song_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

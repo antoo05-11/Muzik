@@ -1,21 +1,22 @@
-package com.example.muzik.ui.lib_album_fragment
+package com.example.muzik.ui.library_fragment.lib_playlist_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.muzik.databinding.FragmentLibAlbumsBinding
+import com.example.muzik.databinding.FragmentLibPlaylistBinding
 
-class LibAlbumsFragment: Fragment() {
-    private lateinit var binding: FragmentLibAlbumsBinding
+class LibPlaylistFragment: Fragment() {
+
+    private lateinit var binding: FragmentLibPlaylistBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLibAlbumsBinding.inflate(inflater)
+        binding = FragmentLibPlaylistBinding.inflate(inflater)
         return binding.root
     }
 }

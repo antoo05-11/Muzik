@@ -1,4 +1,4 @@
-package com.example.muzik.adapter;
+package com.example.muzik.adapter.playlists;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,11 +16,11 @@ import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.squareup.picasso.Picasso
 
-class ListPlaylistAdapter(
+class PlaylistsAdapterVertical(
     private val listPlaylist: List<Playlist>,
     private val navHostController: NavHostController
 ) :
-    RecyclerView.Adapter<ListPlaylistAdapter.ListPlaylistViewHolder>() {
+    RecyclerView.Adapter<PlaylistsAdapterVertical.ListPlaylistViewHolder>() {
 
     class ListPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.IBinder
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,8 +23,8 @@ import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.music_service.MusicService
 import com.example.muzik.storage.SharedPrefManager
-import com.example.muzik.ui.lib_artist_fragment.ArtistViewModel
-import com.example.muzik.ui.lib_song_fragment.SongViewModel
+import com.example.muzik.ui.library_fragment.lib_artist_fragment.ArtistViewModel
+import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.example.muzik.utils.printLogcat
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchViewModel: SearchViewModel
 
     private lateinit var mainNavController: NavController
+
+    private lateinit var profileActivityIntent: Intent
 
 
     companion object {
@@ -78,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         mSocket.connect()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        profileActivityIntent = Intent(applicationContext, ProfileActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
 
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
@@ -130,12 +138,23 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     val intent = Intent(applicationContext, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    this.startActivity(intent)
+                    startActivity(intent)
+                } else {
+                    startActivity(profileActivityIntent)
                 }
             }
 
             else -> {}
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

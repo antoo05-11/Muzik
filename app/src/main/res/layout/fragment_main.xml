@@ -75,8 +75,8 @@
 
                 <ImageView
                         android:id="@+id/song_image_under_song_preview"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:scaleType="centerCrop"
                         android:background="@drawable/grey_round_corner" />
 

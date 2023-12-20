@@ -11,8 +11,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.muzik.R
-import com.example.muzik.adapter.ListAlbumsVerticalPreviewAdapter
-import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.adapter.SongsAdapterVertical
+import com.example.muzik.adapter.albums.AlbumsAdapterVertical
 import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentArtistBinding
@@ -61,24 +61,24 @@ class ArtistFragment : Fragment() {
         )
         addSampleForRcv(
             binding.rcvArtistPopularSongs,
-            ListSongsPreviewAdapter::class.java,
+            SongsAdapterVertical::class.java,
             Song::class.java, 5
         )
         addSampleForRcv(
             binding.rcvArtistPopularAlbums,
-            ListAlbumsVerticalPreviewAdapter::class.java,
+            AlbumsAdapterVertical::class.java,
             Album::class.java, 5, mainFragmentNavController as NavHostController
         )
 
         viewModel.artistSongs.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView().setFragmentOwner(this)
+            val adapter = SongsAdapterVertical(it).hasItemIndexTextView().setFragmentOwner(this)
                 .hasViewsShowed().setPlayerViewModel(playerViewModel)
             for (song in it) song.artistName = (requireArguments().getString("artistName"))
             binding.rcvArtistPopularSongs.adapter = adapter
         }
 
         viewModel.artistAlbums.observe(viewLifecycleOwner) {
-            val adapter = ListAlbumsVerticalPreviewAdapter(
+            val adapter = AlbumsAdapterVertical(
                 it,
                 requireParentFragment().childFragmentManager.findFragmentById(R.id.fragment_lib_nav)
                     ?.findNavController() as NavHostController

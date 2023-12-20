@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="?attr/colorPrimary">
+        android:background="?attr/colorPrimary"
+        tools:context=".ui.main_activity.LoginActivity"
+        android:padding="15dp">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MUZIK"
-            android:fontFamily="sans-serif-condensed"
-            android:textAlignment="center"
-            android:textColor="@color/colorAccent"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+    <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/baseline_close_24"
+            android:id="@+id/back_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:stateListAnimator="@animator/zoom_out_animator"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             app:cardCornerRadius="30dp"
-            app:cardElevation="20dp">
+            app:cardElevation="20dp"
+            app:cardBackgroundColor="@color/colorPrimaryVariant"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -40,61 +45,86 @@
                     android:text="Login"
                     android:id="@+id/signin"
                     android:textAlignment="center"
-                    android:textSize="50sp"
-                    android:textStyle="bold" />
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnPrimary" />
 
 
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="30dp"
                     android:id="@+id/username"
-                    android:drawableLeft="@drawable/baseline_person_24"
+                    android:drawableStart="@drawable/baseline_person_24"
                     android:hint="Username"
                     android:padding="18dp"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textColorHint="@color/colorOnPrimaryVariant"
+                    android:drawablePadding="10dp"
+                    android:backgroundTint="@color/colorOnPrimaryVariant" />
 
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="15dp"
                     android:id="@+id/password"
-                    android:drawableLeft="@drawable/baseline_lock_24"
+                    android:drawableStart="@drawable/baseline_lock_24"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="18dp"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textColorHint="@color/colorOnPrimaryVariant"
+                    android:drawablePadding="10dp"
+                    android:backgroundTint="@color/colorOnPrimaryVariant" />
 
-            <TextView
-                    android:id="@+id/forgotpass"
-                    android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Forgot password?"
-                    android:layout_gravity="right" />
+                    android:layout_marginTop="15dp">
 
-            <Button
-                    android:layout_width="300dp"
+                <TextView
+                        android:text="Sign up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/signInButton"
+                        android:textColor="@color/colorOnPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:stateListAnimator="@animator/zoom_out_animator"
+                        android:clickable="true"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                <TextView
+                        android:id="@+id/forgotpass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot password?"
+                        android:layout_gravity="right"
+                        android:textColor="@color/colorOnPrimary"
+                        android:stateListAnimator="@animator/zoom_out_animator"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:clickable="true" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:id="@+id/loginbtn"
-                    android:padding="20dp"
                     android:text="Sign in"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:stateListAnimator="@animator/zoom_out_animator"
+                    android:background="@drawable/login_button_shape"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textAllCaps="false" />
 
-            <Button
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/signupbtn1"
-                    android:padding="20dp"
-                    android:text="Sign up"
-                    android:textSize="20sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_back_arrow"
-            android:id="@+id/back_button" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

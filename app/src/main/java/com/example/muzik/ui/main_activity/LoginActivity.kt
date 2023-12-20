@@ -1,7 +1,10 @@
 package com.example.muzik.ui.main_activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -26,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         val usernameInputText = binding.username
         val passwordInputText = binding.password
         val loginBtn = binding.loginbtn
-        val signUpBtn = binding.signupbtn1
+        val signUpBtn = binding.signInButton
 
         binding.backButton.setOnClickListener {
             finish()
@@ -81,5 +84,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

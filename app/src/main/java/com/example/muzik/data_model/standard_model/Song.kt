@@ -17,11 +17,6 @@ class Song(
     val albumID: Long? = -1
 ) : Model {
 
-    fun getArtist(): Artist {
-        return LocalMusicRepository.getArtist(artistID as Long)
-            ?: Artist.buildLocal(-1, "Unknown")
-    }
-
     fun getAlbum(): Album {
         return albumID?.let { LocalMusicRepository.getAlbum(it) } ?: Album.buildLocal(
             -1,
@@ -29,10 +24,6 @@ class Song(
             Uri.parse("default"),
             -1
         )
-    }
-
-    fun getImg(): Uri {
-        return albumID?.let { LocalMusicRepository.getAlbum(it)?.imageURI } ?: Uri.parse("")
     }
 
     companion object {
@@ -58,6 +49,8 @@ class Song(
             albumID: Long,
             artistID: Long
         ): Song {
+            val artist = LocalMusicRepository.getArtist(artistID)
+                ?: Artist.buildLocal(-1, "Unknown")
             return Song(
                 songID = songId,
                 name = displayName,
@@ -65,7 +58,8 @@ class Song(
                 artistID = artistID,
                 duration = duration,
                 size = size,
-                albumID = albumID
+                albumID = albumID,
+                artistName = artist.name
             )
         }
     }

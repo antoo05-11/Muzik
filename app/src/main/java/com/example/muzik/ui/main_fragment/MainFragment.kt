@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +19,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.muzik.R
 import com.example.muzik.databinding.FragmentMainBinding
-import com.example.muzik.ui.lib_song_fragment.SongViewModel
+import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.example.muzik.utils.PaletteUtils
@@ -65,6 +67,16 @@ class MainFragment : Fragment() {
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvSongNamePreview.text = it.name
             binding.artistUnderPlayerPreviewTextview.text = it.artistName
+            if (it.imageURI == null) {
+                binding.shimmerSongImageUnderSongPreview.hideShimmer()
+                binding.songImageUnderSongPreview.setBackgroundResource(R.drawable.icons8_song_50)
+
+                val color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
+                val gradientDrawable = GradientDrawable()
+                gradientDrawable.setColor(color)
+                gradientDrawable.cornerRadius = 15f
+                ViewCompat.setBackground(binding.clPreview, gradientDrawable)
+            }
             Picasso.get().load(it.imageURI)
                 .into(binding.songImageUnderSongPreview, object : Callback {
                     override fun onSuccess() {

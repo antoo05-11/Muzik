@@ -1,4 +1,4 @@
-package com.example.muzik.adapter;
+package com.example.muzik.adapter.artists;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListArtistAdapter extends RecyclerView.Adapter<ListArtistAdapter.ArtistViewHolder> implements Filterable {
+public class ArtistsAdapterVertical extends RecyclerView.Adapter<ArtistsAdapterVertical.ArtistViewHolder> implements Filterable {
     private List<Artist> artists;
     private final List<Artist> artistsOld;
     private final NavHostController navHostController;
 
 
-    public ListArtistAdapter(List<Artist> artists, NavHostController navHostController) {
+    public ArtistsAdapterVertical(List<Artist> artists, NavHostController navHostController) {
         this.artists = artists;
         this.artistsOld = artists;
         this.navHostController = navHostController;

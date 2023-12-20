@@ -6,7 +6,7 @@ import com.example.muzik.music_service.LocalMusicRepository
 
 class Artist (
     val name: String? = "",
-    val artistID: Long? = -1,
+    val artistID: Long = -1,
     val imageURI: Uri? = null
 ) : Model {
     val listSongId: MutableList<Long> = ArrayList()

@@ -28,34 +28,34 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPreviewAdapter.SongPreviewHolder> {
-    protected   List<Song> songsPreviewList;
+public class SongsAdapterVertical extends RecyclerView.Adapter<SongsAdapterVertical.SongPreviewHolder> {
+    protected List<Song> songsPreviewList;
     protected PlayerViewModel playerViewModel;
     protected boolean hasItemIndexTextView = false;
     protected boolean hasViewsShowed = false;
     protected Fragment fragmentOwner;
     LottieAnimationView playingGifView;
 
-    public ListSongsPreviewAdapter hasItemIndexTextView() {
+    public SongsAdapterVertical hasItemIndexTextView() {
         this.hasItemIndexTextView = true;
         return this;
     }
 
-    public ListSongsPreviewAdapter hasViewsShowed() {
+    public SongsAdapterVertical hasViewsShowed() {
         this.hasViewsShowed = true;
         return this;
     }
 
-    public ListSongsPreviewAdapter setFragmentOwner(Fragment fragmentOwner) {
+    public SongsAdapterVertical setFragmentOwner(Fragment fragmentOwner) {
         this.fragmentOwner = fragmentOwner;
         return this;
     }
 
-    public ListSongsPreviewAdapter(List<Song> songsPreviewList) {
+    public SongsAdapterVertical(List<Song> songsPreviewList) {
         this.songsPreviewList = songsPreviewList;
     }
 
-    public ListSongsPreviewAdapter setPlayerViewModel(PlayerViewModel playerViewModel) {
+    public SongsAdapterVertical setPlayerViewModel(PlayerViewModel playerViewModel) {
         this.playerViewModel = playerViewModel;
         return this;
     }
@@ -85,6 +85,10 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
             holder.shimmerArtistSongPreviewNameTextView.hideShimmer();
             holder.shimmerSongPreviewNameTextView.hideShimmer();
 
+            if (song.getImageURI() == null) {
+                holder.shimmerSongImageItem.hideShimmer();
+                holder.songImageItem.setBackgroundResource(R.drawable.icons8_song_50);
+            }
             Picasso.get()
                     .load(song.getImageURI())
                     .into(holder.songImageItem, new Callback() {
@@ -98,7 +102,6 @@ public class ListSongsPreviewAdapter extends RecyclerView.Adapter<ListSongsPrevi
 
                         }
                     });
-
 
             if (hasItemIndexTextView) {
                 holder.itemIndexTextView.setText(String.valueOf(position + 1));

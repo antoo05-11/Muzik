@@ -1,5 +1,6 @@
 package com.example.muzik.ui.stream_share_fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 import android.os.Bundle
@@ -26,7 +27,7 @@ class StreamShareFragment : Fragment() {
     private lateinit var viewModel: StreamShareViewModel
     private lateinit var binding: FragmentStreamShareBinding
     private lateinit var mSocket: Socket
-    private lateinit var roomID: String
+    private var roomID: String = ""
     private lateinit var playerViewModel: PlayerViewModel
     private var userID: Long? = -1
 
@@ -35,6 +36,7 @@ class StreamShareFragment : Fragment() {
         var inStreamShare = false
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
         if (inStreamShare) binding.createRoomButton.text = "Return your room now"

@@ -1,4 +1,4 @@
-package com.example.muzik.adapter;
+package com.example.muzik.adapter.albums;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,11 +22,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Objects;
 
-public class ListAlbumsHorizontalPreviewAdapter extends RecyclerView.Adapter<ListAlbumsHorizontalPreviewAdapter.AlbumPreviewHolder> {
+public class AlbumsAdapterHorizontal extends RecyclerView.Adapter<AlbumsAdapterHorizontal.AlbumPreviewHolder> {
     private final List<Album> albums;
     private final NavHostController navHostController;
 
-    public ListAlbumsHorizontalPreviewAdapter(List<Album> albums, NavHostController navHostController) {
+    public AlbumsAdapterHorizontal(List<Album> albums, NavHostController navHostController) {
         this.albums = albums;
         this.navHostController = navHostController;
     }

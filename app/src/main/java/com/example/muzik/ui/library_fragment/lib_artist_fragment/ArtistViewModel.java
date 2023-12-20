@@ -1,4 +1,4 @@
-package com.example.muzik.ui.lib_artist_fragment;
+package com.example.muzik.ui.library_fragment.lib_artist_fragment;
 
 import androidx.lifecycle.MutableLiveData;
 

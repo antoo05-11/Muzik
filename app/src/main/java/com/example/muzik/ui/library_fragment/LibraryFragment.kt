@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.muzik.databinding.FragmentLibraryBinding
-import com.example.muzik.ui.lib_album_fragment.LibAlbumsFragment
-import com.example.muzik.ui.lib_artist_fragment.LibArtistFragment
-import com.example.muzik.ui.lib_playlist_fragment.LibPlaylistFragment
-import com.example.muzik.ui.lib_song_fragment.LibSongsFragment
+import com.example.muzik.ui.library_fragment.lib_album_fragment.LibAlbumsFragment
+import com.example.muzik.ui.library_fragment.lib_artist_fragment.LibArtistFragment
+import com.example.muzik.ui.library_fragment.lib_playlist_fragment.LibPlaylistFragment
+import com.example.muzik.ui.library_fragment.lib_song_fragment.LibSongsFragment
 
 class LibraryFragment : Fragment() {
 

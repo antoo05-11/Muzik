@@ -1,10 +1,8 @@
-<!-- res/drawable/bottom_rounded_corner.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid
-
-        android:color="#000000" />
-    <corners android:topLeftRadius="0dp"
-    android:topRightRadius="0dp"
-    android:bottomLeftRadius="80dp"
-    android:bottomRightRadius="80dp" />
+    <solid android:color="#AD575757" />
+    <corners
+            android:topLeftRadius="0dp"
+            android:topRightRadius="0dp"
+            android:bottomLeftRadius="40dp"
+            android:bottomRightRadius="40dp" />
 </shape>

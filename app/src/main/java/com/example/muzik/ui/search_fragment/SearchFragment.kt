@@ -1,27 +1,19 @@
 package com.example.muzik.ui.search_fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.muzik.R
-import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentSearchBinding
 import com.example.muzik.music_service.LocalMusicRepository
-import com.example.muzik.ui.main_activity.MainActivity
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 
 class SearchFragment : Fragment() {
@@ -29,7 +21,7 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
-    class SearchAdapter: ListSongsPreviewAdapter(LocalMusicRepository.getSongs()), Filterable{
+    class SearchAdapterVertical: SongsAdapterVertical(LocalMusicRepository.getSongs()), Filterable{
         override fun getFilter(): Filter {
             return object : Filter() {
                 override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -71,7 +63,7 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(layoutInflater)
 
         val playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
-        val adapter = SearchAdapter()
+        val adapter = SearchAdapterVertical()
         adapter.setFragmentOwner(this)
         adapter.setPlayerViewModel(playerViewModel)
         binding.recyclerView.adapter = adapter

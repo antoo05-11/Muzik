@@ -83,6 +83,9 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
+            if(it.imageURI ==null) {
+                binding.activityTrackImage.setBackgroundResource(R.drawable.icons8_song_500_1_)
+            }
                 Picasso.get()
                     .load(it.imageURI)
                     .into(binding.activityTrackImage, object : Callback {

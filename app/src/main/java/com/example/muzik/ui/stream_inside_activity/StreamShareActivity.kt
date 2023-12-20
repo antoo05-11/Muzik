@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.R
-import com.example.muzik.adapter.ListCommentsAdapter
+import com.example.muzik.adapter.CommentsAdapter
 import com.example.muzik.data_model.standard_model.Comment
 import com.example.muzik.databinding.ActivityStreamShareBinding
 import com.example.muzik.storage.SharedPrefManager
@@ -52,7 +52,7 @@ class StreamShareActivity : AppCompatActivity() {
         binding.roomNameTextView.text = "Room ID: ${roomID}"
 
         val comments = mutableListOf<Comment>()
-        val adapter = ListCommentsAdapter(comments)
+        val adapter = CommentsAdapter(comments)
 
         binding.streamViewTextView.text = "1"
 

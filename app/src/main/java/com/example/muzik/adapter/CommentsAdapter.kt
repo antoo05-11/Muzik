@@ -10,8 +10,8 @@ import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Comment
 import com.squareup.picasso.Picasso
 
-class ListCommentsAdapter(private val comments: List<Comment>) :
-    RecyclerView.Adapter<ListCommentsAdapter.ViewHolder>() {
+class CommentsAdapter(private val comments: List<Comment>) :
+    RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val commentAccountImageView: ImageView = itemView.findViewById(R.id.comment_account_image)

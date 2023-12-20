@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentChartBinding
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
@@ -27,7 +27,6 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import kotlinx.coroutines.launch
-
 
 val lineChartColors =
     listOf(
@@ -60,12 +59,12 @@ class ChartFragment : Fragment() {
         addDecorationForVerticalRcv(binding.rcvChartSongsList, requireActivity())
         addSampleForRcv(
             binding.rcvChartSongsList,
-            ListSongsPreviewAdapter::class.java,
+            SongsAdapterVertical::class.java,
             Song::class.java,
             5
         )
         viewModel.chartSongsList.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it).hasItemIndexTextView().setFragmentOwner(this)
+            val adapter = SongsAdapterVertical(it).hasItemIndexTextView().setFragmentOwner(this)
                 .setPlayerViewModel(playerViewModel)
             binding.rcvChartSongsList.adapter = adapter
         }

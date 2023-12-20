@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import com.example.muzik.adapter.ListSongsPreviewAdapter
+import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentPlaylistAlbumBinding
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
@@ -59,7 +59,7 @@ class PlaylistAlbumFragment : Fragment() {
         addDecorationForVerticalRcv(binding.rcvSongsInsidePlaylistAlbumView, requireActivity())
         addSampleForRcv(
             binding.rcvSongsInsidePlaylistAlbumView,
-            ListSongsPreviewAdapter::class.java,
+            SongsAdapterVertical::class.java,
             Song::class.java,
             5
         )
@@ -72,7 +72,7 @@ class PlaylistAlbumFragment : Fragment() {
         }
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {
-            val adapter = ListSongsPreviewAdapter(it).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
+            val adapter = SongsAdapterVertical(it).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
             if (it.size > 1) {
                 adapter.hasItemIndexTextView()
             }
