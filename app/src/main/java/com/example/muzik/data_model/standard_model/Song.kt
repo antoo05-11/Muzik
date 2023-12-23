@@ -5,14 +5,14 @@ import com.example.muzik.data_model.retrofit_model.response.SongResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
 class Song(
-    val songID: Long = -1,
-    val name: String? = "",
+    val songID: String? = null,
+    val name: String? = null,
     var artistName: String? = null,
-    val songURI: Uri = Uri.parse(""),
+    var songURI: Uri? = null,
     val views: Long? = -1,
     val imageURI: Uri? = null,
     val artistID: Long? = -1,
-    val duration: Int = -1,
+    var duration: Int = -1,
     val size: Int? = -1,
     val albumID: Long? = -1
 ) : Model {
@@ -28,11 +28,15 @@ class Song(
 
     companion object {
         fun buildOnline(songResponse: SongResponse): Song {
+            var songURI: Uri? = null
+            songResponse.songURL?.let {
+                songURI = Uri.parse(it)
+            }
             return Song(
                 songID = songResponse.songID,
                 name = songResponse.name,
                 artistName = songResponse.artistName,
-                songURI = Uri.parse(songResponse.songURL),
+                songURI = songURI,
                 views = songResponse.views,
                 imageURI = Uri.parse(songResponse.imageURL),
                 artistID = songResponse.artistID,
@@ -52,7 +56,7 @@ class Song(
             val artist = LocalMusicRepository.getArtist(artistID)
                 ?: Artist.buildLocal(-1, "Unknown")
             return Song(
-                songID = songId,
+                songID = songId.toString(),
                 name = displayName,
                 songURI = uri,
                 artistID = artistID,

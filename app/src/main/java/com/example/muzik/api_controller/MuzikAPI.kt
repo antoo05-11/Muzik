@@ -6,6 +6,7 @@ import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.data_model.retrofit_model.response.Chart
 import com.example.muzik.data_model.retrofit_model.response.LoginResponse
 import com.example.muzik.data_model.retrofit_model.response.PlaylistResponse
+import com.example.muzik.data_model.retrofit_model.response.SearchResponse
 import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
 import com.example.muzik.data_model.retrofit_model.response.SongResponse
 import com.example.muzik.data_model.standard_model.Playlist
@@ -18,11 +19,22 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.Date
 
 interface MuzikAPI {
     @GET("/api/song/{id}/info")
-    suspend fun getSong(@Path("id") songID: Int): Response<SongResponse>
+    suspend fun getSong(
+        @Path("id") songID: String,
+        @Query("youtube") youtube: Boolean? = null
+    ): Response<SongResponse>
+
+    @GET("/api/song/search")
+    suspend fun searchSong(
+        @Query("youtube") youtube: Boolean? = null,
+        @Query("next") next: Boolean? = null,
+        @Query("searchText") searchText: String? = null
+    ): Response<SearchResponse>
 
     @GET("/api/song/getAll")
     suspend fun getAllSongs(): Response<List<SongResponse>>

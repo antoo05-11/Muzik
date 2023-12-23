@@ -9,6 +9,7 @@ import android.view.animation.LinearInterpolator
 import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Model
 import java.io.Serializable
 
@@ -23,7 +24,7 @@ fun addDecorationForHorizontalRcv(recyclerView: RecyclerView, activity: Activity
     recyclerView.layoutManager =
         LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
     recyclerView.addItemDecoration(
-        CustomItemDecoration(30)
+        CustomItemDecoration(activity.resources.getDimensionPixelSize(R.dimen.activity_horizontal_padding))
     )
 }
 

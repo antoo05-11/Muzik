@@ -4,7 +4,7 @@
     <style name="collectionName" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#D8FFFFFF</item>
         <item name="android:textSize">22sp</item>
-        <item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_padding</item>
         <item name="android:textStyle">bold</item>
     </style>
 
