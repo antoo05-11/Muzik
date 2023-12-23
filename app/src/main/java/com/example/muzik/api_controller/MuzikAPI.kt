@@ -31,7 +31,7 @@ interface MuzikAPI {
 
     @GET("/api/song/suggestSearch")
     suspend fun getSuggestions(
-        @Query("searchText") q: String
+        @Query("q") q: String
     ): Response<List<String>>
 
     @GET("/api/song/search")

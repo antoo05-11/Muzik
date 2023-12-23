@@ -17,7 +17,8 @@ class SearchSuggestionsAdapter(var suggestions: List<String>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val searchSuggestTextView: TextView = itemView.findViewById(R.id.search_hint_text_view)
-        val insertSearchTextButton: ImageButton = itemView.findViewById(R.id.insert_search_text_button)
+        val insertSearchTextButton: ImageButton =
+            itemView.findViewById(R.id.insert_search_text_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +35,7 @@ class SearchSuggestionsAdapter(var suggestions: List<String>) :
         val suggestion = suggestions[position]
         holder.searchSuggestTextView.text = suggestion
         holder.itemView.setOnClickListener {
-            (fragmentOwner as SearchFragment).search(suggestion)
+            (fragmentOwner as SearchFragment).search(searchText = suggestion)
         }
         holder.insertSearchTextButton.setOnClickListener {
             (fragmentOwner as SearchFragment).insertSearchText(suggestion)

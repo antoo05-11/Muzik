@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.muzik.R
 import com.example.muzik.adapter.SearchSuggestionsAdapter
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentSearchBinding
 import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 
@@ -112,15 +114,21 @@ class SearchFragment : Fragment() {
             suggestionsAdapter.notifyDataSetChanged()
         }
 
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+
         binding.svSearchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
+                navBar.visibility = View.GONE
                 binding.searchHintScrollView.visibility = View.VISIBLE
                 binding.searchScrollView.visibility = View.INVISIBLE
                 binding.searchBackButton.visibility = View.VISIBLE
+                binding.searchModeTab.visibility = View.GONE
             } else {
+                navBar.visibility = View.VISIBLE
                 binding.searchHintScrollView.visibility = View.INVISIBLE
                 binding.searchScrollView.visibility = View.VISIBLE
                 binding.searchBackButton.visibility = View.GONE
+                binding.searchModeTab.visibility = View.VISIBLE
             }
         }
 
@@ -131,13 +139,21 @@ class SearchFragment : Fragment() {
         binding.svSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(s: String): Boolean {
                 lifecycleScope.launch {
-                    searchViewModel.fetchSearchSuggestions(searchText = binding.svSearchView.query.toString())
+                    if (binding.searchModeTab.selectedTabPosition == 0 || binding.searchModeTab.selectedTabPosition == 2) {
+                        searchViewModel.fetchSearchSuggestions(searchText = binding.svSearchView.query.toString())
+                    } else {
+
+                    }
                 }
                 return true
             }
 
             override fun onQueryTextSubmit(s: String): Boolean {
-                search(searchText = binding.svSearchView.query.toString())
+                if (binding.searchModeTab.selectedTabPosition == 0 || binding.searchModeTab.selectedTabPosition == 2) {
+                    search(searchText = binding.svSearchView.query.toString())
+                } else {
+                    search(youtube = false, searchText = binding.svSearchView.query.toString())
+                }
                 return true
             }
         })
@@ -145,18 +161,28 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    fun search(searchText: String = "") {
+    fun search(youtube: Boolean = true, searchText: String = "") {
         lifecycleScope.launch {
-            searchViewModel.fetchSearchSongs(true, searchText)
+            searchViewModel.fetchSearchSongs(youtube, searchText)
         }
         val imm =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(activity?.currentFocus!!.windowToken, 0)
+        imm.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
         binding.svSearchView.isFocusable = false
         binding.svSearchView.clearFocus()
     }
 
     fun insertSearchText(searchText: String = "") {
         binding.svSearchView.setQuery(searchText, false)
+    }
+
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+        binding.svSearchView.clearFocus()
     }
 }
