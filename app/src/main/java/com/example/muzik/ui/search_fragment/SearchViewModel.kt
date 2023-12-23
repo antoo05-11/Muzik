@@ -11,6 +11,9 @@ class SearchViewModel : ViewModel() {
     private val _songList: MutableLiveData<List<Song>> = MutableLiveData()
     val songList = _songList as LiveData<List<Song>>
 
+    private val _suggestionList: MutableLiveData<List<String>> = MutableLiveData()
+    val suggestionList = _suggestionList as LiveData<List<String>>
+
     suspend fun fetchSearchSongs(youtube: Boolean? = null, searchText: String? = null) {
         try {
             val songs = mutableListOf<Song>()
@@ -21,5 +24,17 @@ class SearchViewModel : ViewModel() {
         } catch (e: Exception) {
             printLogcat(e)
         }
+    }
+
+    suspend fun fetchSearchSuggestions(searchText: String = "") {
+        if (searchText.isNotEmpty())
+            try {
+                muzikAPI.getSuggestions(q = searchText).body()?.let {
+                    _suggestionList.value = it
+                }
+            } catch (e: Exception) {
+                printLogcat(e)
+            }
+        else _suggestionList.value = mutableListOf()
     }
 }

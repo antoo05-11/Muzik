@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
         var musicService: MusicService? = null
-        val mSocket: Socket = IO.socket("http://10.0.2.2:6600")
+        val mSocket: Socket = IO.socket(RetrofitHelper.baseUrl)
 
         lateinit var playerViewModel: PlayerViewModel
     }

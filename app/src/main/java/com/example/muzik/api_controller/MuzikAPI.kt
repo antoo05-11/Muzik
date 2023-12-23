@@ -29,6 +29,11 @@ interface MuzikAPI {
         @Query("youtube") youtube: Boolean? = null
     ): Response<SongResponse>
 
+    @GET("/api/song/suggestSearch")
+    suspend fun getSuggestions(
+        @Query("searchText") q: String
+    ): Response<List<String>>
+
     @GET("/api/song/search")
     suspend fun searchSong(
         @Query("youtube") youtube: Boolean? = null,

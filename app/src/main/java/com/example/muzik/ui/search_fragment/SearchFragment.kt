@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.muzik.adapter.SearchSuggestionsAdapter
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentSearchBinding
 import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import kotlinx.coroutines.launch
+
 
 class SearchFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
@@ -63,7 +65,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "DiscouragedApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,22 +103,60 @@ class SearchFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
+        val suggestionsAdapter = SearchSuggestionsAdapter(mutableListOf()).setFragmentOwner(this)
+        binding.searchHintRcv.adapter = suggestionsAdapter
+        binding.searchHintRcv.layoutManager = LinearLayoutManager(context)
+
+        searchViewModel.suggestionList.observe(viewLifecycleOwner) {
+            suggestionsAdapter.suggestions = it
+            suggestionsAdapter.notifyDataSetChanged()
+        }
+
+        binding.svSearchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.searchHintScrollView.visibility = View.VISIBLE
+                binding.searchScrollView.visibility = View.INVISIBLE
+                binding.searchBackButton.visibility = View.VISIBLE
+            } else {
+                binding.searchHintScrollView.visibility = View.INVISIBLE
+                binding.searchScrollView.visibility = View.VISIBLE
+                binding.searchBackButton.visibility = View.GONE
+            }
+        }
+
+        binding.searchBackButton.setOnClickListener {
+            binding.svSearchView.clearFocus()
+        }
+
         binding.svSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(s: String): Boolean {
+                lifecycleScope.launch {
+                    searchViewModel.fetchSearchSuggestions(searchText = binding.svSearchView.query.toString())
+                }
                 return true
             }
 
             override fun onQueryTextSubmit(s: String): Boolean {
-                lifecycleScope.launch {
-                    searchViewModel.fetchSearchSongs(true, binding.svSearchView.query.toString())
-                }
-                val imm =
-                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(activity?.currentFocus!!.windowToken, 0)
+                search(searchText = binding.svSearchView.query.toString())
                 return true
             }
         })
 
         return binding.root
+    }
+
+    fun search(searchText: String = "") {
+        lifecycleScope.launch {
+            searchViewModel.fetchSearchSongs(true, searchText)
+        }
+        val imm =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(activity?.currentFocus!!.windowToken, 0)
+        binding.svSearchView.isFocusable = false
+        binding.svSearchView.clearFocus()
+    }
+
+    fun insertSearchText(searchText: String = "") {
+        binding.svSearchView.setQuery(searchText, false)
     }
 }

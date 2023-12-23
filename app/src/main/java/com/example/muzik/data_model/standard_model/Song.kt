@@ -3,6 +3,7 @@ package com.example.muzik.data_model.standard_model
 import android.net.Uri
 import com.example.muzik.data_model.retrofit_model.response.SongResponse
 import com.example.muzik.music_service.LocalMusicRepository
+import com.example.muzik.utils.printLogcat
 
 class Song(
     val songID: String? = null,
@@ -30,7 +31,7 @@ class Song(
         fun buildOnline(songResponse: SongResponse): Song {
             var songURI: Uri? = null
             songResponse.songURL?.let {
-                songURI = Uri.parse(it)
+                songURI = Uri.parse(it.replace("http:/", "https://"))
             }
             return Song(
                 songID = songResponse.songID,

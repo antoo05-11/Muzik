@@ -58,7 +58,7 @@ class LibraryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        initViewPager()
+        //initViewPager()
     }
 
     override fun onCreateView(
