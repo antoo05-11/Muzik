@@ -13,6 +13,8 @@ import com.example.muzik.R
 import com.example.muzik.api_controller.MuzikAPI
 import com.example.muzik.api_controller.RetrofitHelper
 import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
+import com.example.muzik.databinding.ActivityLoginBinding
+import com.example.muzik.databinding.ActivitySignupBinding
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,19 +24,27 @@ import java.util.Date
 
 class SignUpActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySignupBinding
+
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
 
-        val et_fullname: EditText = findViewById(R.id.fullname)
-        val et_email: EditText = findViewById(R.id.email)
-        val et_phone: EditText = findViewById(R.id.phone)
-        val et_date_of_birth: EditText = findViewById(R.id.birthdate)
-        val et_password: EditText = findViewById(R.id.password)
-        val et_confirmPassword: EditText = findViewById(R.id.confirmPass)
-        val signUpBtn: Button = findViewById(R.id.signupbtn)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val et_fullname: EditText = binding.fullname
+        val et_email: EditText = binding.email
+        val et_phone: EditText = binding.phone
+        val et_date_of_birth: EditText = binding.birthdate
+        val et_password: EditText = binding.password
+        val et_confirmPassword: EditText = binding.confirmPass
+        val signUpBtn: Button = binding.signupbtn
+
+        binding.backButton.setOnClickListener {
+            finish()
+        }
 
         signUpBtn.setOnClickListener {
             val fullName = et_fullname.text.toString()
