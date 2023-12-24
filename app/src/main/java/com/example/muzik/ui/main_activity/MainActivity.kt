@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         songViewModel = ViewModelProvider(this)[SongViewModel::class.java]
-        artistViewModel = ArtistViewModel(this)[ArtistViewModel::class.java]
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         val mainNavHostFragment =

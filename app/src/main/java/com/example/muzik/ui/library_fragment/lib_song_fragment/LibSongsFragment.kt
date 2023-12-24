@@ -1,5 +1,6 @@
 package com.example.muzik.ui.library_fragment.lib_song_fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class LibSongsFragment : Fragment() {
 
     private lateinit var listSongAdapter: SongsAdapterVertical
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,6 +38,16 @@ class LibSongsFragment : Fragment() {
         binding.rvListSong.adapter = listSongAdapter
         binding.rvListSong.layoutManager = LinearLayoutManager(this.context)
 
+        songViewModel.songs.observe(viewLifecycleOwner){
+            listSongAdapter.songsPreviewList = it
+            listSongAdapter.notifyDataSetChanged()
+        }
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        songViewModel.initSongs()
     }
 }

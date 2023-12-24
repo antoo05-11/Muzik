@@ -1,91 +1,105 @@
-package com.example.muzik.adapter.albums;
+package com.example.muzik.adapter.albums
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import androidx.recyclerview.widget.RecyclerView
+import com.example.muzik.R
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.util.Objects
 
-import androidx.annotation.NonNull;
-import androidx.navigation.NavHostController;
-import androidx.navigation.NavOptions;
-import androidx.recyclerview.widget.RecyclerView;
+class AlbumsAdapterVertical(
+    var albums: List<Album>,
+    private val navHostController: NavHostController
+) : RecyclerView.Adapter<AlbumsAdapterVertical.AlbumPreviewHolder>() {
 
-import com.example.muzik.R;
-import com.example.muzik.data_model.standard_model.Album;
-import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.squareup.picasso.Picasso;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumPreviewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_album_preview_for_vertical_list, parent, false)
 
-import java.util.List;
-import java.util.Objects;
-
-public class AlbumsAdapterVertical extends RecyclerView.Adapter<AlbumsAdapterVertical.AlbumPreviewHolder> {
-    private final List<Album> albums;
-    private final NavHostController navHostController;
-
-    public AlbumsAdapterVertical(List<Album> albums, NavHostController navHostController) {
-        this.albums = albums;
-        this.navHostController = navHostController;
+        return AlbumPreviewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public AlbumPreviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album_preview_for_vertical_list, parent, false);
-        return new AlbumPreviewHolder(view);
-    }
+    override fun onBindViewHolder(holder: AlbumPreviewHolder, position: Int) {
+        val album = albums[position]
 
-    @Override
-    public void onBindViewHolder(@NonNull AlbumPreviewHolder holder, int position) {
-        Album album = albums.get(position);
-        if (album == null) return;
-        if (album.getAlbumID() != -1) {
-            holder.albumPreviewImageShimmer.hideShimmer();
+        if (album.albumID != -1L) {
 
-            holder.albumPreviewNameShimmer.hideShimmer();
-            holder.albumPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
-            holder.albumPreviewNameTextView.setText(album.getName());
+            holder.albumPreviewNameShimmer.hideShimmer()
+            holder.albumPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
+            holder.albumPreviewNameTextView.text = album.name
 
-            Picasso.get().load(album.getImageURI()).fit().into(holder.albumPreviewImage);
+            holder.albumMetadataTextView.text = album.artistName
+            holder.albumMetadataTextView.setBackgroundColor(Color.TRANSPARENT)
+            holder.albumMetadataTextViewShimmer.hideShimmer()
 
-            holder.itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putLong("playlistAlbumID", album.getAlbumID());
-                bundle.putString("playlistAlbumImageURL", Objects.requireNonNull(album.getImageURI()).toString());
-                bundle.putString("playlistAlbumName", album.getName());
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);
+            Picasso.get().load(album.imageURI).fit()
+                .into(holder.albumPreviewImage, object : Callback {
+                    override fun onSuccess() {
+                        holder.albumPreviewImageShimmer.hideShimmer()
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+                })
+
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+
+                bundle.putLong("playlistAlbumID", album.albumID!!)
+                bundle.putString(
+                    "playlistAlbumImageURL",
+                    Objects.requireNonNull(album.imageURI).toString()
+                )
+                bundle.putString("playlistAlbumName", album.name)
+                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
+
                 navHostController.navigate(
-                        R.id.playlistAlbumFragment, bundle, new NavOptions.Builder()
-                                .setEnterAnim(R.anim.slide_in_right)
-                                .setExitAnim(R.anim.slide_out_right)
-                                .setPopEnterAnim(R.anim.slide_in_right)
-                                .setPopExitAnim(R.anim.slide_out_right)
-                                .build()
-                );
-            });
+                    R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
+                        .setEnterAnim(R.anim.slide_in_right)
+                        .setExitAnim(R.anim.slide_out_right)
+                        .setPopEnterAnim(R.anim.slide_in_right)
+                        .setPopExitAnim(R.anim.slide_out_right)
+                        .build()
+                )
+            }
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return albums.size();
+    override fun getItemCount(): Int {
+        return albums.size
     }
 
-    public static class AlbumPreviewHolder extends RecyclerView.ViewHolder {
-        ImageView albumPreviewImage;
-        TextView albumPreviewNameTextView;
-        ShimmerFrameLayout albumPreviewImageShimmer;
-        ShimmerFrameLayout albumPreviewNameShimmer;
+    class AlbumPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val albumPreviewImage: ImageView
+        val albumPreviewNameTextView: TextView
+        val albumPreviewImageShimmer: ShimmerFrameLayout
+        val albumPreviewNameShimmer: ShimmerFrameLayout
+        val albumMetadataTextView: TextView
+        val albumMetadataTextViewShimmer: ShimmerFrameLayout
 
-        public AlbumPreviewHolder(@NonNull View itemView) {
-            super(itemView);
-            albumPreviewImage = itemView.findViewById(R.id.album_vertical_preview_image);
-            albumPreviewNameTextView = itemView.findViewById(R.id.album_vertical_preview_name_tv);
-            albumPreviewImageShimmer = itemView.findViewById(R.id.shimmer_album_vertical_preview_image);
-            albumPreviewNameShimmer = itemView.findViewById(R.id.shimmer_album_vertical_preview_name_tv);
+        init {
+            albumPreviewImage = itemView.findViewById(R.id.album_vertical_preview_image)
+            albumPreviewNameTextView = itemView.findViewById(R.id.album_vertical_preview_name_tv)
+            albumMetadataTextView = itemView.findViewById(R.id.album_meta_data_textview)
+
+            albumPreviewImageShimmer =
+                itemView.findViewById(R.id.shimmer_album_vertical_preview_image)
+            albumPreviewNameShimmer =
+                itemView.findViewById(R.id.shimmer_album_vertical_preview_name_tv)
+            albumMetadataTextViewShimmer =
+                itemView.findViewById(R.id.shimmer_album_meta_data_textview)
         }
     }
 }

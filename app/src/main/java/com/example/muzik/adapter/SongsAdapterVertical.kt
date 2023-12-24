@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 
-open class SongsAdapterVertical(protected var songsPreviewList: List<Song>) :
+open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
     RecyclerView.Adapter<SongPreviewHolder>() {
 
     protected var playerViewModel: PlayerViewModel? = null

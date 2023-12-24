@@ -1,88 +1,78 @@
-package com.example.muzik.adapter.playlists;
+package com.example.muzik.adapter.playlists
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import androidx.recyclerview.widget.RecyclerView
+import com.example.muzik.R
+import com.example.muzik.adapter.playlists.PlaylistsAdapterHorizontal.PlaylistPreviewHolder
+import com.example.muzik.data_model.standard_model.Playlist
+import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.squareup.picasso.Picasso
 
-import androidx.annotation.NonNull;
-import androidx.navigation.NavHostController;
-import androidx.navigation.NavOptions;
-import androidx.recyclerview.widget.RecyclerView;
+class PlaylistsAdapterHorizontal(
+    private val playlists: List<Playlist>,
+    private val navHostController: NavHostController
+) : RecyclerView.Adapter<PlaylistPreviewHolder>() {
 
-import com.example.muzik.R;
-import com.example.muzik.data_model.standard_model.Playlist;
-import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
-public class PlaylistsAdapterHorizontal extends RecyclerView.Adapter<PlaylistsAdapterHorizontal.PlaylistPreviewHolder> {
-    private final List<Playlist> playlists;
-    private final NavHostController navHostController;
-
-    public PlaylistsAdapterHorizontal(List<Playlist> playlists, NavHostController navHostController) {
-        this.playlists = playlists;
-        this.navHostController = navHostController;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistPreviewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_playlist_preview, parent, false)
+        return PlaylistPreviewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public PlaylistPreviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_playlist_preview, parent, false);
-        return new PlaylistPreviewHolder(view);
-    }
+    override fun onBindViewHolder(holder: PlaylistPreviewHolder, position: Int) {
+        val playlist = playlists[position]
+        if (playlist.playListID != -1L) {
 
-    @Override
-    public void onBindViewHolder(@NonNull PlaylistPreviewHolder holder, int position) {
-        Playlist playlist = playlists.get(position);
-        if (playlist == null) return;
-        if (playlist.getPlayListID() != -1) {
-            holder.playlistPreviewImageShimmer.hideShimmer();
-            holder.playlistPreviewNameShimmer.hideShimmer();
-            holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
-            holder.playlistPreviewNameTextView.setText(playlist.getName());
-            Picasso.get().load(playlist.getImageURI()).fit().into(holder.playlistPreviewImage);
+            holder.playlistPreviewImageShimmer.hideShimmer()
+            holder.playlistPreviewNameShimmer.hideShimmer()
+            holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
+            holder.playlistPreviewNameTextView.text = playlist.name
 
-            holder.itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putLong("playlistAlbumID", playlist.getPlayListID());
-                bundle.putString("playlistAlbumImageURL", playlist.getImageURI().toString());
-                bundle.putString("playlistAlbumName", playlist.getName());
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);
+            Picasso.get().load(playlist.imageURI).fit().into(holder.playlistPreviewImage)
+
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putLong("playlistAlbumID", playlist.playListID!!)
+                bundle.putString("playlistAlbumImageURL", playlist.imageURI.toString())
+                bundle.putString("playlistAlbumName", playlist.name)
+                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
                 navHostController.navigate(
-                        R.id.playlistAlbumFragment, bundle, new NavOptions.Builder()
-                                .setEnterAnim(R.anim.slide_in_right)
-                                .setExitAnim(R.anim.slide_out_right)
-                                .setPopEnterAnim(R.anim.slide_in_right)
-                                .setPopExitAnim(R.anim.slide_out_right)
-                                .build()
-                );
-            });
+                    R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
+                        .setEnterAnim(R.anim.slide_in_right)
+                        .setExitAnim(R.anim.slide_out_right)
+                        .setPopEnterAnim(R.anim.slide_in_right)
+                        .setPopExitAnim(R.anim.slide_out_right)
+                        .build()
+                )
+            }
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return playlists.size();
+    override fun getItemCount(): Int {
+        return playlists.size
     }
 
-    public static class PlaylistPreviewHolder extends RecyclerView.ViewHolder {
-        ImageView playlistPreviewImage;
-        TextView playlistPreviewNameTextView;
-        ShimmerFrameLayout playlistPreviewImageShimmer;
-        ShimmerFrameLayout playlistPreviewNameShimmer;
+    class PlaylistPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var playlistPreviewImage: ImageView
+        var playlistPreviewNameTextView: TextView
+        var playlistPreviewImageShimmer: ShimmerFrameLayout
+        var playlistPreviewNameShimmer: ShimmerFrameLayout
 
-        public PlaylistPreviewHolder(@NonNull View itemView) {
-            super(itemView);
-            playlistPreviewImage = itemView.findViewById(R.id.playlist_preview_image);
-            playlistPreviewNameTextView = itemView.findViewById(R.id.playlist_preview_name_tv);
-            playlistPreviewImageShimmer = itemView.findViewById(R.id.shimmer_playlist_preview_image);
-            playlistPreviewNameShimmer = itemView.findViewById(R.id.shimmer_playlist_preview_name_tv);
+        init {
+            playlistPreviewImage = itemView.findViewById(R.id.playlist_preview_image)
+            playlistPreviewNameTextView = itemView.findViewById(R.id.playlist_preview_name_tv)
+            playlistPreviewImageShimmer = itemView.findViewById(R.id.shimmer_playlist_preview_image)
+            playlistPreviewNameShimmer =
+                itemView.findViewById(R.id.shimmer_playlist_preview_name_tv)
         }
     }
 }

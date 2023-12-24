@@ -28,12 +28,18 @@ class ArtistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         lifecycleScope.launch {
             viewModel.fetchArtistSongs(requireArguments().getLong("artistID"))
             viewModel.fetchArtistAlbums(requireArguments().getLong("artistID"))
         }
-        Picasso.get().load(requireArguments().getString("artistImageURL"))
-            .into(binding.artistImageView)
+
+        requireArguments().getString("artistImageURL").apply {
+            if(this?.isNotEmpty() == true) {
+                Picasso.get().load(this).into(binding.artistImageView)
+            }
+        }
+
         binding.artistNameTextview.text = requireArguments().getString("artistName")
     }
 

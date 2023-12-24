@@ -44,13 +44,14 @@
                 android:layout_height="wrap_content"
                 android:text="My Playlist"
                 android:textSize="18dp"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimary"
+                android:layout_marginBottom="5dp" />
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Playlist"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimaryVariant" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

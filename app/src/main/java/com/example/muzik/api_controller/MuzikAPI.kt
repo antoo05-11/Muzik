@@ -9,7 +9,6 @@ import com.example.muzik.data_model.retrofit_model.response.PlaylistResponse
 import com.example.muzik.data_model.retrofit_model.response.SearchResponse
 import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
 import com.example.muzik.data_model.retrofit_model.response.SongResponse
-import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.User
 import retrofit2.Call
 import retrofit2.Response
@@ -54,7 +53,7 @@ interface MuzikAPI {
     suspend fun getPlaylist(@Path("id") playListID: Long): Response<List<SongResponse>>
 
     @GET("/api/playlist/getAll")
-    suspend fun getAllPlaylists(): Response<List<Playlist>>
+    suspend fun getAllPlaylists(): Response<List<PlaylistResponse>>
 
     @GET("/api/artist/{id}/info")
     suspend fun getArtist(@Path("id") artistID: Long): Response<List<SongResponse>>

@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.muzik.databinding.FragmentLibraryBinding
 import com.example.muzik.ui.library_fragment.lib_album_fragment.LibAlbumsFragment
 import com.example.muzik.ui.library_fragment.lib_artist_fragment.LibArtistFragment
@@ -16,23 +15,61 @@ import com.example.muzik.ui.library_fragment.lib_song_fragment.LibSongsFragment
 
 class LibraryFragment : Fragment() {
 
-    private lateinit var viewModel: LibraryViewModel
     private lateinit var binding: FragmentLibraryBinding
 
     private fun initViewPager() {
+
         val viewPager = binding.vpLibraryViewPager
         val tabLayout = binding.tlLibraryMainTabLayout
-        val viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
-        viewPagerAdapter.add(LibSongsFragment(), "Songs")
-        viewPagerAdapter.add(LibPlaylistFragment(), "Playlists")
-        viewPagerAdapter.add(LibAlbumsFragment(), "Albums")
-        viewPagerAdapter.add(LibArtistFragment(), "Artists")
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
+
+        viewPagerAdapter.add(
+            LibSongsFragment(),
+            title = "Songs"
+        )
+
+        viewPagerAdapter.add(
+            LibPlaylistFragment(),
+            title = "Playlists"
+        )
+
+        viewPagerAdapter.add(
+            LibAlbumsFragment(),
+            title = "Albums"
+        )
+
+        viewPagerAdapter.add(
+            LibArtistFragment(),
+            title = "Artists"
+        )
+
         tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 4
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentLibraryBinding.inflate(inflater, container, false)
+
+        initViewPager()
+
+        savedInstanceState?.let {
+            binding.vpLibraryViewPager.currentItem = savedInstanceState.getInt("viewPagerPosition", 0)
+        }
+
+        return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("viewPagerPosition", binding.vpLibraryViewPager.currentItem)
     }
 
     class ViewPagerAdapter(fragmentManager: FragmentManager) :
-        FragmentPagerAdapter(fragmentManager) {
+        FragmentStatePagerAdapter(fragmentManager) {
 
         private val fragments: MutableList<Fragment> = ArrayList()
         private val titles: MutableList<String> = ArrayList()
@@ -54,20 +91,8 @@ class LibraryFragment : Fragment() {
             return titles[position]
         }
 
-    }
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 
-    override fun onResume() {
-        super.onResume()
-        //initViewPager()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this)[LibraryViewModel::class.java]
-        binding = FragmentLibraryBinding.inflate(inflater, container, false)
-        initViewPager()
-        return binding.root
+        }
     }
 }

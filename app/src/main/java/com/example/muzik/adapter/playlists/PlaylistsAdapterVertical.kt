@@ -17,7 +17,7 @@ import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.squareup.picasso.Picasso
 
 class PlaylistsAdapterVertical(
-    private val listPlaylist: List<Playlist>,
+    var listPlaylist: List<Playlist>,
     private val navHostController: NavHostController
 ) :
     RecyclerView.Adapter<PlaylistsAdapterVertical.ListPlaylistViewHolder>() {

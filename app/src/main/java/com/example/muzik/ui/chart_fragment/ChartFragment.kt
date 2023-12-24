@@ -14,7 +14,6 @@ import com.example.muzik.databinding.FragmentChartBinding
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
-import com.example.muzik.utils.printLogcat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -122,7 +121,7 @@ class ChartFragment : Fragment() {
                     }
 
                 for (j in 0..9) {
-                    printLogcat(songWithView.songViews[j].date.date)
+                    //printLogcat(songWithView.songViews[j].date.date)
                     dataObjects.add(
                         Pair(
                             (songWithView.songViews[j].date.date),

@@ -1,53 +1,60 @@
 package com.example.muzik.ui.library_fragment.lib_artist_fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavHostController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.muzik.R
 import com.example.muzik.adapter.artists.ArtistsAdapterVertical
-import com.example.muzik.data_model.standard_model.Artist
-import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentLibArtistBinding
-import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
+import kotlinx.coroutines.launch
 
 class LibArtistFragment : Fragment() {
+
     private lateinit var binding: FragmentLibArtistBinding
-    private lateinit var songViewModel: SongViewModel
     private lateinit var artistViewModel: ArtistViewModel
     private lateinit var artistAdapter: ArtistsAdapterVertical
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLibArtistBinding.inflate(inflater)
-        songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
-        songViewModel.songsMutableLiveData.observe(viewLifecycleOwner) {
-            artistAdapter =
-                ArtistsAdapterVertical(
-                    getArtistsFromSongs(it),
-                    null
-                )
-            binding.rcvArtistsList.adapter = artistAdapter
-            binding.rcvArtistsList.layoutManager = LinearLayoutManager(this.context)
+        artistViewModel = ViewModelProvider(requireActivity())[ArtistViewModel::class.java]
+
+        val navHostController =
+            parentFragment?.parentFragment?.childFragmentManager?.findFragmentById(R.id.fragment_lib_nav)
+                ?.findNavController() as NavHostController
+
+        artistAdapter =
+            ArtistsAdapterVertical(
+                mutableListOf(),
+                navHostController
+            )
+
+        binding.rcvArtistsList.adapter = artistAdapter
+        binding.rcvArtistsList.layoutManager = LinearLayoutManager(context)
+
+        artistViewModel.artists.observe(viewLifecycleOwner) {
+            artistAdapter.updateArtistList(it)
         }
+
         return binding.root
     }
 
-    private fun getArtistsFromSongs(songs: List<Song>): List<Artist> {
-        val artistList = mutableListOf<Artist>()
-        val idSet: HashSet<Long> = HashSet()
-        val mapArtist = songViewModel.artistsLiveData
-        for (song in songs) {
-            if (!idSet.contains(song.artistID)) {
-                artistList.add(mapArtist.value?.get(song.artistID!!)!!)
-                idSet.add(song.artistID!!);
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            artistViewModel.fetchData()
         }
-        return artistList
     }
 }

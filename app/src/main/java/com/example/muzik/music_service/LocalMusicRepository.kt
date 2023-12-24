@@ -104,7 +104,7 @@ object LocalMusicRepository {
                     )
                     val song = Song.buildLocal(
                         songId, uri,
-                        displayName ?: "",
+                        displayName,
                         duration, size, albumId, artistId
                     )
                     mapSong[songId] = song

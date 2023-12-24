@@ -1,5 +1,7 @@
 package com.example.muzik.adapter.artists;
 
+import static com.example.muzik.utils.UtilsKt.printLogcat;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +31,11 @@ public class ArtistsAdapterVertical extends RecyclerView.Adapter<ArtistsAdapterV
     private final List<Artist> artistsOld;
     private final NavHostController navHostController;
 
+    public void updateArtistList(List<Artist> artists) {
+        this.artists.clear();
+        this.artists.addAll(artists);
+        this.notifyDataSetChanged();
+    }
 
     public ArtistsAdapterVertical(List<Artist> artists, NavHostController navHostController) {
         this.artists = artists;
@@ -77,7 +84,7 @@ public class ArtistsAdapterVertical extends RecyclerView.Adapter<ArtistsAdapterV
                 Bundle bundle = new Bundle();
                 bundle.putLong("artistID", artist.getArtistID());
                 bundle.putString("artistImageURL",
-                        Objects.requireNonNull(artist.getImageURI()).toString());
+                        (artist.getImageURI() == null) ? "" : artist.getImageURI().toString());
                 bundle.putString("artistName", artist.getName());
 
                 navHostController.navigate(

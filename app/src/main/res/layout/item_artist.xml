@@ -22,13 +22,31 @@
                 android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-            android:text="TextView"
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_artist_name_item"
-            android:textSize="18dp"
             android:layout_marginLeft="16dp"
-            android:textStyle="normal"
-            android:textColor="@color/colorOnPrimary" />
+            android:gravity="center_vertical|left">
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_artist_name_item"
+                android:textSize="18dp"
+                android:textStyle="normal"
+                android:textColor="@color/colorOnPrimary"
+                android:layout_marginBottom="5dp"/>
+
+        <TextView
+                android:text="Artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/artist_meta_data"
+                android:textStyle="normal"
+                android:textColor="@color/colorOnPrimaryVariant" />
+    </LinearLayout>
+
+
 </LinearLayout>
