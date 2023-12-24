@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    tools:context=".ui.main_activity.SignUpActivity"
+    android:padding="15dp">
 
+    <ImageButton
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/baseline_close_24"
+        android:id="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:stateListAnimator="@animator/zoom_out_animator"
+        android:clickable="true"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/colorPrimaryVariant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="24dp">
 
 
             <TextView
@@ -29,20 +44,26 @@
                 android:text="Sign Up"
                 android:id="@+id/signup"
                 android:textAlignment="center"
-                android:textSize="50sp"
-                android:textStyle="bold" />
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnPrimary" />
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:id="@+id/fullname"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:hint="Your Fullname"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:hint="Fullname"
                 android:inputType="textEmailSubject"
                 android:padding="18dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant" />
+
 
             <EditText
                 android:layout_width="match_parent"
@@ -50,20 +71,28 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/email"
                 android:drawableLeft="@drawable/baseline_mail_24"
-                android:hint="Your Email"
+                android:hint="Email"
                 android:inputType="textEmailSubject"
                 android:padding="18dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:id="@+id/phone"
                 android:drawableLeft="@drawable/baseline_contact_phone_24"
-                android:hint="Your Phone Number"
+                android:hint="Phone Number"
                 android:inputType="phone"
                 android:padding="18dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -73,17 +102,27 @@
                 android:hint="Date of birth (dd/mm/yyyy)"
                 android:inputType="date"
                 android:padding="18dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:id="@+id/password"
-                android:drawableLeft="@drawable/baseline_lock_24"
+                android:drawableStart="@drawable/baseline_lock_24"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="18dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -93,15 +132,28 @@
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:padding="18dp"
-                android:textSize="20sp" />
-            <Button
-                android:layout_width="300dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorOnPrimary"
+                android:textColorHint="@color/colorOnPrimaryVariant"
+                android:drawablePadding="10dp"
+                android:backgroundTint="@color/colorOnPrimaryVariant"/>
+
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/signupbtn"
-                android:padding="20dp"
                 android:text="Sign up"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:stateListAnimator="@animator/zoom_out_animator"
+                android:background="@drawable/signup_button_shape"
+                android:textColor="@color/colorOnPrimary"
+                android:textAllCaps="false" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
