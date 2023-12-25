@@ -101,10 +101,10 @@
     </LinearLayout>
 
     <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:id="@+id/more_under_song_item_button"
-            android:background="@drawable/icon_more"
+            android:background="@drawable/icons8_3_dots_30"
             app:layout_constraintRight_toRightOf="parent"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
