@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimary"
+                android:id="@+id/textView" />
 
         <LinearLayout
                 android:orientation="horizontal"

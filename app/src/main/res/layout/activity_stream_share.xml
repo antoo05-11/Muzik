@@ -63,7 +63,7 @@
                 android:gravity="right|center_vertical">
 
             <TextView
-                    android:text="123"
+                    android:text="1"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/stream_view_text_view"

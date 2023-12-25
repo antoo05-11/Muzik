@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -90,16 +89,30 @@ class StreamShareFragment : Fragment() {
                     inStreamShare = true
                     userID = SharedPrefManager.getInstance(requireContext()).user.userID
                     roomID = binding.roomIdInputText.text.toString()
+                    intent.putExtra("roomID", roomID)
                     mSocket.emit("joinRoom", roomID, userID)
                 }
             }
         }
 
-        mSocket.on("roomCreated") { args ->
+        mSocket.on("roomCreated") {
             activity?.runOnUiThread {
-                if (args.isNotEmpty()) roomID = args[0].toString()
+                inStreamShare = true
+                userID = SharedPrefManager.getInstance(requireContext()).user.userID
+                roomID = it[0].toString()
                 intent.putExtra("roomID", roomID)
-                requireActivity().startActivity(intent)
+                mSocket.emit("joinRoom", roomID, userID)
+            }
+        }
+
+        mSocket.on("roomJoin") {
+            activity?.runOnUiThread {
+                if (it[0] == false) {
+                    inStreamShare = false
+                } else {
+                    intent.putExtra("roomSize", it[1].toString())
+                    requireActivity().startActivity(intent)
+                }
             }
         }
 
@@ -117,20 +130,6 @@ class StreamShareFragment : Fragment() {
                     } catch (e: Throwable) {
                         Log.e("NETWORK_ERROR", "Network error!")
                     }
-                }
-            }
-        }
-
-        mSocket.on("roomJoin") {
-            activity?.runOnUiThread {
-                if (it[0] == false) {
-                    Toast.makeText(requireContext(), "Room not exist", Toast.LENGTH_SHORT).show()
-                    inStreamShare = false
-                } else {
-                    val intent = Intent(requireContext(), StreamShareActivity::class.java).apply {
-                        putExtra("roomID", roomID)
-                    }
-                    requireActivity().startActivity(intent)
                 }
             }
         }
@@ -153,6 +152,7 @@ class StreamShareFragment : Fragment() {
                 }
             }
         }
+
 
         return binding.root
     }

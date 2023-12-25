@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import com.example.muzik.ui.main_activity.MainActivity
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.stream_share_fragment.StreamShareFragment
 import com.example.muzik.utils.PaletteUtils
-import com.example.muzik.utils.printLogcat
 import com.example.muzik.utils.setRotateAnimation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -34,82 +34,49 @@ class StreamShareActivity : AppCompatActivity() {
 
     private lateinit var playerViewModel: PlayerViewModel
 
-    @SuppressLint("NotifyDataSetChanged")
+    private lateinit var comments: MutableList<Comment>
+    private lateinit var commentsAdapter: CommentsAdapter
+
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityStreamShareBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.sb.isEnabled = false
+
         playerViewModel = MainActivity.playerViewModel
+        mSocket = MainActivity.mSocket
 
         binding.roomCreatorNameTextView.text =
             SharedPrefManager.getInstance(this).user.name.toString()
 
-        mSocket = MainActivity.mSocket
-
         val roomID = intent.extras?.getString("roomID")
-        binding.roomNameTextView.text = "Room ID: ${roomID}"
+        binding.roomNameTextView.text = "Room ID: $roomID"
 
-        val comments = mutableListOf<Comment>()
-        val adapter = CommentsAdapter(comments)
+        comments = mutableListOf()
+        commentsAdapter = CommentsAdapter(comments)
 
-        binding.streamViewTextView.text = "1"
+        binding.rcvComment.layoutManager = LinearLayoutManager(this)
+        (binding.rcvComment.layoutManager as LinearLayoutManager).stackFromEnd = true
+        binding.rcvComment.adapter = commentsAdapter
+
+        configSocketListener()
 
         binding.sendButton.setOnClickListener {
-            comments.add(
-                Comment(
-                    username = SharedPrefManager.getInstance(this).user.name.toString(),
-                    comment = binding.commentEditText.text.toString()
-                )
-            )
-            adapter.notifyDataSetChanged()
             binding.rcvComment.scrollToPosition(comments.size - 1)
+            Toast.makeText(applicationContext, binding.commentEditText.text, Toast.LENGTH_SHORT)
+                .show()
+            val message = binding.commentEditText.text.toString()
             mSocket.emit(
                 "messageToRoom",
                 roomID,
                 SharedPrefManager.getInstance(this).user.userID,
-                binding.commentEditText.text
+                message
             )
             binding.commentEditText.text.clear()
         }
-
-        binding.rcvComment.layoutManager = LinearLayoutManager(this)
-        (binding.rcvComment.layoutManager as LinearLayoutManager).stackFromEnd = true
-        binding.rcvComment.adapter = adapter
-
-        mSocket.on("messageFromRoom") {
-            runOnUiThread {
-                val user = it[0] as JSONObject
-                comments.add(
-                    Comment(
-                        username = user.getString("username"),
-                        comment = it[1].toString()
-                    )
-                )
-                adapter.notifyDataSetChanged()
-                binding.rcvComment.scrollToPosition(comments.size - 1)
-            }
-        }
-
-        val anim = setRotateAnimation(binding.activityTrackImage)
-
-        binding.hideRoomButton.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
-        binding.outRoomButton.setOnClickListener {
-            StreamShareFragment.inStreamShare = false
-            finish()
-        }
-
-        mSocket.on("newUser") {
-            printLogcat("newUser" + it[0].toString())
-            binding.streamViewTextView.text = it[1].toString()
-        }
-
-
-        binding.sb.isEnabled = false
 
         playerViewModel.songMutableLiveData.observe(this) {
             Picasso.get()
@@ -126,11 +93,11 @@ class StreamShareActivity : AppCompatActivity() {
 
                     override fun onError(e: Exception?) {
                     }
-
                 })
 
             binding.tvArtistName.text = it.artistName
         }
+
         binding.loveSongButton.setOnClickListener {
             val currentBackground = binding.loveSongButton.background
 
@@ -145,6 +112,7 @@ class StreamShareActivity : AppCompatActivity() {
             }
         }
 
+        val anim = setRotateAnimation(binding.activityTrackImage)
         playerViewModel.playingMutableLiveData.observe(this) {
             if (it) {
                 anim.resume()
@@ -167,7 +135,42 @@ class StreamShareActivity : AppCompatActivity() {
                 playerViewModel
             )
         )
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        binding.hideRoomButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.outRoomButton.setOnClickListener {
+            StreamShareFragment.inStreamShare = false
+            finish()
+        }
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun configSocketListener() {
+        mSocket.on("messageFromRoom") {
+            runOnUiThread {
+                val user = it[0] as JSONObject
+                comments.add(
+                    Comment(
+                        username = user.getString("username"),
+                        comment = it[1].toString()
+                    )
+                )
+                commentsAdapter.notifyDataSetChanged()
+                binding.rcvComment.scrollToPosition(comments.size - 1)
+            }
+        }
+
+        binding.streamViewTextView.text = intent.extras?.getString("roomSize", "1").toString()
+
+        mSocket.on("newUser") {
+            runOnUiThread {
+                binding.streamViewTextView.text = it[1].toString()
+            }
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
