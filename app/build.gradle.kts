@@ -62,7 +62,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
 
     implementation("io.coil-kt:coil:1.4.0")
-
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
