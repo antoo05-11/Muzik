@@ -27,7 +27,6 @@ import com.example.muzik.ui.library_fragment.lib_artist_fragment.ArtistViewModel
 import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
-import com.example.muzik.utils.printLogcat
 import io.socket.client.IO
 import io.socket.client.Socket
 
@@ -131,7 +130,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account_button_item -> {
-                printLogcat(SharedPrefManager.getInstance(applicationContext).user.userID.toString())
                 if (SharedPrefManager.getInstance(applicationContext).isAccessTokenExpired ||
                     SharedPrefManager.getInstance(applicationContext).user.userID == -1L
                 ) {

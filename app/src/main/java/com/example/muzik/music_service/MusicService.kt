@@ -136,6 +136,14 @@ class MusicService : Service() {
     private fun getPendingIntent(context: Context, action: Int): PendingIntent {
         val intent = Intent(context, MusicReceiver::class.java)
         intent.putExtra(ACTION, action)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            return PendingIntent.getBroadcast(
+                context.applicationContext,
+                action,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        }
         return PendingIntent.getBroadcast(
             context.applicationContext,
             action,

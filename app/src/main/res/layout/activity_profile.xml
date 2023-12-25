@@ -155,12 +155,12 @@
                     android:textStyle="bold"
                     android:text="@string/no_recent_activities"
                     android:textSize="18sp"
-                    android:textColor="@color/colorOnPrimary" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginBottom="5dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="@string/explore_more_songs_now"
                     android:textColor="@color/colorOnPrimaryVariant" />
         </LinearLayout>
