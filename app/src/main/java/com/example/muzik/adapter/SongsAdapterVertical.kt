@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.muzik.R
+import com.example.muzik.SongOptionsBottomSheet
 import com.example.muzik.adapter.SongsAdapterVertical.SongPreviewHolder
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
+import com.example.muzik.ui.main_fragment.MainFragment
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
@@ -35,7 +38,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
     protected var playerViewModel: PlayerViewModel? = null
     private var hasItemIndexTextView = false
     private var hasViewsShowed = false
-    private var fragmentOwner: Fragment? = null
+    private lateinit var fragmentOwner: Fragment
     private var playingGifView: LottieAnimationView? = null
 
     fun hasItemIndexTextView(): SongsAdapterVertical {
@@ -48,7 +51,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
         return this
     }
 
-    fun setFragmentOwner(fragmentOwner: Fragment?): SongsAdapterVertical {
+    fun setFragmentOwner(fragmentOwner: Fragment): SongsAdapterVertical {
         this.fragmentOwner = fragmentOwner
         return this
     }
@@ -63,6 +66,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
         return SongPreviewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SongPreviewHolder, position: Int) {
         val song = songsPreviewList[position]
         if (song.songID != null) {
@@ -96,7 +100,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
             }
             holder.itemView.setOnClickListener {
                 if (song.songURI == null) {
-                    fragmentOwner?.lifecycleScope?.launch {
+                    fragmentOwner.lifecycleScope.launch {
                         muzikAPI.getSong(song.songID, youtube = true).body()?.let {
                             song.songURI = Uri.parse(it.songURL)
                             song.duration = it.duration
@@ -121,6 +125,13 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
                     }
                 }
             }
+
+            holder.moreOptionButton.setOnClickListener {
+                MainFragment.modalBottomSheet.apply {
+                    show(fragmentOwner.childFragmentManager, SongOptionsBottomSheet.TAG)
+                    setSongInfo(song)
+                }
+            }
         }
     }
 
@@ -133,7 +144,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
                 TextUtils.TruncateAt.END
             (playingGifView!!.parent as LinearLayout).removeView(playingGifView)
         }
-        playingGifView = LottieAnimationView(fragmentOwner!!.requireContext())
+        playingGifView = LottieAnimationView(fragmentOwner.requireContext())
         val widthInDp = 20
         val heightInDp = 20
         val rightMarginInDp = 10
@@ -141,17 +152,17 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 widthInDp.toFloat(),
-                fragmentOwner!!.resources.displayMetrics
+                fragmentOwner.resources.displayMetrics
             ).toInt(), TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 heightInDp.toFloat(),
-                fragmentOwner!!.resources.displayMetrics
+                fragmentOwner.resources.displayMetrics
             ).toInt()
         )
         layoutParams.rightMargin = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             rightMarginInDp.toFloat(),
-            fragmentOwner!!.resources.displayMetrics
+            fragmentOwner.resources.displayMetrics
         ).toInt()
         playingGifView!!.repeatCount = LottieDrawable.INFINITE
         playingGifView!!.layoutParams = layoutParams
@@ -170,10 +181,13 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
         var shimmerSongImageItem: ShimmerFrameLayout
         var shimmerArtistSongPreviewNameTextView: ShimmerFrameLayout
         var shimmerSongPreviewNameTextView: ShimmerFrameLayout
+
         var artistNameSongPreviewTextview: TextView
         var tvSongName: TextView
         var songImageItem: ImageView
         var itemIndexTextView: TextView
+
+        var moreOptionButton: ImageButton
 
         init {
             tvSongName = itemView.findViewById(R.id.song_preview_name_textview)
@@ -187,6 +201,8 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
             songImageItem = itemView.findViewById(R.id.song_image_item)
             itemIndexTextView = itemView.findViewById(R.id.item_index_text_view)
             tvSongName.isSelected = true
+
+            moreOptionButton = itemView.findViewById(R.id.more_under_song_item_button)
         }
     }
 }

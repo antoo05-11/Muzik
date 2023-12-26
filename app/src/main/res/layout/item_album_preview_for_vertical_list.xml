@@ -56,11 +56,12 @@
                     android:textAlignment="textStart"
                     android:id="@+id/album_vertical_preview_name_tv"
                     android:background="@drawable/grey_round_corner"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:maxLines="2"
                     android:minLines="1"
                     android:ellipsize="end"
-                    android:textColor="@color/colorOnPrimary" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginBottom="5dp" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -75,7 +76,7 @@
                     android:textAlignment="textStart"
                     android:id="@+id/album_meta_data_textview"
                     android:background="@drawable/grey_round_corner"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:maxLines="2"
                     android:minLines="1"
                     android:ellipsize="end"

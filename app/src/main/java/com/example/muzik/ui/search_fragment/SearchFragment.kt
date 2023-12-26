@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,8 +28,11 @@ import kotlinx.coroutines.launch
 
 
 class SearchFragment : Fragment() {
+
     private lateinit var searchViewModel: SearchViewModel
+
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var searchView: SearchView
 
     class SearchAdapterVertical : SongsAdapterVertical(LocalMusicRepository.getSongs()),
         Filterable {
@@ -77,12 +82,18 @@ class SearchFragment : Fragment() {
 
         val playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
+        searchView = binding.svSearchView
+        searchView.queryHint = "What do you want to listen to?"
+
+        val searchViewIcon: ImageView =
+            searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
+
 //        val adapter = SearchAdapterVertical().setFragmentOwner(this)
 //            .setPlayerViewModel(playerViewModel) as SearchAdapterVertical
 //
 //        binding.recyclerView.adapter = adapter
 //        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-//        binding.svSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {
 //                adapter.filter.filter(query)
 //                return false
@@ -116,31 +127,33 @@ class SearchFragment : Fragment() {
 
         val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
-        binding.svSearchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 navBar.visibility = View.GONE
                 binding.searchHintScrollView.visibility = View.VISIBLE
                 binding.searchScrollView.visibility = View.INVISIBLE
                 binding.searchBackButton.visibility = View.VISIBLE
                 binding.searchModeTab.visibility = View.GONE
+                searchViewIcon.setImageDrawable(null);
             } else {
                 navBar.visibility = View.VISIBLE
                 binding.searchHintScrollView.visibility = View.INVISIBLE
                 binding.searchScrollView.visibility = View.VISIBLE
                 binding.searchBackButton.visibility = View.GONE
                 binding.searchModeTab.visibility = View.VISIBLE
+                searchViewIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.baseline_search_24))
             }
         }
 
         binding.searchBackButton.setOnClickListener {
-            binding.svSearchView.clearFocus()
+            searchView.clearFocus()
         }
 
-        binding.svSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(s: String): Boolean {
                 lifecycleScope.launch {
                     if (binding.searchModeTab.selectedTabPosition == 0 || binding.searchModeTab.selectedTabPosition == 2) {
-                        searchViewModel.fetchSearchSuggestions(searchText = binding.svSearchView.query.toString())
+                        searchViewModel.fetchSearchSuggestions(searchText = searchView.query.toString())
                     } else {
 
                     }
@@ -150,9 +163,9 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextSubmit(s: String): Boolean {
                 if (binding.searchModeTab.selectedTabPosition == 0 || binding.searchModeTab.selectedTabPosition == 2) {
-                    search(searchText = binding.svSearchView.query.toString())
+                    search(searchText = searchView.query.toString())
                 } else {
-                    search(youtube = false, searchText = binding.svSearchView.query.toString())
+                    search(youtube = false, searchText = searchView.query.toString())
                 }
                 return true
             }
@@ -162,18 +175,19 @@ class SearchFragment : Fragment() {
     }
 
     fun search(youtube: Boolean = true, searchText: String = "") {
+        searchView.setQuery(searchText, false)
         lifecycleScope.launch {
             searchViewModel.fetchSearchSongs(youtube, searchText)
         }
         val imm =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
-        binding.svSearchView.isFocusable = false
-        binding.svSearchView.clearFocus()
+        searchView.isFocusable = false
+        searchView.clearFocus()
     }
 
     fun insertSearchText(searchText: String = "") {
-        binding.svSearchView.setQuery(searchText, false)
+        searchView.setQuery(searchText, false)
     }
 
 
@@ -183,6 +197,6 @@ class SearchFragment : Fragment() {
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
-        binding.svSearchView.clearFocus()
+        searchView.clearFocus()
     }
 }

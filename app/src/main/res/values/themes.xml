@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Theme.Muzik" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -9,5 +9,15 @@
         <item name="colorOnSecondary">#161616</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:editTextColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/colorOnPrimaryVariant</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_shape</item>
     </style>
 </resources>

@@ -90,12 +90,13 @@
                     android:id="@+id/artist_name_song_preview_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="marquee"
+                    android:ellipsize="end"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:background="@drawable/grey_round_corner"
-                    android:textColor="@color/colorOnPrimaryVariant" />
+                    android:textColor="@color/colorOnPrimaryVariant"
+                    android:singleLine="true" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
     </LinearLayout>

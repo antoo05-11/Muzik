@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_padding">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:background="@drawable/song_info_shape_in_bottom_sheet">
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_padding">
+
+                <ImageView
+                        android:background="@drawable/icons8_song_50"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/artist_image_view" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/song_name_text_view"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorOnPrimary"
+                        android:layout_marginBottom="5dp"
+                        android:singleLine="true"
+                        android:focusable="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever" />
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/artist_name_text_view"
+                        android:textColor="@color/colorOnPrimaryVariant" />
+            </LinearLayout>
+
+            <ImageButton
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icons8_share_50"
+                    android:id="@+id/share_button"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding"
+                    android:stateListAnimator="@animator/zoom_out_animator" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:clickable="true">
+
+            <ImageView
+                    android:background="@drawable/baseline_arrow_circle_down_24"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            <TextView
+                    android:text="Download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:clickable="true">
+
+            <ImageView
+                    android:background="@drawable/icons8_heart_30"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            <TextView
+                    android:text="Add to favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:clickable="true">
+
+            <ImageView
+                    android:background="@drawable/baseline_playlist_add_24"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            <TextView
+                    android:text="Add to playlist..."
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                tools:ignore="RtlHardcoded">
+
+            <ImageView
+                    android:background="@drawable/baseline_playlist_play_24"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            <TextView
+                    android:text="Play next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="left|center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                tools:ignore="RtlHardcoded">
+
+            <ImageView
+                    android:background="@drawable/baseline_person_search_24"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+
+            <TextView
+                    android:text="View song artist"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

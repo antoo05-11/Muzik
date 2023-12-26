@@ -18,6 +18,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.muzik.R
+import com.example.muzik.SongOptionsBottomSheet
 import com.example.muzik.databinding.FragmentMainBinding
 import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
@@ -25,7 +26,6 @@ import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.example.muzik.utils.PaletteUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-
 
 class MainFragment : Fragment() {
 
@@ -37,12 +37,17 @@ class MainFragment : Fragment() {
 
     private lateinit var searchViewModel: SearchViewModel
 
+    companion object {
+        val modalBottomSheet = SongOptionsBottomSheet()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater)
+
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
@@ -112,6 +117,8 @@ class MainFragment : Fragment() {
                 navView?.updateLayoutParams<ConstraintLayout.LayoutParams> {
                     bottomToTop = binding.clPreview.id
                 }
+                binding.artistUnderPlayerPreviewTextview.isFocusable = true
+                binding.tvSongNamePreview.isFocusable = true
             }
         }
 
