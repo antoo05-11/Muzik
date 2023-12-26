@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.media3.common.Player
 import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.R
 import com.example.muzik.databinding.FragmentPlayerViewBinding
@@ -123,6 +124,39 @@ class PlayerViewFragment : Fragment() {
         // TODO: Navigate to artist fragment of main fragment.
         binding.tvArtistName.setOnClickListener {
             navController.navigate(R.id.libraryFragment)
+        }
+
+        binding.prevSongButton.setOnClickListener {
+            playerViewModel.skipPreSong()
+        }
+
+        binding.nextSongButton.setOnClickListener {
+            playerViewModel.skipNextSong()
+        }
+
+        binding.exoRepeatToggle.setOnClickListener {
+            playerViewModel.switchRepeatMode()
+        }
+
+        playerViewModel.repeatModeMutableLiveData.observe(viewLifecycleOwner) {
+            when(it) {
+                Player.REPEAT_MODE_OFF -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_24)
+                Player.REPEAT_MODE_ONE -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_one_24)
+                Player.REPEAT_MODE_ALL -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_on_24)
+            }
+        }
+
+        binding.exoShuffle.setOnClickListener {
+            playerViewModel.switchShuffleMode()
+        }
+
+        playerViewModel.shuffleModeMutableLiveData.observe(viewLifecycleOwner) {
+            if(it) {
+                binding.exoShuffle.setBackgroundResource(R.drawable.baseline_shuffle_on_24)
+            }
+            else {
+                binding.exoShuffle.setBackgroundResource(R.drawable.baseline_shuffle_24)
+            }
         }
 
         return binding.root

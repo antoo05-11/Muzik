@@ -28,9 +28,17 @@ class PlayerViewModel : ViewModel() {
     var isSelectedMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+    var repeatModeMutableLiveData: MutableLiveData<Int> = MutableLiveData()
+        private set
+
+    var shuffleModeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+        private set
+
     init {
         isSelectedMutableLiveData.value = false
     }
+
+    private var songHashMap: HashMap<String, Song> = HashMap()
 
     class OnSeekBarChangeListener(private val playerViewModel: PlayerViewModel) :
         SeekBar.OnSeekBarChangeListener {
@@ -59,8 +67,17 @@ class PlayerViewModel : ViewModel() {
     fun setSong(song: Song) {
         isSelectedMutableLiveData.value = true
         songMutableLiveData.value = song
+
         musicService!!.setSong(song)
     }
+
+    fun setListSong(listSong: List<Song>, index: Int = 0) {
+        isSelectedMutableLiveData.value = true
+        songMutableLiveData.value = listSong[index]
+        musicService!!.setListSong(listSong, index)
+    }
+
+
 
     fun addListener() {
         player.addListener(
@@ -71,6 +88,9 @@ class PlayerViewModel : ViewModel() {
                 }
 
                 override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                    if(musicService!!.curSong != null) {
+                        songMutableLiveData.value = musicService!!.curSong
+                    }
                     updateCurrentProgress()
                 }
             }
@@ -104,8 +124,20 @@ class PlayerViewModel : ViewModel() {
         player.play()
     }
 
+
+
     fun stop() {
         player.stop()
+    }
+
+    fun switchRepeatMode() {
+        musicService!!.switchRepeatMode()
+        repeatModeMutableLiveData.value = musicService!!.repeatMode
+    }
+
+    fun switchShuffleMode() {
+        musicService!!.switchShuffleMode()
+        shuffleModeMutableLiveData.value = musicService!!.shuffleMode
     }
 
     private fun updateCurrentProgress() {

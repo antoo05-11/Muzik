@@ -103,8 +103,8 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
                             if (playerViewModel!!.songMutableLiveData.value == null ||
                                 playerViewModel!!.songMutableLiveData.value!!.songID != song.songID
                             ) {
-                                playerViewModel!!.stop()
-                                playerViewModel!!.setMedia(song.songURI!!)
+//                                playerViewModel!!.stop()
+//                                playerViewModel!!.setMedia(song.songURI!!)
                                 playerViewModel!!.setSong(song)
                                 setPlayingEffect(holder)
                             }
@@ -114,9 +114,9 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
                     if (playerViewModel!!.songMutableLiveData.value == null ||
                         playerViewModel!!.songMutableLiveData.value!!.songID != song.songID
                     ) {
-                        playerViewModel!!.stop()
-                        playerViewModel!!.setMedia(song.songURI!!)
-                        playerViewModel!!.setSong(song)
+//                        playerViewModel!!.stop()
+//                        playerViewModel!!.setMedia(song.songURI!!)
+                        playerViewModel!!.setListSong(songsPreviewList, position)
                         setPlayingEffect(holder)
                     }
                 }

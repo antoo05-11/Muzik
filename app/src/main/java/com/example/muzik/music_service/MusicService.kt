@@ -10,10 +10,15 @@ import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.common.Player.Listener
+import androidx.media3.common.Player.REPEAT_MODE_ALL
+import androidx.media3.common.Player.REPEAT_MODE_OFF
+import androidx.media3.common.Player.REPEAT_MODE_ONE
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.MuzikApplication
 import com.example.muzik.R
@@ -36,8 +41,14 @@ class MusicService : Service() {
 
     lateinit var exoPlayer: ExoPlayer
         private set
-    private var curSong: Song? = null
+     var curSong: Song? = null
     private var curProgress: Int = 0
+
+     var repeatMode: Int = Player.REPEAT_MODE_OFF
+
+     var shuffleMode: Boolean = false
+
+    var songHashMap: HashMap<String, Song> = HashMap()
 
     inner class MyBinder : Binder() {
         fun getService(): MusicService = this@MusicService
@@ -57,6 +68,7 @@ class MusicService : Service() {
         exoPlayer = ExoPlayer.Builder(this).build()
         exoPlayer.addListener(object : Listener {
             override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                curSong = songHashMap[mediaItem?.mediaId]
                 sendNotification()
                 sendUpdate()
             }
@@ -66,6 +78,8 @@ class MusicService : Service() {
                 sendUpdate()
             }
         })
+        exoPlayer.repeatMode = repeatMode
+        exoPlayer.shuffleModeEnabled = shuffleMode
         updateCurrentProgress()
     }
 
@@ -160,17 +174,20 @@ class MusicService : Service() {
         }
     }
 
-    fun setSong(song: Song) {
-        curSong = song
-        song.songURI?.let {
-            val mediaItem =
-                MediaItem.fromUri(it)
-            exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.prepare()
-            exoPlayer.play()
+    fun switchRepeatMode() {
+        repeatMode += 1
+        if(repeatMode > 2) {
+            repeatMode = 0
         }
-
+        Log.d("DanhPB: ", repeatMode.toString())
+        exoPlayer.repeatMode = repeatMode
     }
+
+    fun switchShuffleMode() {
+        shuffleMode = !shuffleMode
+        exoPlayer.shuffleModeEnabled = shuffleMode
+    }
+
 
     fun skipNextSong() {
         if (exoPlayer.hasNextMediaItem()) {
@@ -192,6 +209,34 @@ class MusicService : Service() {
         exoPlayer.stop()
     }
 
+
+    fun setListSong(listSong: List<Song>, index: Int = 0) {
+        //create map to query song
+        exoPlayer.clearMediaItems()
+        for(song : Song in listSong) {
+            song.songID?.let {
+                val mediaItem = MediaItem.Builder().setUri(song.songURI).setMediaId(it).build()
+                songHashMap[it] = song
+                exoPlayer.addMediaItem(mediaItem)
+            }
+        }
+        exoPlayer.seekTo(index, 0)
+        exoPlayer.prepare()
+        exoPlayer.play()
+    }
+
+    fun setSong(song: Song) {
+        exoPlayer.stop()
+        exoPlayer.clearMediaItems()
+        song.songID?.let {
+            val mediaItem = MediaItem.Builder().setUri(song.songURI).setMediaId(it).build()
+            songHashMap[it] = song
+            exoPlayer.addMediaItem(mediaItem)
+        }
+        exoPlayer.prepare()
+        exoPlayer.play()
+    }
+
     private fun updateCurrentProgress() {
         val handler = Handler()
         handler.post(object : Runnable {
@@ -204,6 +249,8 @@ class MusicService : Service() {
             }
         })
     }
+
+
 
     private fun sendUpdate() {
         val intent = Intent(INTENT_FILTER)

@@ -123,8 +123,8 @@ class StreamShareFragment : Fragment() {
                         val song = MainActivity.muzikAPI.getSong(it[0].toString()).body()
                             ?.let { it1 -> Song.buildOnline(it1) }
                         if (song != null) {
-                            playerViewModel.stop()
-                            song.songURI?.let { songURI -> playerViewModel.setMedia(songURI) }
+//                            playerViewModel.stop()
+//                            song.songURI?.let { songURI -> playerViewModel.setMedia(songURI) }
                             playerViewModel.setSong(song)
                         }
                     } catch (e: Throwable) {
@@ -141,8 +141,8 @@ class StreamShareFragment : Fragment() {
                         val song = MainActivity.muzikAPI.getSong(it[0].toString()).body()
                             ?.let { it1 -> Song.buildOnline(it1) }
                         if (song != null) {
-                            playerViewModel.stop()
-                            song.songURI?.let { songURI -> playerViewModel.setMedia(songURI) }
+//                            playerViewModel.stop()
+//                            song.songURI?.let { songURI -> playerViewModel.setMedia(songURI) }
                             playerViewModel.setSong(song)
                             MainActivity.musicService?.exoPlayer?.seekTo(it[1].toString().toLong())
                         }
