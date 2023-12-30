@@ -3,6 +3,7 @@ package com.example.muzik.api_controller
 import com.example.muzik.data_model.retrofit_model.request.CreatePlaylistRequest
 import com.example.muzik.data_model.retrofit_model.request.LoginRequest
 import com.example.muzik.data_model.retrofit_model.request.PlaylistSongRequest
+import com.example.muzik.data_model.retrofit_model.request.RegisterRequest
 import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.data_model.retrofit_model.response.Chart
@@ -97,13 +98,9 @@ interface MuzikAPI {
     @POST("/api/playlist/create")
     suspend fun createPlaylist(@Body createPlaylistRequest: CreatePlaylistRequest, @Header("Authorization") authHeader: String): Response<PlaylistResponse>
 
-    @FormUrlEncoded
-    @POST("/api/auth/signup")
+     @POST("/api/user/create")
     suspend fun signUp(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("phoneNumber") phoneNumber: Int,
-        @Field("birthDate") date: Date,
-        @Field("password") password: String
+        @Body registerRequest: RegisterRequest
     ): Call<SignUpResponse>
+
 }
