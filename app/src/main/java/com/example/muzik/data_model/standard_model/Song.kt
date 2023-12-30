@@ -17,6 +17,13 @@ class Song(
     val albumID: Long? = -1
 ) : Model {
 
+    fun requireSongID(): String {
+        checkNotNull(songID) {
+            ("Song $this must have non-null songID")
+        }
+        return songID
+    }
+
     fun getAlbum(): Album {
         return albumID?.let { LocalMusicRepository.getAlbum(it) } ?: Album.buildLocal(
             -1,
@@ -30,8 +37,8 @@ class Song(
         fun buildOnline(songResponse: SongResponse): Song {
             var songURI: Uri? = null
             songResponse.songURL?.let {
-                songURI = Uri.parse(it.replace("http:/", "https://"))
-                //songURI = Uri.parse(it)
+                //songURI = Uri.parse(it.replace("http:/", "https://"))
+                songURI = Uri.parse(it)
             }
             return Song(
                 songID = songResponse.songID,

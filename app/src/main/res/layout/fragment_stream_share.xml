@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/create_room_button"
                 android:layout_marginBottom="30dp"
-                android:backgroundTint="#87bafc"
-                android:textColor="#232c34"
+                android:backgroundTint="@color/colorPrimaryVariant"
+                android:textColor="@color/colorOnPrimary"
                 android:textAllCaps="false"
                 android:stateListAnimator="@animator/zoom_out_animator" />
 
@@ -69,8 +69,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/join_button"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#87bafc"
-                android:textColor="#232c34"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorPrimaryVariant"
+                android:textColor="@color/colorOnPrimary"
                 android:textAllCaps="false"
                 android:stateListAnimator="@animator/zoom_out_animator" />
     </LinearLayout>

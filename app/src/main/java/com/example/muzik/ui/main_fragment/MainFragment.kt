@@ -18,8 +18,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.muzik.R
-import com.example.muzik.SongOptionsBottomSheet
 import com.example.muzik.databinding.FragmentMainBinding
+import com.example.muzik.ui.bottom_sheet_dialog.SongOptionsBottomSheet
 import com.example.muzik.ui.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel

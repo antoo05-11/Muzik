@@ -12,7 +12,6 @@ import com.example.muzik.data_model.retrofit_model.request.LoginRequest
 import com.example.muzik.data_model.standard_model.User
 import com.example.muzik.databinding.ActivityLoginBinding
 import com.example.muzik.storage.SharedPrefManager
-import com.example.muzik.utils.printLogcat
 import kotlinx.coroutines.launch
 
 
@@ -80,11 +79,12 @@ class LoginActivity : AppCompatActivity() {
 
                     finish()
                 } else {
-                    printLogcat("wrongPassword")
+                    Toast.makeText(applicationContext, "Wrong password", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm =

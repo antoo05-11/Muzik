@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -109,6 +110,7 @@ class StreamShareFragment : Fragment() {
             activity?.runOnUiThread {
                 if (it[0] == false) {
                     inStreamShare = false
+                    Toast.makeText(context, "Room does not exist", Toast.LENGTH_SHORT).show()
                 } else {
                     intent.putExtra("roomSize", it[1].toString())
                     requireActivity().startActivity(intent)

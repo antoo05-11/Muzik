@@ -28,7 +28,8 @@ class Album (
                 albumID = albumResponse.albumID,
                 name = albumResponse.name,
                 imageURI = Uri.parse(albumResponse.imageURL),
-                artistID = albumResponse.artistID
+                artistID = albumResponse.artistID,
+                artistName = albumResponse.artistName
             )
         }
     }

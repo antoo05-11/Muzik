@@ -12,10 +12,18 @@ class Playlist(
     val dateAdded: Date? = Date(),
     val imageURI: Uri? = Uri.parse("")
 ) : Model {
+
+    fun requirePlayListID(): Long {
+        checkNotNull(playListID) {
+            ("Song $this must have non-null playListID")
+        }
+        return playListID
+    }
+
     companion object {
         fun buildOnline(playlistResponse: PlaylistResponse): Playlist {
             return Playlist(
-                playListID = playlistResponse.playListID,
+                playListID = playlistResponse.playlistID,
                 type = playlistResponse.type,
                 userID = playlistResponse.userID,
                 name = playlistResponse.name,

@@ -24,6 +24,7 @@ import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForHorizontalRcv
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
+import com.example.muzik.utils.printLogcat
 
 class ExploreFragment : Fragment() {
     private lateinit var binding: FragmentExploreBinding
@@ -94,7 +95,7 @@ class ExploreFragment : Fragment() {
             val adapter = PlaylistsAdapterHorizontal(
                 it,
                 navHostFragmentOwnerController
-            );
+            )
             binding.rcvPlaylistsPreview.adapter = adapter
         }
         viewModel.topSongList.observe(viewLifecycleOwner) {

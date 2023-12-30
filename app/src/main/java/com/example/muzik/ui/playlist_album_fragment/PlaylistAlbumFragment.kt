@@ -1,5 +1,6 @@
 package com.example.muzik.ui.playlist_album_fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentPlaylistAlbumBinding
+import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.PaletteUtils
 import com.example.muzik.utils.addDecorationForVerticalRcv
@@ -25,6 +27,7 @@ class PlaylistAlbumFragment : Fragment() {
     private lateinit var viewModel: PlaylistAlbumViewModel
     private lateinit var binding: FragmentPlaylistAlbumBinding
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
@@ -72,7 +75,8 @@ class PlaylistAlbumFragment : Fragment() {
         }
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {
-            val adapter = SongsAdapterVertical(it).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
+            val adapter =
+                SongsAdapterVertical(it).setFragmentOwner(this).setPlayerViewModel(playerViewModel)
             if (it.size > 1) {
                 adapter.hasItemIndexTextView()
             }
@@ -81,13 +85,15 @@ class PlaylistAlbumFragment : Fragment() {
             }
             binding.rcvSongsInsidePlaylistAlbumView.adapter = adapter
 
+            requireArguments().getString(
+                "albumArtistName",
+                SharedPrefManager.getInstance(requireActivity()).user.name
+            ).let { metaData ->
+                binding.artistsListTextview.text = metaData
+            }
+
             binding.playlistAlbumNameTextview.text =
                 requireArguments().getString("playlistAlbumName")
-            binding.artistsListTextview.text = requireArguments().getString("albumArtistName")
-
-            for (song in it) {
-                song.artistName = (requireArguments().getString("albumArtistName"))
-            }
         }
 
         return binding.root

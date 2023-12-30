@@ -16,7 +16,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="#00FFFFFF">
 
         <ImageView
                 android:id="@+id/playlist_image_item"

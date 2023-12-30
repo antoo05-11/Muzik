@@ -24,8 +24,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Muzik"
-            tools:targetApi="31"
-            android:usesCleartextTraffic="true">
+            android:usesCleartextTraffic="true"
+            tools:targetApi="31">
+        <activity
+                android:name=".ui.create_playlist_activity.CreatePlaylistActivity"
+                android:exported="false" />
         <activity
                 android:name=".ui.main_activity.MainActivity"
                 android:exported="true"
@@ -42,31 +45,31 @@
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOGIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".ui.main_activity.SignUpActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIGNUP" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".ui.main_activity.ProfileActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PROFILE" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.stream_inside_activity.StreamShareActivity"
-                android:exported="true">
-
-        </activity>
+        <activity
+                android:name=".ui.stream_inside_activity.StreamShareActivity"
+                android:exported="true"></activity>
 
         <service
                 android:name=".music_service.MusicService"
@@ -82,7 +85,6 @@
                 <action android:name="MUSIC_SERVICE_ACTION" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

@@ -6,4 +6,4 @@ data class Comment(
     val avatarUri: Uri? = null,
     val username: String,
     val comment: String
-)
+) : Model

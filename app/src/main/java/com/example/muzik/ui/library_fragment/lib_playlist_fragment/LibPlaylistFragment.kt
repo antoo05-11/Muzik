@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.R
 import com.example.muzik.adapter.playlists.PlaylistsAdapterVertical
 import com.example.muzik.databinding.FragmentLibPlaylistBinding
-import com.example.muzik.utils.printLogcat
 import kotlinx.coroutines.launch
 
 class LibPlaylistFragment : Fragment() {
@@ -42,7 +41,6 @@ class LibPlaylistFragment : Fragment() {
         binding.rcvPlaylists.layoutManager = LinearLayoutManager(context)
 
         viewModel.playlists.observe(viewLifecycleOwner) {
-            printLogcat(it.size)
             adapter.listPlaylist = it
             adapter.notifyDataSetChanged()
         }

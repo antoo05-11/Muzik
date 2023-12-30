@@ -44,7 +44,7 @@ class PlaylistsAdapterHorizontal(
                 bundle.putLong("playlistAlbumID", playlist.playListID!!)
                 bundle.putString("playlistAlbumImageURL", playlist.imageURI.toString())
                 bundle.putString("playlistAlbumName", playlist.name)
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
+                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.PLAYLIST)
                 navHostController.navigate(
                     R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
                         .setEnterAnim(R.anim.slide_in_right)

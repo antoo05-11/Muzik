@@ -13,12 +13,16 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.R
 import com.example.muzik.api_controller.MuzikAPI
 import com.example.muzik.api_controller.RetrofitHelper
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.databinding.ActivityMainBinding
 import com.example.muzik.music_service.LocalMusicRepository
 import com.example.muzik.music_service.MusicService
@@ -35,9 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-
-    private lateinit var mainActivityViewModel: MainActivityViewModel
-
     private lateinit var songViewModel: SongViewModel
 
     private lateinit var artistViewModel: ArtistViewModel
@@ -48,13 +49,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var profileActivityIntent: Intent
 
+    private lateinit var mainActivityViewModel: MainActivityViewModel
 
     companion object {
         val muzikAPI: MuzikAPI = RetrofitHelper.getInstance().create(MuzikAPI::class.java)
+
         var musicService: MusicService? = null
+
         val mSocket: Socket = IO.socket(RetrofitHelper.baseUrl)
 
         lateinit var playerViewModel: PlayerViewModel
+
+        private var _userPlaylists = MutableLiveData<List<Playlist>>(mutableListOf())
+        var userPlaylists = _userPlaylists as LiveData<List<Playlist>>
+    }
+
+    private fun initUserData() {
+        mainActivityViewModel.fetchData()
     }
 
     private var isServiceConnected = false
@@ -88,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+            .setLifecycleCoroutineScope(lifecycleScope)
         songViewModel = ViewModelProvider(this)[SongViewModel::class.java]
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
@@ -112,6 +124,11 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
 
         setContentView(binding.root)
+
+        mainActivityViewModel.playlists.observe(this) {
+            _userPlaylists.value = it
+        }
+        initUserData()
     }
 
     override fun onDestroy() {

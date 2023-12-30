@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.muzik.R
-import com.example.muzik.SongOptionsBottomSheet
 import com.example.muzik.adapter.SongsAdapterVertical.SongPreviewHolder
 import com.example.muzik.data_model.standard_model.Song
+import com.example.muzik.ui.bottom_sheet_dialog.SongOptionsBottomSheet
 import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
 import com.example.muzik.ui.main_fragment.MainFragment
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 
-open class SongsAdapterVertical(var songsPreviewList: List<Song>) :
+open class SongsAdapterVertical(var songsPreviewList: List<Song> = mutableListOf()) :
     RecyclerView.Adapter<SongPreviewHolder>() {
 
     protected var playerViewModel: PlayerViewModel? = null

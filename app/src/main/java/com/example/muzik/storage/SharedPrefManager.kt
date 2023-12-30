@@ -18,7 +18,6 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         private const val KEY_USER_PHONE_NUMBER = "user_phoneNumber"
         private const val KEY_USER_DATE_OF_BIRTH = "user_dateOfBirth"
 
-
         @SuppressLint("StaticFieldLeak")
         @Volatile
         private var mInstance: SharedPrefManager? = null
@@ -71,7 +70,7 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         editor.apply()
     }
 
-    private val accessToken: String?
+    val accessToken: String?
         get() {
             val sharedPreferences: SharedPreferences =
                 mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)

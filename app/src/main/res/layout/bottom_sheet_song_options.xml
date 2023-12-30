@@ -120,7 +120,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:gravity="left|center_vertical"
-                android:clickable="true">
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/add_to_playlist_button">
 
             <ImageView
                     android:background="@drawable/baseline_playlist_add_24"

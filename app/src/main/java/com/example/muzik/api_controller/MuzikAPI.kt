@@ -1,6 +1,8 @@
 package com.example.muzik.api_controller
 
+import com.example.muzik.data_model.retrofit_model.request.CreatePlaylistRequest
 import com.example.muzik.data_model.retrofit_model.request.LoginRequest
+import com.example.muzik.data_model.retrofit_model.request.PlaylistSongRequest
 import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.data_model.retrofit_model.response.Chart
@@ -16,6 +18,7 @@ import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -84,6 +87,15 @@ interface MuzikAPI {
 
     @POST("/api/auth/login")
     suspend fun userLogin(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @POST("/api/playlist/{id}/add")
+    suspend fun addSongToPlaylist(
+        @Path("id") playlistID: Long,
+        @Body playlistSongRequest: PlaylistSongRequest
+    ): Response<PlaylistResponse>
+
+    @POST("/api/playlist/create")
+    suspend fun createPlaylist(@Body createPlaylistRequest: CreatePlaylistRequest, @Header("Authorization") authHeader: String): Response<PlaylistResponse>
 
     @FormUrlEncoded
     @POST("/api/auth/signup")

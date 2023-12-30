@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.Muzik">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_padding">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:background="@drawable/song_info_shape_in_bottom_sheet">
+
+            <TextView
+                    android:text="Add song to playlist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorOnPrimary"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                app:searchHintIcon="@null"
+                app:searchIcon="@drawable/baseline_search_24"
+                android:background="@drawable/search_view_shape"
+                app:closeIcon="@drawable/baseline_close_18"
+                android:focusable="false"
+                app:iconifiedByDefault="false"
+                tools:layout_editor_absoluteX="10dp"
+                android:lineSpacingExtra="0dp"
+                android:lineSpacingMultiplier="0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:id="@+id/playlist_list_rcv" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
