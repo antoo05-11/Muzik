@@ -1,33 +1,30 @@
 package com.example.muzik.ui.bottom_sheet_dialog.playlists
 
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.data_model.retrofit_model.request.PlaylistSongRequest
 import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
 import com.example.muzik.utils.printLogcat
-import kotlinx.coroutines.launch
 
 class PlaylistBottomSheetViewModel : ViewModel() {
 
-    private lateinit var lifecycleCoroutineScope: LifecycleCoroutineScope
+    val addSongToPlaylistSuccessfully = MutableLiveData(StatusCode.NONE)
 
-    fun setLifecycleCoroutineScope(lifecycleCoroutineScope: LifecycleCoroutineScope): PlaylistBottomSheetViewModel {
-        this.lifecycleCoroutineScope = lifecycleCoroutineScope
-        return this
+    enum class StatusCode {
+        SUCCESS, ERROR, NONE
     }
 
-    fun addSongToPlaylist(songID: String, playlistID: Long) {
-        lifecycleCoroutineScope.launch {
+    suspend fun addSongToPlaylist(songID: String, playlistID: Long, accessToken: String) {
             try {
                 muzikAPI.addSongToPlaylist(
                     playlistID = playlistID,
-                    playlistSongRequest = PlaylistSongRequest(songID)
+                    playlistSongRequest = PlaylistSongRequest(songID),
+                    authHeader = "Bearer $accessToken"
                 ).body()?.let {
-
+                    addSongToPlaylistSuccessfully.value = StatusCode.SUCCESS
                 }
             } catch (e: Exception) {
                 printLogcat(e)
             }
-        }
     }
 }

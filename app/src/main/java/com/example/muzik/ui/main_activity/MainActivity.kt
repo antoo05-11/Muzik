@@ -33,6 +33,7 @@ import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
 import io.socket.client.IO
 import io.socket.client.Socket
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,7 +66,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUserData() {
-        mainActivityViewModel.fetchData()
+        SharedPrefManager.getInstance(applicationContext).accessToken?.let {
+            lifecycleScope.launch {
+                mainActivityViewModel.fetchData(it)
+            }
+        }
     }
 
     private var isServiceConnected = false
@@ -99,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
         playerViewModel = ViewModelProvider(this)[PlayerViewModel::class.java]
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
-            .setLifecycleCoroutineScope(lifecycleScope)
         songViewModel = ViewModelProvider(this)[SongViewModel::class.java]
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 

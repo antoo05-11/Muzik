@@ -49,7 +49,9 @@
                     android:id="@+id/playlist_preview_name_tv"
                     android:background="@drawable/grey_round_corner"
                     android:textSize="16sp"
-                    android:textColor="@color/colorOnPrimary" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 

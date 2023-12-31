@@ -36,8 +36,13 @@ class CreatePlaylistActivity : AppCompatActivity() {
             accessToken?.let {
                 lifecycleScope.launch {
                     viewModel.createPlaylist(requestBody, it)
+                    finish()
                 }
             }
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
         }
     }
 

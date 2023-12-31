@@ -29,7 +29,7 @@ class ArtistsAdapterHorizontal(
     }
 
     override fun onBindViewHolder(holder: ArtistPreviewHolder, position: Int) {
-        val artist = artists[position] ?: return
+        val artist = artists[position]
         if (artist.artistID != -1L) {
             holder.shimmerArtistNameTextView.hideShimmer()
             holder.artistNameTextView.text = artist.name
@@ -45,7 +45,7 @@ class ArtistsAdapterHorizontal(
 
                     override fun onError(e: Exception) {}
                 })
-            holder.itemView.setOnClickListener { v: View? ->
+            holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putLong("artistID", artist.artistID)
                 bundle.putString(

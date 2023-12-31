@@ -1,3 +1,3 @@
 package com.example.muzik.data_model.retrofit_model.request
 
-class PlaylistSongRequest(val songID: String)
+data class PlaylistSongRequest(val songID: String)

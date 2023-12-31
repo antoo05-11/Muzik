@@ -76,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
                         .saveAccessToken(accessToken)
                     SharedPrefManager.getInstance(applicationContext)
                         .saveUser(User.build(it))
-
                     finish()
                 } else {
                     Toast.makeText(applicationContext, "Wrong password", Toast.LENGTH_SHORT).show()

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,9 +15,11 @@ import com.example.muzik.adapter.playlists.PlaylistsAdapterVertical
 import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetPlaylistsBinding
+import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.main_activity.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
+import kotlinx.coroutines.launch
 
 class PlaylistsBottomSheet : BottomSheetDialogFragment() {
     private val binding by viewBinding(BottomSheetPlaylistsBinding::bind)
@@ -38,7 +41,6 @@ class PlaylistsBottomSheet : BottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
 
         viewModel = ViewModelProvider(this)[PlaylistBottomSheetViewModel::class.java]
-            .setLifecycleCoroutineScope(lifecycleScope)
 
         val adapter = PlaylistsAdapterVertical(listPlaylist = mutableListOf(), fragmentOwner = this)
         binding.playlistListRcv.adapter = adapter
@@ -48,10 +50,28 @@ class PlaylistsBottomSheet : BottomSheetDialogFragment() {
             adapter.listPlaylist = it.toMutableList().apply { add(0, Playlist()) }
             adapter.notifyDataSetChanged()
         }
+
+        viewModel.addSongToPlaylistSuccessfully.observe(viewLifecycleOwner) {
+            if (it == PlaylistBottomSheetViewModel.StatusCode.SUCCESS) {
+                Toast.makeText(context, "Song added to playlist", Toast.LENGTH_SHORT).show()
+                viewModel.addSongToPlaylistSuccessfully.value =
+                    PlaylistBottomSheetViewModel.StatusCode.NONE
+                dismiss()
+            }
+        }
     }
 
     fun addSongToPlaylist(playlistID: Long) {
-        viewModel.addSongToPlaylist(songID = song.requireSongID(), playlistID = playlistID)
+        SharedPrefManager.getInstance(requireContext()).accessToken?.let {
+            lifecycleScope.launch {
+                viewModel.addSongToPlaylist(
+                    songID = song.requireSongID(),
+                    playlistID = playlistID,
+                    accessToken = it
+                )
+            }
+        }
+
     }
 
     fun initData(song: Song) {

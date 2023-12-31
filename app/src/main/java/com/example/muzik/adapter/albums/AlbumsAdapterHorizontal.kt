@@ -20,7 +20,7 @@ import java.util.Objects
 class AlbumsAdapterHorizontal(
     private val albums: List<Album>,
     private val navHostController: NavHostController
-) : RecyclerView.Adapter<AlbumsAdapterHorizontal.AlbumPreviewHolder?>() {
+) : RecyclerView.Adapter<AlbumsAdapterHorizontal.AlbumPreviewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumPreviewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_album_preview_for_horizontal_list, parent, false)

@@ -22,6 +22,9 @@ import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
 import com.example.muzik.ui.create_playlist_activity.CreatePlaylistActivity
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
+import com.example.muzik.utils.printLogcat
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class PlaylistsAdapterVertical(
@@ -36,6 +39,8 @@ class PlaylistsAdapterVertical(
         val playlistImage: ImageView = itemView.findViewById(R.id.playlist_image_item)
         val playlistImageCardView: CardView =
             itemView.findViewById(R.id.card_view_playlist_image_item)
+        val playlistImageShimmer: ShimmerFrameLayout =
+            itemView.findViewById(R.id.card_view_playlist_image_item_shimmer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPlaylistViewHolder {
@@ -85,7 +90,16 @@ class PlaylistsAdapterVertical(
             holder.itemView.apply {
                 holder.tvPlaylistName.text = curPlaylist.name
 
-                Picasso.get().load(curPlaylist.imageURI).into(holder.playlistImage)
+                Picasso.get().load(curPlaylist.imageURI)
+                    .into(holder.playlistImage, object : Callback {
+                        override fun onSuccess() {
+                            holder.playlistImageShimmer.hideShimmer()
+                        }
+
+                        override fun onError(e: Exception?) {
+                            printLogcat(e.toString())
+                        }
+                    })
 
             }
             if (navHostController == null) {

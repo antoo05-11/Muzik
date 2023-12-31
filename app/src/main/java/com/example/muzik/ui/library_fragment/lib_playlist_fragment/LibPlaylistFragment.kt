@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.muzik.R
 import com.example.muzik.adapter.playlists.PlaylistsAdapterVertical
 import com.example.muzik.databinding.FragmentLibPlaylistBinding
-import kotlinx.coroutines.launch
+import com.example.muzik.ui.main_activity.MainActivity
 
 class LibPlaylistFragment : Fragment() {
 
@@ -40,18 +39,11 @@ class LibPlaylistFragment : Fragment() {
         binding.rcvPlaylists.adapter = adapter
         binding.rcvPlaylists.layoutManager = LinearLayoutManager(context)
 
-        viewModel.playlists.observe(viewLifecycleOwner) {
-            adapter.listPlaylist = it
+        MainActivity.userPlaylists.observe(viewLifecycleOwner) {
+             adapter.listPlaylist = it
             adapter.notifyDataSetChanged()
         }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.fetchData()
-        }
     }
 }

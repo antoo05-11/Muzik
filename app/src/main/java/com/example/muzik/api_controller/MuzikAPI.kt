@@ -16,14 +16,11 @@ import com.example.muzik.data_model.standard_model.User
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.util.Date
 
 interface MuzikAPI {
     @GET("/api/song/{id}/info")
@@ -56,8 +53,8 @@ interface MuzikAPI {
     @GET("/api/playlist/{id}/info")
     suspend fun getPlaylist(@Path("id") playListID: Long): Response<List<SongResponse>>
 
-    @GET("/api/playlist/getAll")
-    suspend fun getAllPlaylists(): Response<List<PlaylistResponse>>
+    @GET("/api/playlist/get")
+    suspend fun getUserPlaylists(@Header("Authorization") authHeader: String): Response<List<PlaylistResponse>>
 
     @GET("/api/artist/{id}/info")
     suspend fun getArtist(@Path("id") artistID: Long): Response<List<SongResponse>>
@@ -92,13 +89,17 @@ interface MuzikAPI {
     @POST("/api/playlist/{id}/add")
     suspend fun addSongToPlaylist(
         @Path("id") playlistID: Long,
-        @Body playlistSongRequest: PlaylistSongRequest
+        @Body playlistSongRequest: PlaylistSongRequest,
+        @Header("Authorization") authHeader: String
     ): Response<PlaylistResponse>
 
     @POST("/api/playlist/create")
-    suspend fun createPlaylist(@Body createPlaylistRequest: CreatePlaylistRequest, @Header("Authorization") authHeader: String): Response<PlaylistResponse>
+    suspend fun createPlaylist(
+        @Body createPlaylistRequest: CreatePlaylistRequest,
+        @Header("Authorization") authHeader: String
+    ): Response<PlaylistResponse>
 
-     @POST("/api/user/create")
+    @POST("/api/user/create")
     suspend fun signUp(
         @Body registerRequest: RegisterRequest
     ): Call<SignUpResponse>
