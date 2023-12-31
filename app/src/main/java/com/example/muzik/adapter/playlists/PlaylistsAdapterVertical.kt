@@ -15,7 +15,6 @@ import androidx.core.view.get
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Playlist
@@ -124,12 +123,7 @@ class PlaylistsAdapterVertical(
                     bundle.putString("playlistAlbumName", curPlaylist.name)
                     bundle.putSerializable("type", PlaylistAlbumViewModel.Type.PLAYLIST)
                     navHostController.navigate(
-                        R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
-                            .setEnterAnim(R.anim.slide_in_right)
-                            .setExitAnim(R.anim.slide_out_right)
-                            .setPopEnterAnim(R.anim.slide_in_right)
-                            .setPopExitAnim(R.anim.slide_out_right)
-                            .build()
+                        R.id.playlistAlbumFragment, bundle
                     )
                 }
             }

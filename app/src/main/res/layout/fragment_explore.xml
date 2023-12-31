@@ -10,7 +10,8 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/explore_scroll_view">
+            android:id="@+id/explore_scroll_view"
+            >
 
         <LinearLayout
                 android:orientation="vertical"

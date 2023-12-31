@@ -84,25 +84,23 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
-            if(it.imageURI ==null) {
+            if (it.imageURI == null) {
                 binding.activityTrackImage.setBackgroundResource(R.drawable.icons8_song_500_1_)
             }
-                Picasso.get()
-                    .load(it.imageURI)
-                    .into(binding.activityTrackImage, object : Callback {
-                        override fun onSuccess() {
-                            binding.root.background = PaletteUtils.getDominantGradient(
-                                (binding.activityTrackImage.drawable as BitmapDrawable).bitmap,
-                                null,
-                                null,
-                                null
-                            )
-                        }
+            Picasso.get()
+                .load(it.imageURI)
+                .into(binding.activityTrackImage, object : Callback {
+                    override fun onSuccess() {
+                        binding.root.background = PaletteUtils.getDominantGradient(
+                            bitmap = (binding.activityTrackImage.drawable as BitmapDrawable).bitmap,
+                            endColor = "#303030"
+                        )
+                    }
 
-                        override fun onError(e: Exception?) {
-                        }
+                    override fun onError(e: Exception?) {
+                    }
 
-                    })
+                })
 
             binding.tvArtistName.text = it.artistName
         }
@@ -139,7 +137,7 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.repeatModeMutableLiveData.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 Player.REPEAT_MODE_OFF -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_24)
                 Player.REPEAT_MODE_ONE -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_one_24)
                 Player.REPEAT_MODE_ALL -> binding.exoRepeatToggle.setBackgroundResource(R.drawable.baseline_repeat_on_24)
@@ -151,10 +149,9 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.shuffleModeMutableLiveData.observe(viewLifecycleOwner) {
-            if(it) {
+            if (it) {
                 binding.exoShuffle.setBackgroundResource(R.drawable.baseline_shuffle_on_24)
-            }
-            else {
+            } else {
                 binding.exoShuffle.setBackgroundResource(R.drawable.baseline_shuffle_24)
             }
         }

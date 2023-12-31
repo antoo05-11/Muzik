@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Album
@@ -66,12 +65,7 @@ class AlbumsAdapterVertical(
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
 
                 navHostController.navigate(
-                    R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
-                        .setEnterAnim(R.anim.slide_in_right)
-                        .setExitAnim(R.anim.slide_out_right)
-                        .setPopEnterAnim(R.anim.slide_in_right)
-                        .setPopExitAnim(R.anim.slide_out_right)
-                        .build()
+                    R.id.playlistAlbumFragment, bundle
                 )
             }
         }

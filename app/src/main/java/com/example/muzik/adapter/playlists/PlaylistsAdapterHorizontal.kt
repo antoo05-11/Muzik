@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.adapter.playlists.PlaylistsAdapterHorizontal.PlaylistPreviewHolder
 import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class PlaylistsAdapterHorizontal(
@@ -32,12 +32,20 @@ class PlaylistsAdapterHorizontal(
         val playlist = playlists[position]
         if (playlist.playListID != -1L) {
 
-            holder.playlistPreviewImageShimmer.hideShimmer()
             holder.playlistPreviewNameShimmer.hideShimmer()
             holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
             holder.playlistPreviewNameTextView.text = playlist.name
 
-            Picasso.get().load(playlist.imageURI).fit().into(holder.playlistPreviewImage)
+            Picasso.get().load(playlist.imageURI).fit()
+                .into(holder.playlistPreviewImage, object : Callback {
+                    override fun onSuccess() {
+                        holder.playlistPreviewImageShimmer.hideShimmer()
+                    }
+
+                    override fun onError(e: Exception?) {
+                    }
+
+                })
 
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
@@ -46,12 +54,7 @@ class PlaylistsAdapterHorizontal(
                 bundle.putString("playlistAlbumName", playlist.name)
                 bundle.putSerializable("type", PlaylistAlbumViewModel.Type.PLAYLIST)
                 navHostController.navigate(
-                    R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
-                        .setEnterAnim(R.anim.slide_in_right)
-                        .setExitAnim(R.anim.slide_out_right)
-                        .setPopEnterAnim(R.anim.slide_in_right)
-                        .setPopExitAnim(R.anim.slide_out_right)
-                        .build()
+                    R.id.playlistAlbumFragment, bundle
                 )
             }
         }

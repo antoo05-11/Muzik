@@ -2,6 +2,7 @@ package com.example.muzik.ui.playlist_album_fragment
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,13 +43,18 @@ class PlaylistAlbumFragment : Fragment() {
                     val imageBitmap: Bitmap =
                         (binding.mainPlaylistAlbumImageView.drawable as BitmapDrawable).bitmap
                     val backgroundDominantColor =
-                        PaletteUtils.getDominantGradient(imageBitmap, null, null, "#303030")
-                    binding.mainImageContainer.background = (backgroundDominantColor)
+                        PaletteUtils.getDominantGradient(bitmap = imageBitmap, endColor = "#303030")
+                    parentFragment?.view?.background = (backgroundDominantColor)
                 }
 
                 override fun onError(e: Exception?) {
                 }
             })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        parentFragment?.view?.setBackgroundColor(Color.TRANSPARENT)
     }
 
     override fun onCreateView(

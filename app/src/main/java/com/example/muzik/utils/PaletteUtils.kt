@@ -7,19 +7,64 @@ import android.graphics.drawable.GradientDrawable
 import androidx.palette.graphics.Palette
 
 object PaletteUtils {
-    private fun getUpperSideDominantColor(bitmap: Bitmap): Int {
+
+    private fun getDominantColor(
+        bitmap: Bitmap,
+        left: Int = 0,
+        top: Int = 0,
+        right: Int = bitmap.width,
+        bottom: Int = bitmap.height
+    ): Int {
         val builder = Palette.Builder(bitmap)
-            .setRegion(0, 0, bitmap.width, bitmap.height / 2)
+            .setRegion(left, top, right, bottom)
         val defaultValue = 0xFFFFFF
         val p = builder.generate()
         return p.getDominantColor(defaultValue)
     }
 
-    private fun getLowerSideDominantColor(bitmap: Bitmap): Int {
-        val defaultValue = 0xFFFFFF
+    fun getDarkColor(
+        bitmap: Bitmap,
+        left: Int = 0,
+        top: Int = 0,
+        right: Int = bitmap.width,
+        bottom: Int = bitmap.height
+    ): Int {
         val builder = Palette.Builder(bitmap)
-            .setRegion(0, bitmap.height / 2, bitmap.width, bitmap.height)
-        return builder.generate().getDominantColor(defaultValue)
+            .setRegion(left, top, right, bottom)
+        val defaultValue = 0xFFFFFF
+        val p = builder.generate()
+        return p.getDarkMutedColor(defaultValue)
+    }
+
+     private fun getLightColor(
+        bitmap: Bitmap,
+        left: Int = 0,
+        top: Int = 0,
+        right: Int = bitmap.width,
+        bottom: Int = bitmap.height
+    ): Int {
+        val builder = Palette.Builder(bitmap)
+            .setRegion(left, top, right, bottom)
+        val defaultValue = 0xFFFFFF
+        val p = builder.generate()
+        return p.getLightVibrantColor(defaultValue)
+    }
+
+    private fun getUpperSideDominantColor(bitmap: Bitmap): Int {
+        return getDominantColor(bitmap, right = bitmap.width, bottom = bitmap.height / 2)
+    }
+
+    private fun getLowerSideDominantColor(bitmap: Bitmap): Int {
+        return getDominantColor(
+            bitmap,
+            top = bitmap.height / 2,
+            right = bitmap.width,
+            bottom = bitmap.height
+        )
+    }
+
+    fun getHexString(color: Int): String {
+        return String.format("#%06X", 0xFFFFFF and color)
     }
 
     fun getDominantGradient(
@@ -28,25 +73,19 @@ object PaletteUtils {
         orientation: GradientDrawable.Orientation? = null,
         endColor: String? = null
     ): GradientDrawable {
-        val topColor = getUpperSideDominantColor(bitmap)
-        var topHex = String.format("#%06X", 0xFFFFFF and topColor)
+        var dominantColor = getDominantColor(bitmap)
 
-        val y = 0.2126 * (hexToRgb(topHex)?.first ?: 0)
-        +0.7152 * (hexToRgb(topHex)?.second ?: 0) +
-                0.0722 * (hexToRgb(topHex)?.third ?: 0)
+        var endHex = endColor?.let { getHexString(Color.parseColor(it)) }
+            ?: getHexString(getLowerSideDominantColor(bitmap))
 
-
-        var endHex = endColor?.let { String.format("#%06X", 0xFFFFFF and Color.parseColor(it)) }
-            ?: String.format("#%06X", 0xFFFFFF and getLowerSideDominantColor(bitmap))
-
-        if (y > 40) {
-            topHex = String.format("#%06X", 0xFFFFFF and Color.DKGRAY)
+        if (Color.luminance(dominantColor) > 0.5) {
+            dominantColor = getDarkColor(bitmap)
             if (endColor == null) {
-                endHex = String.format("#%06X", 0xFFFFFF and Color.DKGRAY)
+                endHex = getHexString(Color.DKGRAY)
             }
         }
 
-        val colors = intArrayOf(Color.parseColor(topHex), Color.parseColor(endHex))
+        val colors = intArrayOf(dominantColor, Color.parseColor(endHex))
         val actualOrientation = orientation ?: GradientDrawable.Orientation.TOP_BOTTOM
 
         val gradientDrawable = GradientDrawable(actualOrientation, colors)
@@ -58,24 +97,25 @@ object PaletteUtils {
         return gradientDrawable
     }
 
-}
-
-fun convertDpToPixels(dp: Float): Int {
-    val scale = Resources.getSystem().displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
-}
-
-fun hexToRgb(hex: String): Triple<Int, Int, Int>? {
-    if (hex.length != 7 || hex[0] != '#') {
-        return null
+    private fun convertDpToPixels(dp: Float): Int {
+        val scale = Resources.getSystem().displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
     }
 
-    return try {
-        val r = hex.substring(1, 3).toInt(16)
-        val g = hex.substring(3, 5).toInt(16)
-        val b = hex.substring(5, 7).toInt(16)
-        Triple(r, g, b)
-    } catch (e: NumberFormatException) {
-        null
+    private fun hexToRgb(hex: String): Triple<Int, Int, Int>? {
+        if (hex.length != 7 || hex[0] != '#') {
+            return null
+        }
+
+        return try {
+            val r = hex.substring(1, 3).toInt(16)
+            val g = hex.substring(3, 5).toInt(16)
+            val b = hex.substring(5, 7).toInt(16)
+            Triple(r, g, b)
+        } catch (e: NumberFormatException) {
+            null
+        }
     }
 }
+
+

@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -26,6 +26,7 @@ import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.example.muzik.utils.PaletteUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+
 
 class MainFragment : Fragment() {
 
@@ -51,10 +52,21 @@ class MainFragment : Fragment() {
         songViewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
+
         val mainFragmentNavHostFragment =
             childFragmentManager.findFragmentById(R.id.fragment_lib_nav) as NavHostFragment
         val mainFragmentNavController = mainFragmentNavHostFragment.navController
         binding.bottomNavView.setupWithNavController(mainFragmentNavController)
+
+        binding.bottomNavView.viewTreeObserver?.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                binding.bottomNavView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                mainFragmentNavHostFragment.view?.updatePadding(
+                    bottom = binding.bottomNavView.height.plus(5)
+                )
+            }
+        })
 
         searchViewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
 
@@ -113,12 +125,13 @@ class MainFragment : Fragment() {
         playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) {
             if (it) {
                 binding.clPreview.visibility = View.VISIBLE
-                val navView = mainFragmentNavHostFragment.view
-                navView?.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                    bottomToTop = binding.clPreview.id
-                }
                 binding.artistUnderPlayerPreviewTextview.isFocusable = true
                 binding.tvSongNamePreview.isFocusable = true
+                mainFragmentNavHostFragment.view?.updatePadding(
+                    bottom = binding.bottomNavView.height.plus(
+                        binding.clPreview.maxHeight
+                    ).plus(5)
+                )
             }
         }
 

@@ -34,6 +34,8 @@ class PlayerViewModel : ViewModel() {
     var shuffleModeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
         private set
 
+
+
     init {
         isSelectedMutableLiveData.value = false
     }
@@ -76,8 +78,6 @@ class PlayerViewModel : ViewModel() {
         songMutableLiveData.value = listSong[index]
         musicService!!.setListSong(listSong, index)
     }
-
-
 
     fun addListener() {
         player.addListener(
@@ -123,8 +123,6 @@ class PlayerViewModel : ViewModel() {
         player.prepare()
         player.play()
     }
-
-
 
     fun stop() {
         player.stop()

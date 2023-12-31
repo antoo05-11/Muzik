@@ -18,7 +18,6 @@ class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
 
     private fun initViewPager() {
-
         val viewPager = binding.vpLibraryViewPager
         val tabLayout = binding.tlLibraryMainTabLayout
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
@@ -43,9 +42,8 @@ class LibraryFragment : Fragment() {
             title = "Artists"
         )
 
-        tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter = viewPagerAdapter
-        viewPager.offscreenPageLimit = 4
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     override fun onCreateView(
@@ -53,23 +51,20 @@ class LibraryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLibraryBinding.inflate(inflater, container, false)
-
         initViewPager()
-
-        savedInstanceState?.let {
-            binding.vpLibraryViewPager.currentItem = savedInstanceState.getInt("viewPagerPosition", 0)
-        }
 
         return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("viewPagerPosition", binding.vpLibraryViewPager.currentItem)
+        if (this::binding.isInitialized) {
+            outState.putInt("viewPagerPosition", binding.vpLibraryViewPager.currentItem)
+        }
     }
 
     class ViewPagerAdapter(fragmentManager: FragmentManager) :
-        FragmentStatePagerAdapter(fragmentManager) {
+        FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         private val fragments: MutableList<Fragment> = ArrayList()
         private val titles: MutableList<String> = ArrayList()
@@ -79,20 +74,10 @@ class LibraryFragment : Fragment() {
             titles.add(title)
         }
 
-        override fun getCount(): Int {
-            return fragments.size
-        }
+        override fun getCount(): Int = fragments.size
 
-        override fun getItem(position: Int): Fragment {
-            return fragments[position]
-        }
+        override fun getItem(position: Int): Fragment = fragments[position]
 
-        override fun getPageTitle(position: Int): CharSequence {
-            return titles[position]
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-
-        }
+        override fun getPageTitle(position: Int): CharSequence = titles[position]
     }
 }
