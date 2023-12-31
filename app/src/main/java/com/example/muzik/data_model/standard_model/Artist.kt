@@ -4,12 +4,19 @@ import android.net.Uri
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
-class Artist (
+class Artist(
     val name: String? = "",
     val artistID: Long = -1,
     val imageURI: Uri? = null
 ) : Model {
     val listSongId: MutableList<Long> = ArrayList()
+
+    fun requireName(): String {
+        checkNotNull(name) {
+            ("Artist $this must have non-null name")
+        }
+        return name
+    }
 
     companion object {
         fun buildOnline(artistResponse: ArtistResponse): Artist {

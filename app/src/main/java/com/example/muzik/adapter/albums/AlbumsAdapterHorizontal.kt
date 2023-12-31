@@ -1,92 +1,77 @@
-package com.example.muzik.adapter.albums;
+package com.example.muzik.adapter.albums
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import androidx.recyclerview.widget.RecyclerView
+import com.example.muzik.R
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.squareup.picasso.Picasso
+import java.util.Objects
 
-import androidx.annotation.NonNull;
-import androidx.navigation.NavHostController;
-import androidx.navigation.NavOptions;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.muzik.R;
-import com.example.muzik.data_model.standard_model.Album;
-import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
-import java.util.Objects;
-
-public class AlbumsAdapterHorizontal extends RecyclerView.Adapter<AlbumsAdapterHorizontal.AlbumPreviewHolder> {
-    private final List<Album> albums;
-    private final NavHostController navHostController;
-
-    public AlbumsAdapterHorizontal(List<Album> albums, NavHostController navHostController) {
-        this.albums = albums;
-        this.navHostController = navHostController;
+class AlbumsAdapterHorizontal(
+    private val albums: List<Album>,
+    private val navHostController: NavHostController
+) : RecyclerView.Adapter<AlbumsAdapterHorizontal.AlbumPreviewHolder?>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumPreviewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_album_preview_for_horizontal_list, parent, false)
+        return AlbumPreviewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public AlbumPreviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album_preview_for_horizontal_list, parent, false);
-        return new AlbumPreviewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull AlbumPreviewHolder holder, int position) {
-        Album album = albums.get(position);
-        if (album == null) return;
-        if (album.getAlbumID() != -1) {
-            holder.albumPreviewImageShimmer.hideShimmer();
-
-            holder.albumPreviewNameShimmer.hideShimmer();
-            holder.albumPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT);
-            holder.albumPreviewNameTextView.setText(album.getName());
-
-            Picasso.get().load(album.getImageURI()).fit().into(holder.albumPreviewImage);
-
-            holder.itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putLong("playlistAlbumID", album.getAlbumID());
-                bundle.putString("playlistAlbumImageURL", Objects.requireNonNull(album.getImageURI()).toString());
-                bundle.putString("playlistAlbumName", album.getName());
-                bundle.putString("albumArtistName", album.getArtistName());
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM);
+    override fun onBindViewHolder(holder: AlbumPreviewHolder, position: Int) {
+        val album = albums[position]
+        if (album.albumID != -1L) {
+            holder.albumPreviewImageShimmer.hideShimmer()
+            holder.albumPreviewNameShimmer.hideShimmer()
+            holder.albumPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
+            holder.albumPreviewNameTextView.text = album.name
+            Picasso.get().load(album.imageURI).fit().into(holder.albumPreviewImage)
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putLong("playlistAlbumID", album.albumID!!)
+                bundle.putString(
+                    "playlistAlbumImageURL",
+                    Objects.requireNonNull(album.imageURI).toString()
+                )
+                bundle.putString("playlistAlbumName", album.name)
+                bundle.putString("albumArtistName", album.artistName)
+                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
                 navHostController.navigate(
-                        R.id.playlistAlbumFragment, bundle, new NavOptions.Builder()
-                                .setEnterAnim(R.anim.slide_in_right)
-                                .setExitAnim(R.anim.slide_out_right)
-                                .setPopEnterAnim(R.anim.slide_in_right)
-                                .setPopExitAnim(R.anim.slide_out_right)
-                                .build()
-                );
-            });
+                    R.id.playlistAlbumFragment, bundle, NavOptions.Builder()
+                        .setEnterAnim(R.anim.slide_in_right)
+                        .setExitAnim(R.anim.slide_out_right)
+                        .setPopEnterAnim(R.anim.slide_in_right)
+                        .setPopExitAnim(R.anim.slide_out_right)
+                        .build()
+                )
+            }
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return albums.size();
+    override fun getItemCount(): Int {
+        return albums.size
     }
 
-    public static class AlbumPreviewHolder extends RecyclerView.ViewHolder {
-        ImageView albumPreviewImage;
-        TextView albumPreviewNameTextView;
-        ShimmerFrameLayout albumPreviewImageShimmer;
-        ShimmerFrameLayout albumPreviewNameShimmer;
+    class AlbumPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var albumPreviewImage: ImageView
+        var albumPreviewNameTextView: TextView
+        var albumPreviewImageShimmer: ShimmerFrameLayout
+        var albumPreviewNameShimmer: ShimmerFrameLayout
 
-        public AlbumPreviewHolder(@NonNull View itemView) {
-            super(itemView);
-            albumPreviewImage = itemView.findViewById(R.id.album_preview_image);
-            albumPreviewNameTextView = itemView.findViewById(R.id.album_preview_name_tv);
-            albumPreviewImageShimmer = itemView.findViewById(R.id.shimmer_album_preview_image);
-            albumPreviewNameShimmer = itemView.findViewById(R.id.shimmer_album_preview_name_tv);
+        init {
+            albumPreviewImage = itemView.findViewById(R.id.album_preview_image)
+            albumPreviewNameTextView = itemView.findViewById(R.id.album_preview_name_tv)
+            albumPreviewImageShimmer = itemView.findViewById(R.id.shimmer_album_preview_image)
+            albumPreviewNameShimmer = itemView.findViewById(R.id.shimmer_album_preview_name_tv)
         }
     }
 }

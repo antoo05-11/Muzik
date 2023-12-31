@@ -1,4 +1,4 @@
-package com.example.muzik.ui.bottom_sheet_dialog
+package com.example.muzik.ui.bottom_sheet_dialog.songs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.media3.common.util.UnstableApi
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetSongOptionsBinding
+import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding

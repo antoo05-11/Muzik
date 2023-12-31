@@ -1,4 +1,4 @@
-package com.example.muzik.ui.bottom_sheet_dialog
+package com.example.muzik.ui.bottom_sheet_dialog.playlists
 
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ViewModel

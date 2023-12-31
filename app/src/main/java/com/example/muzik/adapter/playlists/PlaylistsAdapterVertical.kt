@@ -19,7 +19,7 @@ import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Playlist
-import com.example.muzik.ui.bottom_sheet_dialog.PlaylistsBottomSheet
+import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
 import com.example.muzik.ui.create_playlist_activity.CreatePlaylistActivity
 import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.squareup.picasso.Picasso

@@ -1,4 +1,4 @@
-package com.example.muzik.ui.bottom_sheet_dialog
+package com.example.muzik.ui.bottom_sheet_dialog.playlists
 
 import android.annotation.SuppressLint
 import android.os.Bundle
