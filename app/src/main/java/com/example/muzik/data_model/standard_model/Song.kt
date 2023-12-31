@@ -37,8 +37,8 @@ class Song(
         fun buildOnline(songResponse: SongResponse): Song {
             var songURI: Uri? = null
             songResponse.songURL?.let {
-                //songURI = Uri.parse(it.replace("http:/", "https://"))
-                songURI = Uri.parse(it)
+                songURI = Uri.parse(it.replace("http:/", "https://"))
+                //songURI = Uri.parse(it)
             }
             return Song(
                 songID = songResponse.songID,
