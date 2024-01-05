@@ -1,7 +1,6 @@
 package com.example.muzik.adapter.artists
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,21 +8,19 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
+import com.example.muzik.adapter.Adapter
 import com.example.muzik.adapter.artists.ArtistsAdapterVertical.ArtistViewHolder
 import com.example.muzik.data_model.standard_model.Artist
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.util.Locale
 
-class ArtistsAdapterVertical(artists: MutableList<Artist>, navHostController: NavHostController) :
-    RecyclerView.Adapter<ArtistViewHolder>(), Filterable {
+class ArtistsAdapterVertical(artists: MutableList<Artist> = mutableListOf()) :
+    Adapter<ArtistViewHolder, Artist>(artists), Filterable {
     private var artists: MutableList<Artist>
     private val artistsOld: MutableList<Artist>
-    private val navHostController: NavHostController
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateArtistList(artists: List<Artist>?) {
@@ -35,7 +32,6 @@ class ArtistsAdapterVertical(artists: MutableList<Artist>, navHostController: Na
     init {
         this.artists = artists
         artistsOld = artists
-        this.navHostController = navHostController
     }
 
     class ArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,39 +51,17 @@ class ArtistsAdapterVertical(artists: MutableList<Artist>, navHostController: Na
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        val artist = artists[position]
+        val artist = list?.get(position) ?: return
         if (artist.artistID != -1L) {
             holder.artistNameTextView.text = artist.name
             Picasso.get().load(artist.imageURI).into(holder.artistImageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError(e: Exception) {}
             })
-            holder.itemView.setOnClickListener { _: View? ->
-                val bundle = Bundle()
-                bundle.putLong("artistID", artist.artistID)
-                bundle.putString(
-                    "artistImageURL",
-                    if (artist.imageURI == null) "" else artist.imageURI.toString()
-                )
-                bundle.putString("artistName", artist.name)
-                navHostController.navigate(
-                    R.id.artistFragment, bundle, NavOptions.Builder()
-                        .setEnterAnim(R.anim.slide_in_right)
-                        .setExitAnim(R.anim.slide_out_right)
-                        .setPopEnterAnim(R.anim.slide_in_right)
-                        .setPopExitAnim(R.anim.slide_out_right)
-                        .build()
-                )
+            holder.itemView.setOnClickListener {
+                mainAction?.goToArtistFragment(artist = artist)
             }
         }
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemCount(): Int {
-        return artists.size
     }
 
     override fun getFilter(): Filter {

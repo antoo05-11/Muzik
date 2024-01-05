@@ -13,7 +13,7 @@ class PlaylistAlbumViewModel : ViewModel() {
 
     enum class Type { PLAYLIST, ALBUM }
 
-    suspend fun fetchSongs(playlistAlbumID: Long, type: Type) {
+    suspend fun fetchSongs(playlistAlbumID: Long, type: Type, artistName: String? = null) {
         try {
             if (type == Type.PLAYLIST) {
                 val songList = mutableListOf<Song>()
@@ -25,7 +25,7 @@ class PlaylistAlbumViewModel : ViewModel() {
                 _playlistAlbumsList.value = songList
             } else {
                 val songList = mutableListOf<Song>()
-                MainActivity.muzikAPI.getAlbum(playlistAlbumID).body()?.let {
+                MainActivity.muzikAPI.getAlbumSongs(playlistAlbumID).body()?.let {
                     for (i in it) {
                         songList.add(Song.buildOnline(i))
                     }
@@ -33,7 +33,7 @@ class PlaylistAlbumViewModel : ViewModel() {
                 _playlistAlbumsList.value = songList
             }
         } catch (e: Throwable) {
-            Log.e("NETWORK_ERROR", "Network error!")
+            Log.e("NETWORK_ERROR", e.message.toString())
         }
     }
 }

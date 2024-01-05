@@ -17,7 +17,8 @@ import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 class SongOptionsBottomSheet : BottomSheetDialogFragment() {
     private val binding by viewBinding(BottomSheetSongOptionsBinding::bind)
     private lateinit var song: Song
-    private lateinit var playlistsBottomSheet: PlaylistsBottomSheet
+    lateinit var playlistsBottomSheet: PlaylistsBottomSheet
+        private set
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +42,10 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
         Picasso.get().load(song.imageURI).into(binding.artistImageView)
 
         binding.addToPlaylistButton.setOnClickListener {
-            playlistsBottomSheet.show(requireParentFragment().childFragmentManager, PlaylistsBottomSheet.TAG)
+            playlistsBottomSheet.show(
+                requireParentFragment().childFragmentManager,
+                PlaylistsBottomSheet.TAG
+            )
             dismiss()
         }
 

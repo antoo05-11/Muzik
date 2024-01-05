@@ -3,7 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
     <ImageButton
             android:layout_width="wrap_content"
@@ -33,20 +34,19 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-            android:text="Artist Name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/artist_name_textview"
             app:layout_constraintBottom_toBottomOf="@id/center_image_cardview"
             android:elevation="4dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorOnPrimary"
             android:layout_marginBottom="10dp"
             android:textSize="50sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="#1C444444" />
+           />
 
     <LinearLayout
             android:orientation="vertical"

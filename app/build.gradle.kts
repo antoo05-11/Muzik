@@ -78,6 +78,7 @@ dependencies {
     //Load image
     implementation("io.coil-kt:coil:2.3.0")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     //Exoplayer
     implementation("androidx.media3:media3-exoplayer:1.2.0")

@@ -1,26 +1,23 @@
 package com.example.muzik.adapter.playlists
 
 import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
+import com.example.muzik.adapter.Adapter
 import com.example.muzik.adapter.playlists.PlaylistsAdapterHorizontal.PlaylistPreviewHolder
 import com.example.muzik.data_model.standard_model.Playlist
-import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class PlaylistsAdapterHorizontal(
-    private val playlists: List<Playlist>,
-    private val navHostController: NavHostController
-) : RecyclerView.Adapter<PlaylistPreviewHolder>() {
+    playlists: List<Playlist>,
+) : Adapter<PlaylistPreviewHolder, Playlist>(playlists) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistPreviewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -29,8 +26,8 @@ class PlaylistsAdapterHorizontal(
     }
 
     override fun onBindViewHolder(holder: PlaylistPreviewHolder, position: Int) {
-        val playlist = playlists[position]
-        if (playlist.playListID != -1L) {
+        val playlist = list?.get(position) ?: return
+        if (playlist.playlistID != -1L) {
 
             holder.playlistPreviewNameShimmer.hideShimmer()
             holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
@@ -48,20 +45,9 @@ class PlaylistsAdapterHorizontal(
                 })
 
             holder.itemView.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putLong("playlistAlbumID", playlist.playListID!!)
-                bundle.putString("playlistAlbumImageURL", playlist.imageURI.toString())
-                bundle.putString("playlistAlbumName", playlist.name)
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.PLAYLIST)
-                navHostController.navigate(
-                    R.id.playlistAlbumFragment, bundle
-                )
+                mainAction?.goToPlaylistFragment(playlist = playlist)
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return playlists.size
     }
 
     class PlaylistPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

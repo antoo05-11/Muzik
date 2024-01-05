@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavHostController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.muzik.R
 import com.example.muzik.adapter.albums.AlbumsAdapterVertical
 import com.example.muzik.databinding.FragmentLibAlbumsBinding
+import com.example.muzik.ui.main_fragment.MainFragment
 import kotlinx.coroutines.launch
 
 class LibAlbumsFragment : Fragment() {
@@ -30,17 +28,16 @@ class LibAlbumsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLibAlbumsBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this)[AlbumViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[AlbumViewModel::class.java]
 
-        val navHostController =
-            parentFragment?.parentFragment?.childFragmentManager?.findFragmentById(R.id.fragment_lib_nav)
-                ?.findNavController() as NavHostController
-        adapter = AlbumsAdapterVertical(mutableListOf(), navHostController)
+        adapter = AlbumsAdapterVertical()
+
+        adapter.setObjectAction(requireParentFragment().requireParentFragment().parentFragment as MainFragment)
         binding.rcvAlbums.adapter = adapter
         binding.rcvAlbums.layoutManager = LinearLayoutManager(context)
 
         viewModel.albums.observe(viewLifecycleOwner) {
-            adapter.albums = it
+            adapter.updateList(it)
             adapter.notifyDataSetChanged()
         }
 

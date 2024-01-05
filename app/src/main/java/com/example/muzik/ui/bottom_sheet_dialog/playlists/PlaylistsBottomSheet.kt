@@ -17,6 +17,7 @@ import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetPlaylistsBinding
 import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.main_activity.MainActivity
+import com.example.muzik.ui.main_fragment.MainFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
 import kotlinx.coroutines.launch
@@ -42,13 +43,15 @@ class PlaylistsBottomSheet : BottomSheetDialogFragment() {
 
         viewModel = ViewModelProvider(this)[PlaylistBottomSheetViewModel::class.java]
 
-        val adapter = PlaylistsAdapterVertical(listPlaylist = mutableListOf(), fragmentOwner = this)
+        val adapter = PlaylistsAdapterVertical(playlists = mutableListOf())
+        adapter.setInBottomSheet()
+            .setObjectAction(requireParentFragment().requireParentFragment().parentFragment as MainFragment)
+
         binding.playlistListRcv.adapter = adapter
         binding.playlistListRcv.layoutManager = LinearLayoutManager(context)
 
         MainActivity.userPlaylists.observe(this) {
-            adapter.listPlaylist = it.toMutableList().apply { add(0, Playlist()) }
-            adapter.notifyDataSetChanged()
+            adapter.updateList(it.toMutableList().apply { add(0, Playlist()) })
         }
 
         viewModel.addSongToPlaylistSuccessfully.observe(viewLifecycleOwner) {

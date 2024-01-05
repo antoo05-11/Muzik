@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.adapter.SongsAdapterVertical
+import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentPlaylistAlbumBinding
 import com.example.muzik.storage.SharedPrefManager
@@ -28,16 +31,38 @@ class PlaylistAlbumFragment : Fragment() {
     private lateinit var viewModel: PlaylistAlbumViewModel
     private lateinit var binding: FragmentPlaylistAlbumBinding
 
+    private var album: Album? = null
+    private var playlist: Playlist? = null
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.fetchSongs(
-                requireArguments().getLong("playlistAlbumID"),
-                requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type
-            )
+
+        playlist = requireArguments().getSerializable("playlist") as? Playlist
+        album = requireArguments().getSerializable("album") as? Album
+
+        var imageUri: Uri? = null
+
+        playlist?.let {
+            imageUri = it.imageURI
+            lifecycleScope.launch {
+                viewModel.fetchSongs(
+                    it.requirePlaylistID(),
+                    PlaylistAlbumViewModel.Type.PLAYLIST
+                )
+            }
         }
-        Picasso.get().load(requireArguments().getString("playlistAlbumImageURL"))
+        album?.let {
+            imageUri = it.imageURI
+            lifecycleScope.launch {
+                viewModel.fetchSongs(
+                    it.requireAlbumID(),
+                    PlaylistAlbumViewModel.Type.ALBUM
+                )
+            }
+        }
+
+        Picasso.get().load(imageUri)
             .into(binding.mainPlaylistAlbumImageView, object : Callback {
                 override fun onSuccess() {
                     val imageBitmap: Bitmap =
@@ -86,20 +111,20 @@ class PlaylistAlbumFragment : Fragment() {
             if (it.size > 1) {
                 adapter.hasItemIndexTextView()
             }
-            if (requireArguments().getSerializable("type") as PlaylistAlbumViewModel.Type == PlaylistAlbumViewModel.Type.ALBUM) {
-                adapter.hasViewsShowed()
-            }
+
             binding.rcvSongsInsidePlaylistAlbumView.adapter = adapter
 
-            requireArguments().getString(
-                "albumArtistName",
-                SharedPrefManager.getInstance(requireActivity()).user.name
-            ).let { metaData ->
-                binding.artistsListTextview.text = metaData
+            album?.let { album ->
+                adapter.hasViewsShowed()
+                binding.artistsListTextview.text = album.artistName
+                binding.playlistAlbumNameTextview.text = album.name
             }
 
-            binding.playlistAlbumNameTextview.text =
-                requireArguments().getString("playlistAlbumName")
+            playlist?.let { playlist ->
+                binding.artistsListTextview.text =
+                    SharedPrefManager.getInstance(requireActivity()).user.name
+                binding.playlistAlbumNameTextview.text = playlist.name
+            }
         }
 
         return binding.root

@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavHostController
-import androidx.navigation.fragment.findNavController
-import com.example.muzik.R
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.adapter.albums.AlbumsAdapterHorizontal
 import com.example.muzik.adapter.artists.ArtistsAdapterHorizontal
@@ -20,6 +17,7 @@ import com.example.muzik.data_model.standard_model.Artist
 import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentExploreBinding
+import com.example.muzik.ui.main_fragment.MainFragment
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForHorizontalRcv
 import com.example.muzik.utils.addDecorationForVerticalRcv
@@ -44,7 +42,6 @@ class ExploreFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[ExploreViewModel::class.java]
         val playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
 
-        // For entire view.
         addDecorationForHorizontalRcv(
             listOf(
                 binding.rcvPlaylistsPreview,
@@ -57,27 +54,26 @@ class ExploreFragment : Fragment() {
         binding.rcvForYouSongsPreview.isNestedScrollingEnabled = false
         addDecorationForVerticalRcv(binding.rcvForYouSongsPreview, requireActivity())
 
-        // For loading view.
         addSampleForRcv(
             binding.rcvPlaylistsPreview,
             PlaylistsAdapterHorizontal::class.java,
-            Playlist::class.java, 5, findNavController() as NavHostController
+            Playlist::class.java, 5
         )
 
         addSampleForRcv(
             binding.rcvListenAgainPlaylistsPreview,
             PlaylistsAdapterHorizontal::class.java,
-            Playlist::class.java, 5, findNavController() as NavHostController
+            Playlist::class.java, 5
         )
         addSampleForRcv(
             binding.rcvYourArtistPreview,
             ArtistsAdapterHorizontal::class.java,
-            Artist::class.java, 5, findNavController() as NavHostController
+            Artist::class.java, 5
         )
         addSampleForRcv(
             binding.rcvRecentAlbumsPreview,
             AlbumsAdapterHorizontal::class.java,
-            Album::class.java, 5, findNavController() as NavHostController
+            Album::class.java, 5
         )
         addSampleForRcv(
             binding.rcvForYouSongsPreview,
@@ -85,16 +81,11 @@ class ExploreFragment : Fragment() {
             Song::class.java, 5
         )
 
-        val navHostFragmentOwnerController =
-            requireParentFragment().childFragmentManager.findFragmentById(R.id.fragment_lib_nav)
-                ?.findNavController() as NavHostController
+        val mainFragment = requireParentFragment().parentFragment as MainFragment
 
-        // For rendering data.
         viewModel.topPlaylistsList.observe(viewLifecycleOwner) {
-            val adapter = PlaylistsAdapterHorizontal(
-                it,
-                navHostFragmentOwnerController
-            )
+            val adapter = PlaylistsAdapterHorizontal(it)
+            adapter.setObjectAction(mainFragment)
             binding.rcvPlaylistsPreview.adapter = adapter
         }
         viewModel.topSongList.observe(viewLifecycleOwner) {
@@ -103,26 +94,16 @@ class ExploreFragment : Fragment() {
             binding.rcvForYouSongsPreview.adapter = adapter
         }
         viewModel.listenAgainPlaylistsList.observe(viewLifecycleOwner) {
-            val adapter = PlaylistsAdapterHorizontal(
-                it,
-                navHostFragmentOwnerController
-            )
+            val adapter = PlaylistsAdapterHorizontal(it)
+            adapter.setObjectAction(mainFragment)
             binding.rcvListenAgainPlaylistsPreview.adapter = adapter
         }
         viewModel.recentAlbumsList.observe(viewLifecycleOwner) {
-            val adapter =
-                AlbumsAdapterHorizontal(
-                    it,
-                    navHostFragmentOwnerController
-                )
+            val adapter = AlbumsAdapterHorizontal(it).setObjectAction(mainFragment)
             binding.rcvRecentAlbumsPreview.adapter = adapter
         }
         viewModel.yourArtistsList.observe(viewLifecycleOwner) {
-            val adapter =
-                ArtistsAdapterHorizontal(
-                    it,
-                    navHostFragmentOwnerController
-                )
+            val adapter = ArtistsAdapterHorizontal(it).setObjectAction(mainFragment)
             binding.rcvYourArtistPreview.adapter = adapter
         }
 

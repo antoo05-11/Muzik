@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavHostController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.muzik.R
 import com.example.muzik.adapter.artists.ArtistsAdapterVertical
 import com.example.muzik.databinding.FragmentLibArtistBinding
+import com.example.muzik.ui.main_fragment.MainFragment
 import kotlinx.coroutines.launch
 
 class LibArtistFragment : Fragment() {
@@ -31,15 +29,8 @@ class LibArtistFragment : Fragment() {
         binding = FragmentLibArtistBinding.inflate(inflater)
         artistViewModel = ViewModelProvider(requireActivity())[ArtistViewModel::class.java]
 
-        val navHostController =
-            parentFragment?.parentFragment?.childFragmentManager?.findFragmentById(R.id.fragment_lib_nav)
-                ?.findNavController() as NavHostController
-
-        artistAdapter =
-            ArtistsAdapterVertical(
-                mutableListOf(),
-                navHostController
-            )
+        artistAdapter = ArtistsAdapterVertical()
+        artistAdapter.setObjectAction(requireParentFragment().requireParentFragment().parentFragment as MainFragment)
 
         binding.rcvArtistsList.adapter = artistAdapter
         binding.rcvArtistsList.layoutManager = LinearLayoutManager(context)

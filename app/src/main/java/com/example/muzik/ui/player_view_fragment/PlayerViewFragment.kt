@@ -1,5 +1,6 @@
 package com.example.muzik.ui.player_view_fragment
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +11,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.Player
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.NavHostController
+import androidx.navigation.fragment.findNavController
 import com.example.muzik.R
+import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentPlayerViewBinding
+import com.example.muzik.ui.artist_fragment.ArtistFragment
 import com.example.muzik.utils.PaletteUtils
 import com.example.muzik.utils.getReadableTime
+import com.example.muzik.utils.printLogcat
 import com.example.muzik.utils.setRotateAnimation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -26,6 +31,9 @@ class PlayerViewFragment : Fragment() {
 
     private lateinit var playerViewModel: PlayerViewModel
 
+    private lateinit var song: Song
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +42,6 @@ class PlayerViewFragment : Fragment() {
         binding = FragmentPlayerViewBinding.inflate(inflater)
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
         val anim = setRotateAnimation(binding.activityTrackImage)
-
 
         binding.playPauseSongButton.setOnClickListener {
             playerViewModel.playPause()
@@ -74,7 +81,7 @@ class PlayerViewFragment : Fragment() {
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvTitle.text = it.name
-            binding.tvTotal.text = getReadableTime(it.duration!!)
+            binding.tvTotal.text = getReadableTime(it.duration)
             binding.sb.max = it.duration
         }
 
@@ -84,10 +91,15 @@ class PlayerViewFragment : Fragment() {
         }
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
+            song = it
             if (it.imageURI == null) {
-                binding.activityTrackImage.setBackgroundResource(R.drawable.icons8_song_500_1_)
-            }
-            Picasso.get()
+                binding.activityTrackImage.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.icons8_song_500_1_
+                    )
+                )
+            } else Picasso.get()
                 .load(it.imageURI)
                 .into(binding.activityTrackImage, object : Callback {
                     override fun onSuccess() {
@@ -99,18 +111,13 @@ class PlayerViewFragment : Fragment() {
 
                     override fun onError(e: Exception?) {
                     }
-
                 })
 
             binding.tvArtistName.text = it.artistName
         }
 
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.fragment_main_nav) as NavHostFragment
-        val navController = navHostFragment.navController
-
         binding.backBtn.setOnClickListener {
-            navController.navigate(R.id.libraryFragment)
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.sb.setOnSeekBarChangeListener(
@@ -119,9 +126,20 @@ class PlayerViewFragment : Fragment() {
             )
         )
 
-        // TODO: Navigate to artist fragment of main fragment.
         binding.tvArtistName.setOnClickListener {
-            navController.navigate(R.id.libraryFragment)
+            printLogcat(requireActivity().supportFragmentManager.fragments.size)
+
+            requireActivity().supportFragmentManager.popBackStack()
+            val artistFragment = ArtistFragment()
+            val bundle = Bundle().apply {
+                putLong("artistID", song.requireArtistID())
+            }
+            artistFragment.arguments = bundle
+
+            val navHostController =
+                requireActivity().supportFragmentManager.fragments[0].childFragmentManager.fragments[0].childFragmentManager.fragments[0].findNavController() as NavHostController
+
+            navHostController.navigate(R.id.artistFragment, bundle)
         }
 
         binding.prevSongButton.setOnClickListener {

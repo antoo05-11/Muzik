@@ -6,7 +6,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.player_view_fragment.PlayerViewFragment"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:focusable="true"
+        android:clickable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,18 +66,15 @@
             android:focusable="true"
             android:gravity="center">
 
-        <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="160dp"
-                android:layout_marginBottom="20dp">
 
-            <ImageView
-                    android:id="@+id/activity_track_image"
-                    android:layout_width="320dp"
-                    android:layout_height="320dp"
-                    android:scaleType="centerCrop" />
-        </androidx.cardview.widget.CardView>
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/activity_track_image"
+                android:layout_width="320dp"
+                android:layout_height="320dp"
+                app:civ_border_width="15dp"
+                app:civ_border_color="#03000000"
+                android:layout_marginBottom="20dp" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

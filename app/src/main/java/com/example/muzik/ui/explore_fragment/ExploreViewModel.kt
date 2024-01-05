@@ -82,7 +82,7 @@ class ExploreViewModel : ViewModel() {
                 }
                 _yourArtistsList.value = artistList
             } catch (e: Throwable) {
-                Log.e("NETWORK_ERROR", "Network error!")
+                Log.e("NETWORK_ERROR", e.message.toString())
             }
         }
 

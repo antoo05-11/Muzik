@@ -32,8 +32,8 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 
-open class SongsAdapterVertical(var songsPreviewList: List<Song> = mutableListOf()) :
-    RecyclerView.Adapter<SongPreviewHolder>() {
+open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) :
+    Adapter<SongPreviewHolder, Song>(songsPreviewList) {
 
     protected var playerViewModel: PlayerViewModel? = null
     private var hasItemIndexTextView = false
@@ -68,7 +68,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song> = mutableListOf
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SongPreviewHolder, position: Int) {
-        val song = songsPreviewList[position]
+        val song = list[position]
         if (song.songID != null) {
             holder.tvSongName.text = song.name
             if (!hasViewsShowed) holder.artistNameSongPreviewTextview.text = song.artistName else {
@@ -120,7 +120,7 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song> = mutableListOf
                     ) {
 //                        playerViewModel!!.stop()
 //                        playerViewModel!!.setMedia(song.songURI!!)
-                        playerViewModel!!.setListSong(songsPreviewList, position)
+                        playerViewModel!!.setListSong(list, position)
                         setPlayingEffect(holder)
                     }
                 }
@@ -171,10 +171,6 @@ open class SongsAdapterVertical(var songsPreviewList: List<Song> = mutableListOf
         (holder.tvSongName.parent.parent as LinearLayout).addView(playingGifView, 0)
         holder.tvSongName.ellipsize = TextUtils.TruncateAt.MARQUEE
         holder.tvSongName.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-    }
-
-    override fun getItemCount(): Int {
-        return songsPreviewList.size
     }
 
     class SongPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

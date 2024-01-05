@@ -34,13 +34,15 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var searchView: SearchView
 
+    private lateinit var adapter: SongsAdapterVertical
+
     class SearchAdapterVertical : SongsAdapterVertical(LocalMusicRepository.getSongs()),
         Filterable {
         override fun getFilter(): Filter {
             return object : Filter() {
                 override fun performFiltering(constraint: CharSequence?): FilterResults {
                     val str: String = constraint.toString()
-                    songsPreviewList = if (str.isEmpty()) {
+                    list = if (str.isEmpty()) {
                         LocalMusicRepository.getSongs()
                     } else {
                         val list: MutableList<Song> = ArrayList()
@@ -56,15 +58,14 @@ class SearchFragment : Fragment() {
                     }
 
                     val filterResult = FilterResults()
-                    filterResult.values = songsPreviewList
+                    filterResult.values = list
                     return filterResult
                 }
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                     if (results != null) {
-                        songsPreviewList = results.values as List<Song>
-                        notifyDataSetChanged()
+                        updateList(results.values as List<Song>)
                     }
                 }
 
@@ -106,13 +107,12 @@ class SearchFragment : Fragment() {
 //        })
 
         val songs = mutableListOf<Song>()
-        val adapter =
+        adapter =
             SongsAdapterVertical(songs).setPlayerViewModel(playerViewModel).setFragmentOwner(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         searchViewModel.songList.observe(viewLifecycleOwner) {
-            songs.clear()
-            for (song in it) songs.add(song)
+            adapter.updateList(it)
             adapter.notifyDataSetChanged()
         }
 
@@ -131,17 +131,22 @@ class SearchFragment : Fragment() {
             if (hasFocus) {
                 navBar.visibility = View.GONE
                 binding.searchHintScrollView.visibility = View.VISIBLE
-                binding.searchScrollView.visibility = View.INVISIBLE
+                binding.searchScrollViewContainer.visibility = View.INVISIBLE
                 binding.searchBackButton.visibility = View.VISIBLE
                 binding.searchModeTab.visibility = View.GONE
                 searchViewIcon.setImageDrawable(null);
             } else {
                 navBar.visibility = View.VISIBLE
                 binding.searchHintScrollView.visibility = View.INVISIBLE
-                binding.searchScrollView.visibility = View.VISIBLE
+                binding.searchScrollViewContainer.visibility = View.VISIBLE
                 binding.searchBackButton.visibility = View.GONE
                 binding.searchModeTab.visibility = View.VISIBLE
-                searchViewIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.baseline_search_24))
+                searchViewIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.baseline_search_24
+                    )
+                )
             }
         }
 
@@ -176,8 +181,11 @@ class SearchFragment : Fragment() {
 
     fun search(youtube: Boolean = true, searchText: String = "") {
         searchView.setQuery(searchText, false)
+        binding.loadingContainer.root.visibility = View.VISIBLE
+        adapter.updateList()
         lifecycleScope.launch {
             searchViewModel.fetchSearchSongs(youtube, searchText)
+            binding.loadingContainer.root.visibility = View.INVISIBLE
         }
         val imm =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -36,4 +36,5 @@
     </string>
     <string name="no_recent_activities">You have no recent activities.</string>
     <string name="explore_more_songs_now">Explore more songs now</string>
+    <string name="processing_please_wait">Processing. Please wait...</string>
 </resources>

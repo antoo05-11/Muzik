@@ -1,26 +1,22 @@
 package com.example.muzik.adapter.albums
 
 import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
+import com.example.muzik.adapter.Adapter
 import com.example.muzik.data_model.standard_model.Album
-import com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.util.Objects
 
 class AlbumsAdapterVertical(
-    var albums: List<Album>,
-    private val navHostController: NavHostController
-) : RecyclerView.Adapter<AlbumsAdapterVertical.AlbumPreviewHolder>() {
+    albums: List<Album> = mutableListOf()
+) : Adapter<AlbumsAdapterVertical.AlbumPreviewHolder, Album>(albums) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumPreviewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,7 +26,7 @@ class AlbumsAdapterVertical(
     }
 
     override fun onBindViewHolder(holder: AlbumPreviewHolder, position: Int) {
-        val album = albums[position]
+        val album = list[position]
 
         if (album.albumID != -1L) {
 
@@ -54,25 +50,9 @@ class AlbumsAdapterVertical(
                 })
 
             holder.itemView.setOnClickListener {
-                val bundle = Bundle()
-
-                bundle.putLong("playlistAlbumID", album.albumID!!)
-                bundle.putString(
-                    "playlistAlbumImageURL",
-                    Objects.requireNonNull(album.imageURI).toString()
-                )
-                bundle.putString("playlistAlbumName", album.name)
-                bundle.putSerializable("type", PlaylistAlbumViewModel.Type.ALBUM)
-
-                navHostController.navigate(
-                    R.id.playlistAlbumFragment, bundle
-                )
+                mainAction?.goToAlbumFragment(album = album)
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return albums.size
     }
 
     class AlbumPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

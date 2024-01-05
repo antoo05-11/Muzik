@@ -39,7 +39,7 @@ class LibSongsFragment : Fragment() {
         binding.rvListSong.layoutManager = LinearLayoutManager(this.context)
 
         songViewModel.songs.observe(viewLifecycleOwner){
-            listSongAdapter.songsPreviewList = it
+            listSongAdapter.updateList(it)
             listSongAdapter.notifyDataSetChanged()
         }
 

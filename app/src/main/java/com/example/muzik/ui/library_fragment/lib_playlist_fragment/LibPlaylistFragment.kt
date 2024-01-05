@@ -14,6 +14,7 @@ import com.example.muzik.R
 import com.example.muzik.adapter.playlists.PlaylistsAdapterVertical
 import com.example.muzik.databinding.FragmentLibPlaylistBinding
 import com.example.muzik.ui.main_activity.MainActivity
+import com.example.muzik.ui.main_fragment.MainFragment
 
 class LibPlaylistFragment : Fragment() {
 
@@ -34,14 +35,14 @@ class LibPlaylistFragment : Fragment() {
         val navHostController =
             parentFragment?.parentFragment?.childFragmentManager?.findFragmentById(R.id.fragment_lib_nav)
                 ?.findNavController() as NavHostController
-
-        adapter = PlaylistsAdapterVertical(mutableListOf(), navHostController)
-        binding.rcvPlaylists.adapter = adapter
         binding.rcvPlaylists.layoutManager = LinearLayoutManager(context)
 
+        adapter = PlaylistsAdapterVertical()
+        adapter.setObjectAction(requireParentFragment().requireParentFragment().parentFragment as MainFragment)
+        binding.rcvPlaylists.adapter = adapter
+
         MainActivity.userPlaylists.observe(viewLifecycleOwner) {
-             adapter.listPlaylist = it
-            adapter.notifyDataSetChanged()
+            adapter.updateList(it)
         }
 
         return binding.root

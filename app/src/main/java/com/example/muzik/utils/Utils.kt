@@ -6,10 +6,10 @@ import android.app.Activity
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.navigation.NavHostController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
+import com.example.muzik.adapter.Adapter
 import com.example.muzik.data_model.standard_model.Model
 import java.io.Serializable
 
@@ -45,24 +45,18 @@ fun addDecorationForVerticalRcv(rcvList: List<RecyclerView>, activity: Activity)
     }
 }
 
-fun <T : RecyclerView.Adapter<out RecyclerView.ViewHolder>, X : Model> addSampleForRcv(
+fun <T : Adapter<VH, X>, VH : RecyclerView.ViewHolder, X : Model> addSampleForRcv(
     rcv: RecyclerView,
     adapterClazz: Class<T>,
     itemClazz: Class<X>,
-    sampleSize: Int,
-    navHostController: NavHostController? = null
-) {
+    sampleSize: Int
+)  {
     val itemConstructor = itemClazz.getConstructor()
     val list = List(sampleSize) { itemConstructor.newInstance() }
 
-    val adapter: T? = if (navHostController != null) {
-        val adapterConstructor =
-            adapterClazz.getConstructor(MutableList::class.java, NavHostController::class.java)
-        adapterConstructor.newInstance(list, navHostController)
-    } else {
-        val adapterConstructor = adapterClazz.getConstructor(MutableList::class.java)
-        adapterConstructor.newInstance(list)
-    }
+    val adapterConstructor =
+        adapterClazz.getConstructor(MutableList::class.java)
+    val adapter = adapterConstructor.newInstance(list)
 
     rcv.adapter = adapter
 }
@@ -75,6 +69,6 @@ fun setRotateAnimation(view: View): ObjectAnimator {
     return anim
 }
 
-fun <T: Serializable> printLogcat(string: T) {
+fun <T : Serializable> printLogcat(string: T) {
     Log.e("app-debug", string.toString())
 }

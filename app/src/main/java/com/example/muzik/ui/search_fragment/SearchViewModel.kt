@@ -14,6 +14,11 @@ class SearchViewModel : ViewModel() {
     private val _suggestionList: MutableLiveData<List<String>> = MutableLiveData()
     val suggestionList = _suggestionList as LiveData<List<String>>
 
+    interface Callback {
+        fun onSuccess()
+        fun onError(error: Exception)
+    }
+
     suspend fun fetchSearchSongs(youtube: Boolean? = null, searchText: String? = null) {
         try {
             val songs = mutableListOf<Song>()

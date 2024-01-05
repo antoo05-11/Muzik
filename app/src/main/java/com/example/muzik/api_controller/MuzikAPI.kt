@@ -44,8 +44,8 @@ interface MuzikAPI {
     @GET("/api/song/getAll")
     suspend fun getAllSongs(): Response<List<SongResponse>>
 
-    @GET("/api/album/{id}/info")
-    suspend fun getAlbum(@Path("id") albumID: Long): Response<List<SongResponse>>
+    @GET("/api/album/{id}/getAllSongs")
+    suspend fun getAlbumSongs(@Path("id") albumID: Long): Response<List<SongResponse>>
 
     @GET("/api/album/getAll")
     suspend fun getAllAlbums(): Response<List<AlbumResponse>>
@@ -56,8 +56,11 @@ interface MuzikAPI {
     @GET("/api/playlist/get")
     suspend fun getUserPlaylists(@Header("Authorization") authHeader: String): Response<List<PlaylistResponse>>
 
+    @GET("/api/artist/{id}/artistSongs")
+    suspend fun getArtistSongs(@Path("id") artistID: Long): Response<List<SongResponse>>
+
     @GET("/api/artist/{id}/info")
-    suspend fun getArtist(@Path("id") artistID: Long): Response<List<SongResponse>>
+    suspend fun getArtist(@Path("id") artistID: Long): Response<ArtistResponse>
 
     @GET("/api/artist/getAll")
     suspend fun getAllArtists(): Response<List<ArtistResponse>>

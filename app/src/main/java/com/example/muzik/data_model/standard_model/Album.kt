@@ -49,4 +49,11 @@ class Album (
     fun getImg(): Uri {
         return imageURI!!
     }
+
+    fun requireAlbumID(): Long {
+        checkNotNull(albumID) {
+            ("Album $this must have non-null album ID")
+        }
+        return albumID
+    }
 }
