@@ -16,9 +16,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.Listener
-import androidx.media3.common.Player.REPEAT_MODE_ALL
-import androidx.media3.common.Player.REPEAT_MODE_OFF
-import androidx.media3.common.Player.REPEAT_MODE_ONE
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.muzik.MuzikApplication
 import com.example.muzik.R
@@ -41,12 +38,12 @@ class MusicService : Service() {
 
     lateinit var exoPlayer: ExoPlayer
         private set
-     var curSong: Song? = null
+    var curSong: Song? = null
     private var curProgress: Int = 0
 
-     var repeatMode: Int = Player.REPEAT_MODE_OFF
+    var repeatMode: Int = Player.REPEAT_MODE_OFF
 
-     var shuffleMode: Boolean = false
+    var shuffleMode: Boolean = false
 
     var songHashMap: HashMap<String, Song> = HashMap()
 
@@ -176,7 +173,7 @@ class MusicService : Service() {
 
     fun switchRepeatMode() {
         repeatMode += 1
-        if(repeatMode > 2) {
+        if (repeatMode > 2) {
             repeatMode = 0
         }
         Log.d("DanhPB: ", repeatMode.toString())
@@ -211,10 +208,9 @@ class MusicService : Service() {
 
 
     fun setListSong(listSong: List<Song>, index: Int = 0) {
-        //create map to query song
         exoPlayer.clearMediaItems()
-        for(song : Song in listSong) {
-            song.songID?.let {
+        for (song: Song in listSong) {
+            song.requireSongID().let {
                 val mediaItem = MediaItem.Builder().setUri(song.songURI).setMediaId(it).build()
                 songHashMap[it] = song
                 exoPlayer.addMediaItem(mediaItem)
@@ -224,6 +220,14 @@ class MusicService : Service() {
         exoPlayer.prepare()
         exoPlayer.play()
     }
+
+    fun addSongToPlayingList(song: Song) {
+        val mediaItem =
+            MediaItem.Builder().setUri(song.songURI).setMediaId(song.requireSongID()).build()
+        exoPlayer.addMediaItem(mediaItem)
+        exoPlayer.prepare()
+    }
+
 
     fun setSong(song: Song) {
         exoPlayer.stop()
@@ -249,7 +253,6 @@ class MusicService : Service() {
             }
         })
     }
-
 
 
     private fun sendUpdate() {

@@ -30,7 +30,6 @@ import com.example.muzik.ui.player_view_fragment.PlayerViewFragment
 import com.example.muzik.ui.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.search_fragment.SearchViewModel
 import com.example.muzik.utils.PaletteUtils
-import com.example.muzik.utils.printLogcat
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -66,7 +65,6 @@ class MainFragment : Fragment(), MainAction {
             childFragmentManager.findFragmentById(R.id.fragment_lib_nav) as NavHostFragment
         mainFragmentNavController = mainFragmentNavHostFragment.navController as NavHostController
         binding.bottomNavView.setupWithNavController(mainFragmentNavController)
-
         binding.bottomNavView.viewTreeObserver?.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -154,11 +152,11 @@ class MainFragment : Fragment(), MainAction {
 
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
+
         mainFragmentNavController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_explore -> {
                     supportActionBar?.title = "Explore"
-                    printLogcat("click")
                     supportActionBar?.show()
                 }
 
@@ -184,9 +182,16 @@ class MainFragment : Fragment(), MainAction {
 
                 else -> {
                     supportActionBar?.hide()
+                    val menu = binding.bottomNavView.menu
+                    menu.setGroupCheckable(0, true, false)
+                    for (i in 0 until menu.size()) {
+                        menu.getItem(i).isChecked = false
+                    }
+                    menu.setGroupCheckable(0, true, true)
                     return@addOnDestinationChangedListener
                 }
             }
+
         }
         return binding.root
     }
@@ -212,6 +217,7 @@ class MainFragment : Fragment(), MainAction {
             album?.let { putSerializable("album", it) }
             albumID?.let { putLong("albumID", it) }
         }
+
         mainFragmentNavController.navigate(R.id.playlistAlbumFragment, bundle)
     }
 

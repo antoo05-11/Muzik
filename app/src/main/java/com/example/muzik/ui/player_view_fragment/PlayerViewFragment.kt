@@ -127,7 +127,6 @@ class PlayerViewFragment : Fragment() {
         )
 
         binding.tvArtistName.setOnClickListener {
-            printLogcat(requireActivity().supportFragmentManager.fragments.size)
 
             requireActivity().supportFragmentManager.popBackStack()
             val artistFragment = ArtistFragment()

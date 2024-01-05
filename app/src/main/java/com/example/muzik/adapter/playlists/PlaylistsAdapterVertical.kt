@@ -22,12 +22,12 @@ import com.squareup.picasso.Picasso
 
 class PlaylistsAdapterVertical(
     playlists: List<Playlist> = mutableListOf()
-) : Adapter<PlaylistsAdapterVertical.ListPlaylistViewHolder, Playlist>(playlists) {
+) : Adapter<PlaylistsAdapterVertical.PlaylistViewHolder, Playlist>(playlists) {
 
     private var inBottomSheet = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListPlaylistViewHolder {
-        return ListPlaylistViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
+        return PlaylistViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_playlist,
                 parent,
@@ -37,8 +37,8 @@ class PlaylistsAdapterVertical(
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ListPlaylistViewHolder, position: Int) {
-        val curPlaylist = list?.get(position) ?: return
+    override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
+        val curPlaylist = list[position]
         if (curPlaylist.playlistID?.toInt() == -1) {
             holder.playlistImage.setBackgroundResource(R.drawable.baseline_add_box_24)
             (holder.tvPlaylistName.parent as LinearLayout)[1].visibility = View.GONE
@@ -98,7 +98,7 @@ class PlaylistsAdapterVertical(
         return this
     }
 
-    class ListPlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class PlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPlaylistName: TextView = itemView.findViewById(R.id.tvPlaylistsName)
         val playlistImage: ImageView = itemView.findViewById(R.id.playlist_image_item)
         val playlistImageCardView: CardView =

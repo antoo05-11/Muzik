@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Playlist
@@ -98,11 +97,11 @@ class PlaylistAlbumFragment : Fragment() {
             5
         )
 
-        val mainFragmentNavHostFragment = parentFragment as NavHostFragment
-        val mainFragmentNavController = mainFragmentNavHostFragment.navController
+//        val mainFragmentNavHostFragment = parentFragment as NavHostFragment
+//        val mainFragmentNavController = mainFragmentNavHostFragment.navController
 
         binding.backButton.setOnClickListener {
-            mainFragmentNavController.popBackStack()
+            parentFragment?.childFragmentManager?.popBackStack()
         }
 
         viewModel.playlistAlbumsList.observe(viewLifecycleOwner) {

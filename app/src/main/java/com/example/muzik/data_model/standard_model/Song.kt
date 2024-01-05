@@ -21,8 +21,12 @@ class Song(
         fun buildOnline(songResponse: SongResponse): Song {
             var songURI: Uri? = null
             songResponse.songURL?.let {
-                //songURI = Uri.parse(it.replace("http:/", "https://"))
-                songURI = Uri.parse(it)
+                songURI = Uri.parse(it.replace("http:/", "https://"))
+                //songURI = Uri.parse(it)
+            }
+            var imageURI: Uri? = null
+            songResponse.imageURL?.let {
+                imageURI = Uri.parse(it)
             }
             return Song(
                 songID = songResponse.songID,
@@ -30,7 +34,7 @@ class Song(
                 artistName = songResponse.artistName,
                 songURI = songURI,
                 views = songResponse.views,
-                imageURI = Uri.parse(songResponse.imageURL),
+                imageURI = imageURI,
                 artistID = songResponse.artistID,
                 duration = songResponse.duration
             )

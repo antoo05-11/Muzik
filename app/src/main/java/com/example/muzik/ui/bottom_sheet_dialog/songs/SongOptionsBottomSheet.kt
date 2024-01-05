@@ -4,27 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.OptIn
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetSongOptionsBinding
 import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
+import com.example.muzik.ui.main_activity.MainActivity.Companion.musicService
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
+import kotlinx.coroutines.launch
 
 class SongOptionsBottomSheet : BottomSheetDialogFragment() {
     private val binding by viewBinding(BottomSheetSongOptionsBinding::bind)
     private lateinit var song: Song
     lateinit var playlistsBottomSheet: PlaylistsBottomSheet
         private set
+    private lateinit var viewModel: SongsOptionBottomSheetViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel =
+            ViewModelProvider(requireActivity())[SongsOptionBottomSheetViewModel::class.java]
         return inflater.inflate(R.layout.bottom_sheet_song_options, container, false)
     }
 
@@ -47,6 +55,22 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
                 PlaylistsBottomSheet.TAG
             )
             dismiss()
+        }
+
+        binding.playNextButton.setOnClickListener {
+            if (song.songURI == null) {
+                requireActivity().lifecycleScope.launch {
+                    viewModel.fetchYoutubeSong(song.requireSongID())
+                }
+            } else {
+                musicService?.addSongToPlayingList(song)
+            }
+            Toast.makeText(context, "Song added to playing list.", Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
+
+        viewModel.song.observe(viewLifecycleOwner) {
+            if (it != null) musicService?.addSongToPlayingList(it)
         }
 
 //        val cache = SimpleCache(File("/storage/self/primary/Download"), NoOpCacheEvictor())

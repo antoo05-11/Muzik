@@ -146,7 +146,8 @@
                 android:gravity="left|center_vertical"
                 android:clickable="true"
                 android:focusable="true"
-                tools:ignore="RtlHardcoded">
+                tools:ignore="RtlHardcoded"
+                android:id="@+id/play_next_button">
 
             <ImageView
                     android:background="@drawable/baseline_playlist_play_24"
