@@ -13,6 +13,7 @@ import com.example.muzik.R
 import com.example.muzik.adapter.Adapter
 import com.example.muzik.adapter.artists.ArtistsAdapterVertical.ArtistViewHolder
 import com.example.muzik.data_model.standard_model.Artist
+import com.example.muzik.ui.fragment.main_fragment.MainAction
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.util.Locale
@@ -21,13 +22,6 @@ class ArtistsAdapterVertical(artists: MutableList<Artist> = mutableListOf()) :
     Adapter<ArtistViewHolder, Artist>(artists), Filterable {
     private var artists: MutableList<Artist>
     private val artistsOld: MutableList<Artist>
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateArtistList(artists: List<Artist>?) {
-        this.artists.clear()
-        this.artists.addAll(artists!!)
-        notifyDataSetChanged()
-    }
 
     init {
         this.artists = artists
@@ -51,7 +45,7 @@ class ArtistsAdapterVertical(artists: MutableList<Artist> = mutableListOf()) :
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        val artist = list?.get(position) ?: return
+        val artist = list[position]
         if (artist.artistID != -1L) {
             holder.artistNameTextView.text = artist.name
             Picasso.get().load(artist.imageURI).into(holder.artistImageView, object : Callback {
@@ -59,7 +53,7 @@ class ArtistsAdapterVertical(artists: MutableList<Artist> = mutableListOf()) :
                 override fun onError(e: Exception) {}
             })
             holder.itemView.setOnClickListener {
-                mainAction?.goToArtistFragment(artist = artist)
+                (action as? MainAction)?.goToArtistFragment(artist = artist)
             }
         }
     }

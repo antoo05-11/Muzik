@@ -11,6 +11,7 @@ import com.example.muzik.R
 import com.example.muzik.adapter.Adapter
 import com.example.muzik.adapter.playlists.PlaylistsAdapterHorizontal.PlaylistPreviewHolder
 import com.example.muzik.data_model.standard_model.Playlist
+import com.example.muzik.ui.fragment.main_fragment.MainAction
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -26,8 +27,8 @@ class PlaylistsAdapterHorizontal(
     }
 
     override fun onBindViewHolder(holder: PlaylistPreviewHolder, position: Int) {
-        val playlist = list?.get(position) ?: return
-        if (playlist.playlistID != -1L) {
+        val playlist = list[position]
+        if (playlist.playlistID != null) {
 
             holder.playlistPreviewNameShimmer.hideShimmer()
             holder.playlistPreviewNameTextView.setBackgroundColor(Color.TRANSPARENT)
@@ -45,7 +46,7 @@ class PlaylistsAdapterHorizontal(
                 })
 
             holder.itemView.setOnClickListener {
-                mainAction?.goToPlaylistFragment(playlist = playlist)
+                (action as? MainAction)?.goToPlaylistFragment(playlist = playlist)
             }
         }
     }

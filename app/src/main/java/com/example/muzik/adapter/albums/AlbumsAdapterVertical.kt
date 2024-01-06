@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.adapter.Adapter
 import com.example.muzik.data_model.standard_model.Album
+import com.example.muzik.ui.fragment.main_fragment.MainAction
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -50,7 +51,7 @@ class AlbumsAdapterVertical(
                 })
 
             holder.itemView.setOnClickListener {
-                mainAction?.goToAlbumFragment(album = album)
+                (action as? MainAction)?.goToAlbumFragment(album = album)
             }
         }
     }

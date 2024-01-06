@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.adapter.Adapter
 import com.example.muzik.data_model.standard_model.Playlist
+import com.example.muzik.ui.fragment.main_fragment.MainAction
 import com.example.muzik.utils.printLogcat
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
@@ -39,7 +40,7 @@ class PlaylistsAdapterVertical(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         val curPlaylist = list[position]
-        if (curPlaylist.playlistID?.toInt() == -1) {
+        if (curPlaylist.playlistID == null) {
             holder.playlistImage.setBackgroundResource(R.drawable.baseline_add_box_24)
             (holder.tvPlaylistName.parent as LinearLayout)[1].visibility = View.GONE
             holder.tvPlaylistName.text = "Add more playlists!"
@@ -53,9 +54,8 @@ class PlaylistsAdapterVertical(
                 marginStart = 0
             }
             holder.itemView.setOnClickListener {
-                mainAction?.goToCreatePlaylistActivity()
+                (action as? MainAction)?.goToCreatePlaylistActivity()
             }
-
         } else {
             holder.tvPlaylistName.updateLayoutParams<LinearLayout.LayoutParams> { bottomMargin = 3 }
             holder.itemView.apply {
@@ -83,11 +83,11 @@ class PlaylistsAdapterVertical(
                     marginStart = 0
                 }
                 holder.itemView.setOnClickListener {
-                    mainAction?.addSongToPlaylist(curPlaylist.requirePlaylistID())
+                    (action as? MainAction)?.addSongToPlaylist(curPlaylist.requirePlaylistID())
                 }
             } else {
                 holder.itemView.setOnClickListener {
-                    mainAction?.goToPlaylistFragment(playlist = curPlaylist)
+                    (action as? MainAction)?.goToPlaylistFragment(playlist = curPlaylist)
                 }
             }
         }

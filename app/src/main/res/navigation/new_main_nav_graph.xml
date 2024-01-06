@@ -6,36 +6,36 @@
         app:startDestination="@id/navigation_explore">
     <fragment
             android:id="@+id/navigation_explore"
-            android:name="com.example.muzik.ui.explore_fragment.ExploreFragment"
+            android:name="com.example.muzik.ui.fragment.explore_fragment.ExploreFragment"
             android:label="ExploreFragment"
             tools:layout="@layout/fragment_explore" />
     <fragment
             android:id="@+id/navigation_library"
-            android:name="com.example.muzik.ui.library_fragment.LibraryFragment"
+            android:name="com.example.muzik.ui.fragment.library_fragment.LibraryFragment"
             android:label="LibraryFragment"
             tools:layout="@layout/fragment_library" />
     <fragment
             android:id="@+id/navigation_chart"
-            android:name="com.example.muzik.ui.chart_fragment.ChartFragment"
+            android:name="com.example.muzik.ui.fragment.chart_fragment.ChartFragment"
             android:label="ChartFragment"
             tools:layout="@layout/fragment_chart" />
     <fragment
             android:id="@+id/navigation_search"
-            android:name="com.example.muzik.ui.search_fragment.SearchFragment"
+            android:name="com.example.muzik.ui.fragment.search_fragment.SearchFragment"
             android:label="SearchFragment"
             tools:layout="@layout/fragment_search" />
     <fragment
             android:id="@+id/artistFragment"
-            android:name="com.example.muzik.ui.artist_fragment.ArtistFragment"
+            android:name="com.example.muzik.ui.fragment.artist_fragment.ArtistFragment"
             android:label="ArtistFragment" />
     <fragment
             android:id="@+id/playlistAlbumFragment"
-            android:name="com.example.muzik.ui.playlist_album_fragment.PlaylistAlbumFragment"
+            android:name="com.example.muzik.ui.fragment.playlist_album_fragment.PlaylistAlbumFragment"
             android:label="fragment_playlist_album"
             tools:layout="@layout/fragment_playlist_album" />
     <fragment
             android:id="@+id/navigation_stream_share"
-            android:name="com.example.muzik.ui.stream_share_fragment.StreamShareFragment"
+            android:name="com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment"
             android:label="fragment_stream_share"
             tools:layout="@layout/fragment_stream_share" />
 </navigation>

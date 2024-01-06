@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.muzik.R
 import com.example.muzik.adapter.Adapter
-import com.example.muzik.data_model.standard_model.Model
 import java.io.Serializable
 
 fun getReadableTime(time: Int): String {
@@ -45,7 +44,7 @@ fun addDecorationForVerticalRcv(rcvList: List<RecyclerView>, activity: Activity)
     }
 }
 
-fun <T : Adapter<VH, X>, VH : RecyclerView.ViewHolder, X : Model> addSampleForRcv(
+fun <T : Adapter<VH, X>, VH : RecyclerView.ViewHolder, X> addSampleForRcv(
     rcv: RecyclerView,
     adapterClazz: Class<T>,
     itemClazz: Class<X>,

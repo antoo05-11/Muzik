@@ -13,7 +13,9 @@ import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetSongOptionsBinding
 import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
-import com.example.muzik.ui.main_activity.MainActivity.Companion.musicService
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.mSocket
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.musicService
+import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.zhuinden.fragmentviewbindingdelegatekt.viewBinding
@@ -39,6 +41,7 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
     @OptIn(UnstableApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         song.name.apply {
             binding.songNameTextView.text = this.toString()
         }
@@ -66,6 +69,16 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
                 musicService?.addSongToPlayingList(song)
             }
             Toast.makeText(context, "Song added to playing list.", Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
+
+        if (!StreamShareFragment.inStreamShare) {
+            binding.addToStreamListButton.visibility = View.GONE
+        }
+
+        binding.addToStreamListButton.setOnClickListener {
+            mSocket.emit("addSongToRoom", StreamShareFragment.roomID, song.songID)
+            Toast.makeText(context, "Song added to streaming list.", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 

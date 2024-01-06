@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="?attr/colorPrimary"
-    tools:context=".ui.main_activity.SignUpActivity"
+    tools:context=".ui.activity.sign_up_activity.SignUpActivity"
     android:padding="15dp">
 
     <ImageButton

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.player_view_fragment.PlayerViewFragment"
+        tools:context=".ui.fragment.player_view_fragment.PlayerViewFragment"
         android:background="@color/colorPrimary"
         android:focusable="true"
         android:clickable="true">

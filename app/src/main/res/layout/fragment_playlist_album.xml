@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.playlist_album_fragment.PlaylistAlbumFragment"
+        tools:context=".ui.fragment.playlist_album_fragment.PlaylistAlbumFragment"
         android:id="@+id/frameLayout2">
 
     <ImageButton
@@ -44,9 +44,7 @@
             app:layout_constraintTop_toBottomOf="@id/main_playlist_album_image_view"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="10dp"
             android:id="@+id/playlist_album_info_linear_layout">
 
         <TextView
@@ -54,14 +52,18 @@
                 android:layout_height="wrap_content"
                 style="@style/playlistAlbumNameTextView"
                 android:id="@+id/playlist_album_name_textview"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimary"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
+                android:layout_marginBottom="3dp" />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/artists_list_textview"
                 style="@style/playlistAlbumArtistsTextView"
-                android:textColor="@color/colorOnPrimary" />
+                android:textColor="@color/colorOnPrimary"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
+                android:layout_marginBottom="5dp" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

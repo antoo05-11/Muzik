@@ -4,6 +4,7 @@ import com.example.muzik.data_model.retrofit_model.request.CreatePlaylistRequest
 import com.example.muzik.data_model.retrofit_model.request.LoginRequest
 import com.example.muzik.data_model.retrofit_model.request.PlaylistSongRequest
 import com.example.muzik.data_model.retrofit_model.request.RegisterRequest
+import com.example.muzik.data_model.retrofit_model.request.StreamListRequest
 import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
 import com.example.muzik.data_model.retrofit_model.response.Chart
@@ -28,6 +29,12 @@ interface MuzikAPI {
         @Path("id") songID: String,
         @Query("youtube") youtube: Boolean? = null
     ): Response<SongResponse>
+
+    @POST("/api/song/getAllSongsWithSongIDs")
+    suspend fun getSongsWithSongIDs(
+        @Body streamListRequest: StreamListRequest
+    ): Response<List<SongResponse>>
+
 
     @GET("/api/song/suggestSearch")
     suspend fun getSuggestions(

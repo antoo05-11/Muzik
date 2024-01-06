@@ -3,7 +3,7 @@ package com.example.muzik.ui.bottom_sheet_dialog.playlists
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.data_model.retrofit_model.request.PlaylistSongRequest
-import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
 import com.example.muzik.utils.printLogcat
 
 class PlaylistBottomSheetViewModel : ViewModel() {

@@ -7,7 +7,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:background="?attr/colorPrimary"
-        tools:context=".ui.main_activity.LoginActivity"
+        tools:context=".ui.activity.login_activity.LoginActivity"
         android:padding="15dp">
 
     <ImageButton

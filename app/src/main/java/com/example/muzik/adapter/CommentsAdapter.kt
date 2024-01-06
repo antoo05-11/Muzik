@@ -10,8 +10,8 @@ import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Comment
 import com.squareup.picasso.Picasso
 
-class CommentsAdapter(private val comments: List<Comment>) :
-    RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
+class CommentsAdapter(comments: List<Comment> = mutableListOf()) :
+    Adapter<CommentsAdapter.ViewHolder, Comment>(comments) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val commentAccountImageView: ImageView = itemView.findViewById(R.id.comment_account_image)
@@ -27,13 +27,9 @@ class CommentsAdapter(private val comments: List<Comment>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val comment = comments[position]
+        val comment = list[position]
         holder.commentUsernameTextView.text = comment.username
         holder.commentTextView.text = comment.comment
         Picasso.get().load(comment.avatarUri).into(holder.commentAccountImageView)
-    }
-
-    override fun getItemCount(): Int {
-        return comments.size
     }
 }

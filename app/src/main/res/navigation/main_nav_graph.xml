@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/playerViewFragment"
-        android:name="com.example.muzik.ui.player_view_fragment.PlayerViewFragment"
+        android:name="com.example.muzik.ui.fragment.player_view_fragment.PlayerViewFragment"
         android:label="PlayerViewFragment" >
         <action
                 android:id="@+id/action_playerViewFragment_to_libraryFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.example.muzik.ui.main_fragment.MainFragment"
+        android:name="com.example.muzik.ui.fragment.main_fragment.MainFragment"
         android:label="ContentFragment" >
         <action
                 android:id="@+id/action_libraryFragment_to_playerViewFragment"

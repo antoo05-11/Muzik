@@ -4,20 +4,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.stream_inside_activity.StreamShareActivity"
-        android:paddingTop="10dp"
+        tools:context=".ui.activity.stream_inside_activity.StreamShareActivity"
         android:background="?attr/colorPrimary"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingBottom="10dp">
+        android:padding="@dimen/activity_horizontal_padding">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="10dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/constraintLayout">
 
         <LinearLayout
@@ -150,10 +147,11 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"
                         android:background="@drawable/icon_heart"
                         android:clickable="true"
-                        android:stateListAnimator="@animator/zoom_out_animator" />
+                        android:stateListAnimator="@animator/zoom_out_animator"
+                        android:focusable="true" />
 
                 <TextView
                         android:id="@+id/tvTitle"
@@ -229,6 +227,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
+
+            <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/open_stream_list_button"
+                    android:layout_marginRight="@dimen/activity_horizontal_padding"
+                    android:background="@drawable/baseline_queue_music_24" />
 
             <EditText
                     android:layout_width="match_parent"

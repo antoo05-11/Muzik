@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/colorPrimary"
-        tools:context=".ui.main_activity.ProfileActivity">
+        tools:context=".ui.activity.profile_activity.ProfileActivity">
 
     <FrameLayout
             android:layout_width="match_parent"

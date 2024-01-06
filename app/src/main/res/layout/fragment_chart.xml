@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.chart_fragment.ChartFragment">
+        tools:context=".ui.fragment.chart_fragment.ChartFragment">
 
     <ScrollView
             android:layout_width="match_parent"
@@ -28,8 +28,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rcv_chart_songs_list"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:layout_marginTop="20dp" />
         </LinearLayout>
     </ScrollView>

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.muzik.data_model.standard_model.Song
-import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
 import com.example.muzik.utils.printLogcat
 
 class SongsOptionBottomSheetViewModel : ViewModel() {

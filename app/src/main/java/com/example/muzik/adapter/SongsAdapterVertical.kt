@@ -22,9 +22,11 @@ import com.example.muzik.R
 import com.example.muzik.adapter.SongsAdapterVertical.SongPreviewHolder
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.ui.bottom_sheet_dialog.songs.SongOptionsBottomSheet
-import com.example.muzik.ui.main_activity.MainActivity.Companion.muzikAPI
-import com.example.muzik.ui.main_fragment.MainFragment
-import com.example.muzik.ui.player_view_fragment.PlayerViewModel
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
+import com.example.muzik.ui.fragment.main_fragment.MainAction
+import com.example.muzik.ui.fragment.main_fragment.MainFragment
+import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
+import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -38,7 +40,9 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
     protected var playerViewModel: PlayerViewModel? = null
     private var hasItemIndexTextView = false
     private var hasViewsShowed = false
-    private lateinit var fragmentOwner: Fragment
+    private var hasMoreOptionShowed = true
+    private var playOnClick = true
+    private var fragmentOwner: Fragment? = null
     private var playingGifView: LottieAnimationView? = null
 
     fun hasItemIndexTextView(): SongsAdapterVertical {
@@ -48,6 +52,11 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
 
     fun hasViewsShowed(): SongsAdapterVertical {
         hasViewsShowed = true
+        return this
+    }
+
+    fun removeMoreOptionShowed(): SongsAdapterVertical {
+        hasMoreOptionShowed = false
         return this
     }
 
@@ -61,6 +70,11 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
         return this
     }
 
+    fun removePlayOnClick(): SongsAdapterVertical {
+        playOnClick = false
+        return this
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongPreviewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
         return SongPreviewHolder(view)
@@ -69,66 +83,86 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SongPreviewHolder, position: Int) {
         val song = list[position]
-        if (song.songID != null) {
-            holder.tvSongName.text = song.name
-            if (!hasViewsShowed) holder.artistNameSongPreviewTextview.text = song.artistName else {
-                val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-                holder.artistNameSongPreviewTextview.text = numberFormat.format(song.views)
-            }
-            holder.artistNameSongPreviewTextview.setBackgroundColor(Color.TRANSPARENT)
-            holder.tvSongName.setBackgroundColor(Color.TRANSPARENT)
-            holder.shimmerArtistSongPreviewNameTextView.hideShimmer()
-            holder.shimmerSongPreviewNameTextView.hideShimmer()
-            if (song.imageURI == null) {
-                holder.shimmerSongImageItem.hideShimmer()
-                holder.songImageItem.setBackgroundResource(R.drawable.icons8_song_50)
-            }
-            Picasso.get()
-                .load(song.imageURI)
-                .into(holder.songImageItem, object : Callback {
-                    override fun onSuccess() {
-                        holder.shimmerSongImageItem.hideShimmer()
-                    }
 
-                    override fun onError(e: Exception) {}
-                })
-            if (hasItemIndexTextView) {
-                holder.itemIndexTextView.text = (position + 1).toString()
-            }
-            if (playerViewModel!!.songMutableLiveData.value != null && playerViewModel!!.songMutableLiveData.value!!.songID == song.songID) {
-                setPlayingEffect(holder)
-            }
+        if (!hasMoreOptionShowed) {
+            holder.moreOptionButton.visibility = View.GONE
+        }
+
+        if (hasItemIndexTextView) {
+            holder.itemIndexTextView.text = (position + 1).toString()
+        } else holder.itemIndexTextView.visibility = View.GONE
+
+        if (song.songID == null) return
+
+        if (!hasViewsShowed) holder.artistNameSongPreviewTextview.text = song.artistName else {
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            holder.artistNameSongPreviewTextview.text = numberFormat.format(song.views)
+        }
+
+        holder.tvSongName.text = song.name
+        holder.tvSongName.setBackgroundColor(Color.TRANSPARENT)
+
+        holder.artistNameSongPreviewTextview.setBackgroundColor(Color.TRANSPARENT)
+        holder.shimmerArtistSongPreviewNameTextView.hideShimmer()
+        holder.shimmerSongPreviewNameTextView.hideShimmer()
+        if (song.imageURI == null) {
+            holder.shimmerSongImageItem.hideShimmer()
+            holder.songImageItem.setBackgroundResource(R.drawable.icons8_song_50)
+        }
+
+        Picasso.get()
+            .load(song.imageURI)
+            .into(holder.songImageItem, object : Callback {
+                override fun onSuccess() {
+                    holder.shimmerSongImageItem.hideShimmer()
+                }
+
+                override fun onError(e: Exception) {}
+            })
+
+        if (playerViewModel?.songMutableLiveData?.value != null && playerViewModel?.songMutableLiveData?.value?.songID == song.songID) {
+            setPlayingEffect(holder)
+        }
+
+        if (playOnClick) {
             holder.itemView.setOnClickListener {
+                if (StreamShareFragment.inStreamShare) {
+                    (action as? MainAction)?.addSongToStreamList(songID = song.requireSongID())
+                    return@setOnClickListener
+                }
                 if (song.songURI == null) {
-                    fragmentOwner.lifecycleScope.launch {
-                        muzikAPI.getSong(song.songID, youtube = true).body()?.let {
+                    fragmentOwner?.lifecycleScope?.launch {
+                        muzikAPI.getSong(song.requireSongID(), youtube = true).body()?.let {
                             song.songURI = Uri.parse(it.songURL)
                             song.duration = it.duration
-                            if (playerViewModel!!.songMutableLiveData.value == null ||
-                                playerViewModel!!.songMutableLiveData.value!!.songID != song.songID
+                            if (playerViewModel?.songMutableLiveData?.value == null ||
+                                playerViewModel?.songMutableLiveData?.value?.songID != song.songID
                             ) {
-//                                playerViewModel!!.stop()
-//                                playerViewModel!!.setMedia(song.songURI!!)
-                                playerViewModel!!.setSong(song)
+                                playerViewModel?.setSong(song)
                                 setPlayingEffect(holder)
                             }
                         }
                     }
                 } else {
-                    if (playerViewModel!!.songMutableLiveData.value == null ||
-                        playerViewModel!!.songMutableLiveData.value!!.songID != song.songID
+                    if (playerViewModel?.songMutableLiveData?.value == null ||
+                        playerViewModel?.songMutableLiveData?.value?.songID != song.songID
                     ) {
-//                        playerViewModel!!.stop()
-//                        playerViewModel!!.setMedia(song.songURI!!)
-                        playerViewModel!!.setListSong(list, position)
+                        playerViewModel?.setListSong(list, position)
                         setPlayingEffect(holder)
                     }
                 }
             }
+        }
 
+        if (hasMoreOptionShowed) {
             holder.moreOptionButton.setOnClickListener {
                 MainFragment.modalBottomSheet.apply {
-                    show(fragmentOwner.childFragmentManager, SongOptionsBottomSheet.TAG)
+                    fragmentOwner?.childFragmentManager?.let { it1 ->
+                        show(
+                            it1,
+                            SongOptionsBottomSheet.TAG
+                        )
+                    }
                     setSongInfo(song)
                 }
             }
@@ -144,7 +178,7 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
                 TextUtils.TruncateAt.END
             (playingGifView!!.parent as LinearLayout).removeView(playingGifView)
         }
-        playingGifView = LottieAnimationView(fragmentOwner.requireContext())
+        playingGifView = LottieAnimationView(fragmentOwner?.requireContext())
         val widthInDp = 20
         val heightInDp = 20
         val rightMarginInDp = 10
@@ -152,17 +186,17 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 widthInDp.toFloat(),
-                fragmentOwner.resources.displayMetrics
+                fragmentOwner?.resources?.displayMetrics
             ).toInt(), TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 heightInDp.toFloat(),
-                fragmentOwner.resources.displayMetrics
+                fragmentOwner?.resources?.displayMetrics
             ).toInt()
         )
         layoutParams.rightMargin = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             rightMarginInDp.toFloat(),
-            fragmentOwner.resources.displayMetrics
+            fragmentOwner?.resources?.displayMetrics
         ).toInt()
         playingGifView!!.repeatCount = LottieDrawable.INFINITE
         playingGifView!!.layoutParams = layoutParams

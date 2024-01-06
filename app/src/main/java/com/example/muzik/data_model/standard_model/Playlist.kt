@@ -5,9 +5,10 @@ import com.example.muzik.data_model.retrofit_model.response.PlaylistResponse
 import java.util.Date
 
 class Playlist(
-    val playlistID: Long? = -1,
-    val type: String? = "",
+    val playlistID: Long? = null,
+    val type: String? = null,
     val userID: Long? = -1,
+    val userName: String? = null,
     val name: String? = "",
     val dateAdded: Date? = Date(),
     val imageURI: Uri? = Uri.parse("")
@@ -28,7 +29,7 @@ class Playlist(
 
     fun requirePlaylistID(): Long {
         checkNotNull(playlistID) {
-            ("Playlist $this must have non-null playListID")
+            ("Playlist $this must have non-null playlistID")
         }
         return playlistID
     }

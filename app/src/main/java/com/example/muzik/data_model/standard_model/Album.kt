@@ -5,7 +5,7 @@ import com.example.muzik.data_model.retrofit_model.response.AlbumResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
 class Album (
-    val name: String? = "",
+    val name: String? = null,
     val imageURI: Uri? = null,
     val albumID: Long? = -1,
     val artistID: Long? = -1,
@@ -44,10 +44,6 @@ class Album (
             LocalMusicRepository.getSong(songId)?.let { listSong.add(it) }
         }
         return listSong
-    }
-
-    fun getImg(): Uri {
-        return imageURI!!
     }
 
     fun requireAlbumID(): Long {

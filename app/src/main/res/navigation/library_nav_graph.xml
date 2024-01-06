@@ -6,18 +6,18 @@
 
     <fragment
             android:id="@+id/libAlbumsFragment"
-            android:name="com.example.muzik.ui.library_fragment.lib_album_fragment.LibAlbumsFragment"
+            android:name="com.example.muzik.ui.fragment.library_fragment.lib_album_fragment.LibAlbumsFragment"
             android:label="LibAlbumsFragment" />
     <fragment
             android:id="@+id/libArtistFragment"
-            android:name="com.example.muzik.ui.library_fragment.lib_artist_fragment.LibArtistFragment"
+            android:name="com.example.muzik.ui.fragment.library_fragment.lib_artist_fragment.LibArtistFragment"
             android:label="LibArtistFragment" />
     <fragment
             android:id="@+id/libSongsFragment"
-            android:name="com.example.muzik.ui.library_fragment.lib_song_fragment.LibSongsFragment"
+            android:name="com.example.muzik.ui.fragment.library_fragment.lib_song_fragment.LibSongsFragment"
             android:label="LibSongsFragment" />
     <fragment
             android:id="@+id/libPlaylistFragment"
-            android:name="com.example.muzik.ui.library_fragment.lib_playlist_fragment.LibPlaylistFragment"
+            android:name="com.example.muzik.ui.fragment.library_fragment.lib_playlist_fragment.LibPlaylistFragment"
             android:label="LibPlaylistFragment" />
 </navigation>
