@@ -21,12 +21,12 @@ import com.airbnb.lottie.LottieDrawable
 import com.example.muzik.R
 import com.example.muzik.adapter.SongsAdapterVertical.SongPreviewHolder
 import com.example.muzik.data_model.standard_model.Song
-import com.example.muzik.ui.bottom_sheet_dialog.songs.SongOptionsBottomSheet
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
+import com.example.muzik.ui.bottom_sheet_dialog.songs.SongOptionsBottomSheet
 import com.example.muzik.ui.fragment.main_fragment.MainAction
 import com.example.muzik.ui.fragment.main_fragment.MainFragment
 import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
-import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
+import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment.Companion.inStreamShare
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -126,7 +126,7 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
 
         if (playOnClick) {
             holder.itemView.setOnClickListener {
-                if (StreamShareFragment.inStreamShare) {
+                if (inStreamShare.value == true) {
                     (action as? MainAction)?.addSongToStreamList(songID = song.requireSongID())
                     return@setOnClickListener
                 }

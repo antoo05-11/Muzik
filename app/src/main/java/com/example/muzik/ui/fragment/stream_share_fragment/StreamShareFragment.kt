@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.muzik.data_model.standard_model.Song
@@ -17,10 +18,13 @@ import com.example.muzik.databinding.FragmentStreamShareBinding
 import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.activity.login_activity.LoginActivity
 import com.example.muzik.ui.activity.main_activity.MainActivity
-import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.musicService
+import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.streamList
 import com.example.muzik.ui.activity.stream_inside_activity.StreamShareActivity
+import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
 import io.socket.client.Socket
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 
 class StreamShareFragment : Fragment() {
 
@@ -29,16 +33,17 @@ class StreamShareFragment : Fragment() {
     private lateinit var mSocket: Socket
     private lateinit var playerViewModel: PlayerViewModel
     private var userID: Long? = -1
+    private lateinit var intent: Intent
 
     companion object {
-        var inStreamShare = false
+        var inStreamShare = MutableLiveData(false)
         var roomID: String = ""
     }
 
     @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
-        if (inStreamShare) binding.createRoomButton.text = "Return your room now"
+        if (inStreamShare.value == true) binding.createRoomButton.text = "Return your room now"
         else binding.createRoomButton.text = "Create your new room"
     }
 
@@ -51,7 +56,7 @@ class StreamShareFragment : Fragment() {
         playerViewModel = ViewModelProvider(requireActivity())[PlayerViewModel::class.java]
         mSocket = MainActivity.mSocket
 
-        val intent =
+        intent =
             Intent(requireActivity().applicationContext, StreamShareActivity::class.java).apply {
                 addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
@@ -63,14 +68,14 @@ class StreamShareFragment : Fragment() {
                 val loginIntent = Intent(requireContext(), LoginActivity::class.java)
                 requireActivity().startActivity(loginIntent)
             } else {
-                if (inStreamShare) {
+                if (inStreamShare.value == true) {
                     intent.putExtra("roomID", roomID)
                     requireActivity().startActivity(intent)
                 } else {
                     userID =
                         SharedPrefManager.getInstance(requireActivity().applicationContext).user.userID
                     mSocket.emit("createRoom", userID)
-                    inStreamShare = true
+                    inStreamShare.value = true
                 }
             }
         }
@@ -82,11 +87,11 @@ class StreamShareFragment : Fragment() {
                 val loginIntent = Intent(requireContext(), LoginActivity::class.java)
                 requireActivity().startActivity(loginIntent)
             } else {
-                if (inStreamShare && roomID == binding.roomIdInputText.text.toString()) {
+                if (inStreamShare.value == true && roomID == binding.roomIdInputText.text.toString()) {
                     intent.putExtra("roomID", roomID)
                     requireActivity().startActivity(intent)
                 } else {
-                    inStreamShare = true
+                    inStreamShare.value = true
                     userID = SharedPrefManager.getInstance(requireContext()).user.userID
                     roomID = binding.roomIdInputText.text.toString()
                     intent.putExtra("roomID", roomID)
@@ -97,7 +102,7 @@ class StreamShareFragment : Fragment() {
 
         mSocket.on("roomCreated") {
             activity?.runOnUiThread {
-                inStreamShare = true
+                inStreamShare.value = true
                 userID = SharedPrefManager.getInstance(requireContext()).user.userID
                 roomID = it[0].toString()
                 intent.putExtra("roomID", roomID)
@@ -108,7 +113,7 @@ class StreamShareFragment : Fragment() {
         mSocket.on("roomJoin") {
             activity?.runOnUiThread {
                 if (it[0] == false) {
-                    inStreamShare = false
+                    inStreamShare.value = false
                     Toast.makeText(context, "Room does not exist", Toast.LENGTH_SHORT).show()
                 } else {
                     intent.putExtra("roomSize", it[1].toString())
@@ -135,6 +140,20 @@ class StreamShareFragment : Fragment() {
             }
         }
 
+        mSocket.on("updateSongList") {
+            activity?.runOnUiThread {
+                val jsonArray = it[0] as JSONArray
+
+                val songList: MutableList<Long> = mutableListOf()
+                for (i in 0 until jsonArray.length()) {
+                    val songId = jsonArray.getLong(i)
+                    songList.add(songId)
+                }
+                streamList.clear()
+                streamList.addAll(songList)
+            }
+        }
+
         mSocket.on("continueSong") {
             activity?.runOnUiThread {
                 lifecycleScope.launch {
@@ -142,10 +161,8 @@ class StreamShareFragment : Fragment() {
                         val song = MainActivity.muzikAPI.getSong(it[0].toString()).body()
                             ?.let { it1 -> Song.buildOnline(it1) }
                         if (song != null) {
-//                            playerViewModel.stop()
-//                            song.songURI?.let { songURI -> playerViewModel.setMedia(songURI) }
                             playerViewModel.setSong(song)
-                            MainActivity.musicService?.exoPlayer?.seekTo(it[1].toString().toLong())
+                            musicService?.exoPlayer?.seekTo(it[1].toString().toLong())
                         }
                     } catch (e: Throwable) {
                         Log.e("NETWORK_ERROR", "Network error!")
@@ -153,7 +170,6 @@ class StreamShareFragment : Fragment() {
                 }
             }
         }
-
 
         return binding.root
     }

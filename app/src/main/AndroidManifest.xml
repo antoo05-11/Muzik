@@ -67,9 +67,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".ui.activity.stream_inside_activity.StreamShareActivity"
-                android:exported="true"></activity>
+                android:exported="true" />
 
         <service
                 android:name=".music_service.MusicService"

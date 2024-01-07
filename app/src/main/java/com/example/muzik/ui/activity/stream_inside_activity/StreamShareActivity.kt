@@ -16,8 +16,8 @@ import com.example.muzik.adapter.CommentsAdapter
 import com.example.muzik.data_model.standard_model.Comment
 import com.example.muzik.databinding.ActivityStreamShareBinding
 import com.example.muzik.storage.SharedPrefManager
-import com.example.muzik.ui.bottom_sheet_dialog.stream_list.StreamListBottomSheet
 import com.example.muzik.ui.activity.main_activity.MainActivity
+import com.example.muzik.ui.bottom_sheet_dialog.stream_list.StreamListBottomSheet
 import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
 import com.example.muzik.utils.PaletteUtils
@@ -25,7 +25,6 @@ import com.example.muzik.utils.setRotateAnimation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import io.socket.client.Socket
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -150,7 +149,7 @@ class StreamShareActivity : AppCompatActivity() {
         }
 
         binding.outRoomButton.setOnClickListener {
-            StreamShareFragment.inStreamShare = false
+            StreamShareFragment.inStreamShare.value = false
             finish()
         }
 
@@ -181,19 +180,6 @@ class StreamShareActivity : AppCompatActivity() {
             }
         }
 
-        mSocket.on("updateSongList") {
-            runOnUiThread {
-                val jsonArray = it[0] as JSONArray
-
-                val songList: MutableList<Long> = mutableListOf()
-                for (i in 0 until jsonArray.length()) {
-                    val songId = jsonArray.getLong(i)
-                    songList.add(songId)
-                }
-                streamList.clear()
-                streamList.addAll(songList)
-            }
-        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

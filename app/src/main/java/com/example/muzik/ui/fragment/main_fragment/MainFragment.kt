@@ -24,14 +24,15 @@ import com.example.muzik.data_model.standard_model.Album
 import com.example.muzik.data_model.standard_model.Artist
 import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.databinding.FragmentMainBinding
-import com.example.muzik.ui.bottom_sheet_dialog.songs.SongOptionsBottomSheet
 import com.example.muzik.ui.activity.create_playlist_activity.CreatePlaylistActivity
-import com.example.muzik.ui.fragment.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.mSocket
+import com.example.muzik.ui.bottom_sheet_dialog.songs.SongOptionsBottomSheet
+import com.example.muzik.ui.fragment.library_fragment.lib_song_fragment.SongViewModel
 import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewFragment
 import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
 import com.example.muzik.ui.fragment.search_fragment.SearchViewModel
 import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
+import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment.Companion.inStreamShare
 import com.example.muzik.utils.PaletteUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -132,8 +133,17 @@ class MainFragment : Fragment(), MainAction {
             binding.pbSongPreview.progress = it
         }
 
+        inStreamShare.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.previewPlayingStateButton.visibility = View.INVISIBLE
+            } else {
+                binding.previewPlayingStateButton.visibility = View.VISIBLE
+            }
+        }
+
         playerViewModel.isSelectedMutableLiveData.observe(viewLifecycleOwner) {
             if (it) {
+
                 binding.clPreview.visibility = View.VISIBLE
                 binding.artistUnderPlayerPreviewTextview.isFocusable = true
                 binding.tvSongNamePreview.isFocusable = true
@@ -147,6 +157,10 @@ class MainFragment : Fragment(), MainAction {
 
         val playerViewFragment = PlayerViewFragment()
         binding.clPreview.setOnClickListener {
+            if (inStreamShare.value == true) {
+                binding.bottomNavView.selectedItemId = R.id.navigation_stream_share
+                return@setOnClickListener
+            }
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_main_nav, playerViewFragment)
             transaction.addToBackStack(null)

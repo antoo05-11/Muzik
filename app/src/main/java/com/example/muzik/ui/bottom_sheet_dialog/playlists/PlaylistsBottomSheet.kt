@@ -42,7 +42,7 @@ class PlaylistsBottomSheet : BottomSheetDialogFragment() {
 
         setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
 
-        viewModel = ViewModelProvider(this)[PlaylistBottomSheetViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[PlaylistBottomSheetViewModel::class.java]
 
         val adapter = PlaylistsAdapterVertical()
         adapter.setInBottomSheet()
@@ -76,7 +76,8 @@ class PlaylistsBottomSheet : BottomSheetDialogFragment() {
                 )
             }
         }
-
+        Toast.makeText(context, "Song added to playlist.", Toast.LENGTH_SHORT).show()
+        dismiss()
     }
 
     fun initData(song: Song) {

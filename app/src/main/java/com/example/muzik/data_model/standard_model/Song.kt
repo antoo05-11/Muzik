@@ -20,9 +20,12 @@ class Song(
     companion object {
         fun buildOnline(songResponse: SongResponse): Song {
             var songURI: Uri? = null
-            songResponse.songURL?.let { songURI = Uri.parse(it) }
+            songResponse.songURL?.let {
+                val tmp = it.replace("http:/", "https:/")
+                songURI = Uri.parse(tmp)
+            }
             var imageURI: Uri? = null
-            songResponse.imageURL?.let { imageURI = Uri.parse(it)}
+            songResponse.imageURL?.let { imageURI = Uri.parse(it) }
             return Song(
                 songID = songResponse.songID,
                 name = songResponse.name,

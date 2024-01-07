@@ -12,9 +12,9 @@ import androidx.media3.common.util.UnstableApi
 import com.example.muzik.R
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.BottomSheetSongOptionsBinding
-import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.mSocket
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.musicService
+import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
 import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
@@ -72,7 +72,7 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        if (!StreamShareFragment.inStreamShare) {
+        if (StreamShareFragment.inStreamShare.value == false) {
             binding.addToStreamListButton.visibility = View.GONE
         }
 
@@ -82,8 +82,12 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
 
+        binding.viewSongArtistButton.setOnClickListener {
+
+        }
+
         viewModel.song.observe(viewLifecycleOwner) {
-            if (it != null) musicService?.addSongToPlayingList(it)
+            it?.let { musicService?.addSongToPlayingList(it) }
         }
 
 //        val cache = SimpleCache(File("/storage/self/primary/Download"), NoOpCacheEvictor())
