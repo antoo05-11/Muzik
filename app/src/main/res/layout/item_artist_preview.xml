@@ -19,9 +19,8 @@
         <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="40dp"
+                app:cardCornerRadius="35dp"
                 android:id="@+id/artist_preview_image_cardview">
-
 
             <ImageView
                     android:layout_width="70dp"

@@ -2,7 +2,6 @@ package com.example.muzik.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.text.TextUtils
 import android.util.TypedValue
@@ -13,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -173,7 +173,7 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
     private fun setPlayingEffect(holder: SongPreviewHolder) {
         if (playingGifView != null) {
             ((playingGifView!!.parent as LinearLayout).findViewById<View>(R.id.song_preview_name_textview) as TextView).typeface =
-                Typeface.defaultFromStyle(Typeface.NORMAL)
+                ResourcesCompat.getFont(fragmentOwner!!.requireContext(), R.font.gotham_book)
             ((playingGifView!!.parent as LinearLayout).findViewById<View>(R.id.song_preview_name_textview) as TextView).ellipsize =
                 TextUtils.TruncateAt.END
             (playingGifView!!.parent as LinearLayout).removeView(playingGifView)
@@ -204,7 +204,7 @@ open class SongsAdapterVertical(songsPreviewList: List<Song> = mutableListOf()) 
         playingGifView!!.playAnimation()
         (holder.tvSongName.parent.parent as LinearLayout).addView(playingGifView, 0)
         holder.tvSongName.ellipsize = TextUtils.TruncateAt.MARQUEE
-        holder.tvSongName.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        holder.tvSongName.typeface = ResourcesCompat.getFont(fragmentOwner!!.requireContext(), R.font.gotham_bold)
     }
 
     class SongPreviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

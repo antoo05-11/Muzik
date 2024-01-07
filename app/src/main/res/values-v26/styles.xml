@@ -2,14 +2,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="collectionName" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">#D8FFFFFF</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
         <item name="android:textSize">22sp</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_padding</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="collectionBox">
-        <item name="android:layout_marginBottom">20dp</item>
+        <item name="fontFamily">@font/gotham_bold</item>
     </style>
 
     <style name="musicBox">
@@ -35,7 +31,7 @@
     </style>
 
     <style name="ToolbarTextAppearance">
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/gotham_bold</item>
         <item name="android:textSize">30sp</item>
     </style>
 

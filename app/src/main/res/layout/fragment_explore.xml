@@ -28,7 +28,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style='@style/collectionName'
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="10dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
