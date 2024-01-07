@@ -15,6 +15,7 @@ import com.example.muzik.databinding.BottomSheetSongOptionsBinding
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.mSocket
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.musicService
 import com.example.muzik.ui.bottom_sheet_dialog.playlists.PlaylistsBottomSheet
+import com.example.muzik.ui.fragment.main_fragment.MainFragment
 import com.example.muzik.ui.fragment.stream_share_fragment.StreamShareFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
@@ -83,12 +84,18 @@ class SongOptionsBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.viewSongArtistButton.setOnClickListener {
-
+            (requireParentFragment().requireParentFragment().parentFragment as MainFragment).goToArtistFragment(
+                artistID = song.requireArtistID()
+            )
+            dismiss()
         }
 
         viewModel.song.observe(viewLifecycleOwner) {
             it?.let { musicService?.addSongToPlayingList(it) }
         }
+
+        binding.downloadButton.visibility = View.GONE
+        binding.addToFavoriteButton.visibility = View.GONE
 
 //        val cache = SimpleCache(File("/storage/self/primary/Download"), NoOpCacheEvictor())
 //        val cacheDataSourceFactory: CacheDataSource.Factory = CacheDataSource.Factory()

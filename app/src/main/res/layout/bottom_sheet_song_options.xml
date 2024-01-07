@@ -76,7 +76,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:gravity="left|center_vertical"
-                android:clickable="true">
+                android:clickable="true"
+                android:id="@+id/download_button">
 
             <ImageView
                     android:background="@drawable/baseline_arrow_circle_down_24"
@@ -98,7 +99,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:gravity="left|center_vertical"
-                android:clickable="true">
+                android:clickable="true"
+                android:id="@+id/add_to_favorite_button">
 
             <ImageView
                     android:background="@drawable/icons8_heart_30"

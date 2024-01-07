@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.muzik.adapter.SongsAdapterVertical
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.databinding.FragmentChartBinding
+import com.example.muzik.ui.fragment.main_fragment.MainFragment
 import com.example.muzik.ui.fragment.player_view_fragment.PlayerViewModel
 import com.example.muzik.utils.addDecorationForVerticalRcv
 import com.example.muzik.utils.addSampleForRcv
@@ -65,6 +66,7 @@ class ChartFragment : Fragment() {
         viewModel.chartSongsList.observe(viewLifecycleOwner) {
             val adapter = SongsAdapterVertical(it).hasItemIndexTextView().setFragmentOwner(this)
                 .setPlayerViewModel(playerViewModel)
+                .setObjectAction(requireParentFragment().parentFragment as MainFragment)
             binding.rcvChartSongsList.adapter = adapter
         }
 

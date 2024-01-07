@@ -1,6 +1,5 @@
 package com.example.muzik.ui.fragment.chart_fragment
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +24,7 @@ class ChartViewModel : ViewModel() {
                 _chartSongsList.value = songList
             }
         } catch (e: Throwable) {
-            Log.e("NETWORK_ERROR", "Network error!")
+            throw e
         }
 
     }
@@ -34,7 +33,7 @@ class ChartViewModel : ViewModel() {
         try {
             _chart.value = muzikAPI.getSongCharts().body()
         } catch (e: Throwable) {
-            Log.e("NETWORK_ERROR", "Network error!")
+            throw e
         }
     }
 }

@@ -6,9 +6,9 @@ import com.example.muzik.data_model.standard_model.Playlist
 import com.example.muzik.ui.Action
 
 interface MainAction : Action {
-    fun goToArtistFragment(artistID: Long? = null, artist: Artist?)
-    fun goToPlaylistFragment(playlistID: Long? = null, playlist: Playlist?)
-    fun goToAlbumFragment(albumID: Long? = null, album: Album?)
+    fun goToArtistFragment(artistID: Long? = null, artist: Artist? = null)
+    fun goToPlaylistFragment(playlistID: Long? = null, playlist: Playlist? = null)
+    fun goToAlbumFragment(albumID: Long? = null, album: Album? = null)
 
     fun goToCreatePlaylistActivity()
 
