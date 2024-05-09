@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.muzik.data_model.retrofit_model.request.LoginRequest
+import com.example.muzik.data_model.api_model.request.LoginRequest
 import com.example.muzik.data_model.standard_model.User
 import com.example.muzik.databinding.ActivityLoginBinding
 import com.example.muzik.storage.SharedPrefManager

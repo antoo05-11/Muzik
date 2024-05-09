@@ -37,38 +37,45 @@
             android:layout_marginTop="30dp"
             android:scaleType="centerCrop" />
 
-    <LinearLayout
-            android:orientation="vertical"
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/main_playlist_album_image_view"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/playlist_album_info_linear_layout">
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/playlistAlbumNameTextView"
-                android:id="@+id/playlist_album_name_textview"
-                android:textColor="@color/colorOnPrimary"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
-                android:layout_marginBottom="3dp" />
+                android:id="@+id/playlist_album_info_linear_layout">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/artists_list_textview"
-                style="@style/playlistAlbumArtistsTextView"
-                android:textColor="@color/colorOnPrimary"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
-                android:layout_marginBottom="5dp" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/playlistAlbumNameTextView"
+                    android:id="@+id/playlist_album_name_textview"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
+                    android:layout_marginBottom="3dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/rcv_songs_inside_playlist_album_view" />
-    </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/artists_list_textview"
+                    style="@style/playlistAlbumArtistsTextView"
+                    android:textColor="@color/colorOnPrimary"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_padding"
+                    android:layout_marginBottom="5dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rcv_songs_inside_playlist_album_view" />
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ class AlbumsAdapterHorizontal(
     }
 
     override fun onBindViewHolder(holder: AlbumPreviewHolder, position: Int) {
-        val album = list?.get(position) ?: return
+        val album = list[position]
         if (album.albumID != -1L) {
             holder.albumPreviewImageShimmer.hideShimmer()
             holder.albumPreviewNameShimmer.hideShimmer()

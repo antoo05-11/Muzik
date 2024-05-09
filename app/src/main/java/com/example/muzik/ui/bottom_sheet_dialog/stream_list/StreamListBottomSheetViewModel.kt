@@ -3,7 +3,7 @@ package com.example.muzik.ui.bottom_sheet_dialog.stream_list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.data_model.retrofit_model.request.StreamListRequest
+import com.example.muzik.data_model.api_model.request.StreamListRequest
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
 import com.example.muzik.utils.printLogcat

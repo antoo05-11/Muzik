@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.muzik.data_model.retrofit_model.request.CreatePlaylistRequest
+import com.example.muzik.data_model.api_model.request.CreatePlaylistRequest
 import com.example.muzik.databinding.ActivityCreatePlaylistBinding
 import com.example.muzik.storage.SharedPrefManager
 import com.example.muzik.ui.activity.login_activity.LoginActivity

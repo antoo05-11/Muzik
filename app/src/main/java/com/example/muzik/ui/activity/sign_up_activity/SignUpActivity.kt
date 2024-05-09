@@ -9,8 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.muzik.data_model.retrofit_model.request.RegisterRequest
-import com.example.muzik.data_model.retrofit_model.response.SignUpResponse
+import com.example.muzik.data_model.api_model.request.RegisterRequest
+import com.example.muzik.data_model.api_model.response.SignUpResponse
 import com.example.muzik.databinding.ActivitySignupBinding
 import com.example.muzik.ui.activity.login_activity.LoginActivity
 import com.example.muzik.ui.activity.main_activity.MainActivity

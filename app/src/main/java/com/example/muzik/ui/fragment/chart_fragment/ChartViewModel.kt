@@ -3,7 +3,7 @@ package com.example.muzik.ui.fragment.chart_fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.muzik.data_model.retrofit_model.response.Chart.SongWithView
+import com.example.muzik.data_model.api_model.response.Chart.SongWithView
 import com.example.muzik.data_model.standard_model.Song
 import com.example.muzik.ui.activity.main_activity.MainActivity.Companion.muzikAPI
 

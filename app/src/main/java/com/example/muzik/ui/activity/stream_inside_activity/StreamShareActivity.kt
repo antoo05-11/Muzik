@@ -25,6 +25,7 @@ import com.example.muzik.utils.setRotateAnimation
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import io.socket.client.Socket
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -158,6 +159,20 @@ class StreamShareActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun configSocketListener() {
+        mSocket.on("updateSongList") {
+            runOnUiThread {
+                val jsonArray = it[0] as JSONArray
+
+                val songList: MutableList<Long> = mutableListOf()
+                for (i in 0 until jsonArray.length()) {
+                    val songId = jsonArray.getLong(i)
+                    songList.add(songId)
+                }
+                MainActivity.streamList.clear()
+                MainActivity.streamList.addAll(songList)
+            }
+        }
+
         mSocket.on("messageFromRoom") {
             runOnUiThread {
                 val user = it[0] as JSONObject

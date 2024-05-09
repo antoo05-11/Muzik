@@ -80,6 +80,8 @@ class PlayerViewFragment : Fragment() {
 
         playerViewModel.songMutableLiveData.observe(viewLifecycleOwner) {
             binding.tvTitle.text = it.name
+            binding.tvTitle.isFocusable = true
+            binding.tvTitle.marqueeRepeatLimit
             binding.tvTotal.text = getReadableTime(it.duration)
             binding.sb.max = it.duration
         }
@@ -173,6 +175,11 @@ class PlayerViewFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.tvTitle.isFocusable = true
     }
 
     override fun onDestroy() {

@@ -1,6 +1,6 @@
 package com.example.muzik.data_model.standard_model
 
-import com.example.muzik.data_model.retrofit_model.response.LoginResponse
+import com.example.muzik.data_model.api_model.response.LoginResponse
 import java.util.Date
 
 class User(

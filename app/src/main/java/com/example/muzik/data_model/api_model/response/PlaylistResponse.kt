@@ -1,4 +1,4 @@
-package com.example.muzik.data_model.retrofit_model.response
+package com.example.muzik.data_model.api_model.response
 
 import java.util.Date
 

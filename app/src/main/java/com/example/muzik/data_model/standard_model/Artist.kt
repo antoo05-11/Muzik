@@ -1,7 +1,7 @@
 package com.example.muzik.data_model.standard_model
 
 import android.net.Uri
-import com.example.muzik.data_model.retrofit_model.response.ArtistResponse
+import com.example.muzik.data_model.api_model.response.ArtistResponse
 import com.example.muzik.music_service.LocalMusicRepository
 
 class Artist(

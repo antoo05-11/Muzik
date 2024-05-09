@@ -1,7 +1,7 @@
 package com.example.muzik.data_model.standard_model
 
 import android.net.Uri
-import com.example.muzik.data_model.retrofit_model.response.PlaylistResponse
+import com.example.muzik.data_model.api_model.response.PlaylistResponse
 import java.util.Date
 
 class Playlist(

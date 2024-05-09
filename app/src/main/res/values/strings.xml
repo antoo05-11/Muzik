@@ -39,4 +39,12 @@
     <string name="processing_please_wait">Processing. Please wait...</string>
     <string name="add_more_songs">Add more songs</string>
     <string name="add_song_to_stream_list">Add song to stream list</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="setting_button">Setting button</string>
+    <string name="return_button">Return button</string>
+    <string name="shuffle_button">Shuffle button</string>
+    <string name="repeat_button">Repeat button</string>
+    <string name="previous_button">Previous button</string>
+    <string name="add_to_favorite_button">Add to favorite button</string>
+    <string name="play_pause_song_button">Play pause song button</string>
 </resources>

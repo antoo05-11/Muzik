@@ -1,4 +1,4 @@
-package com.example.muzik.data_model.retrofit_model.response
+package com.example.muzik.data_model.api_model.response
 
 data class LoginResponse(
     val userID: Long,
